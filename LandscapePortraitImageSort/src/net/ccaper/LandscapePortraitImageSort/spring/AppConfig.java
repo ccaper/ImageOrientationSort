@@ -28,6 +28,7 @@ public class AppConfig {
   private @Value("${ignore_files}")
   String ignoreFiles;
 
+  // TODO: junit test?
   @Bean(name = "startDirectory")
   public File getStartDirectory() {
     return generateFileFromString(startDirectory);
@@ -51,14 +52,16 @@ public class AppConfig {
   // visible for testing
   static File generateFileFromString(String string) {
     return new File(convertSlashToOsFileDelimiter(
-        StringUtils.trimAllWhitespace(string), File.separator));
+        StringUtils.trimWhitespace(string), File.separator));
   }
 
-  // TODO: test
   // visible for testing
   static List<File> generateFilesFromString(String string) {
+    if (string == null) {
+      return null;
+    }
     List<File> files = new ArrayList<File>();
-    for (String trimmedString : StringUtils.trimAllWhitespace(string).split(
+    for (String trimmedString : StringUtils.trimWhitespace(string).split(
         LIST_SEPARATOR)) {
       files.add(generateFileFromString(trimmedString));
     }

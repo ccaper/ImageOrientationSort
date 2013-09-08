@@ -3,6 +3,8 @@ package net.ccaper.LandscapePortraitImageSort.spring;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -57,5 +59,18 @@ public class AppConfigTest {
     String string = " dir1/dir2/file1.txt ";
     assertEquals(new File(StringUtils.trimAllWhitespace(string)),
         AppConfig.generateFileFromString(string));
+  }
+
+  @Test
+  public void testGenerateFilesFromString() throws Exception {
+    assertEquals(null, AppConfig.generateFilesFromString(null));
+    List<File> expected = new ArrayList<File>();
+    expected.add(new File("/some/path/File1.txt"));
+    expected.add(new File("/some/path/File 2.txt"));
+    expected.add(new File("/some/path/File3.txt"));
+    assertEquals(
+        expected,
+        AppConfig
+            .generateFilesFromString(" /some/path/File1.txt , /some/path/File 2.txt , /some/path/File3.txt "));
   }
 }
