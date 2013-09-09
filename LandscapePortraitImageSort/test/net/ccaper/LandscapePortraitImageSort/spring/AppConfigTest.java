@@ -9,8 +9,13 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.StringUtils;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration({ "classpath:net/ccaper/LandscapePortraitImageSort/spring/properties-config-test.xml" })
 public class AppConfigTest {
 
   @Before
@@ -19,6 +24,14 @@ public class AppConfigTest {
 
   @After
   public void tearDown() throws Exception {
+  }
+
+  @Test
+  public void testWiring() throws Exception {
+    File actual = (File) AppContextFactory.getContext().getBean("startDirectory");
+    System.out.println("File: " + actual.getAbsolutePath());
+    File expected = new File("/some/start/dir");
+    assertEquals(expected, actual);
   }
 
   @Test
@@ -71,6 +84,6 @@ public class AppConfigTest {
     assertEquals(
         expected,
         AppConfig
-            .generateFilesFromString(" /some/path/File1.txt , /some/path/File 2.txt , /some/path/File3.txt "));
+        .generateFilesFromString(" /some/path/File1.txt , /some/path/File 2.txt , /some/path/File3.txt "));
   }
 }

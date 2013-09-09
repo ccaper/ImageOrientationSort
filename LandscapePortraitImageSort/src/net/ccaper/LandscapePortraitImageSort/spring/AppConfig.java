@@ -7,11 +7,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ImportResource;
 import org.springframework.util.StringUtils;
 
 @Configuration
-@ImportResource("classpath:/net/ccaper/LandscapePortraitImageSort/spring/properties-config.xml")
+//@ImportResource("classpath:/net/ccaper/LandscapePortraitImageSort/spring/properties-config.xml")
 public class AppConfig {
   // visible for testing
   static final String MS_FILE_DELIMETER = "\\";
