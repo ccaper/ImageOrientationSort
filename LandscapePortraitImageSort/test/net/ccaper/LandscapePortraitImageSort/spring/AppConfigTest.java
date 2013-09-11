@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import org.junit.After;
 import org.junit.Before;
@@ -15,11 +16,27 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.StringUtils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({ "classpath:net/ccaper/LandscapePortraitImageSort/spring/properties-config-test.xml" })
+@ContextConfiguration({ "classpath:net/ccaper/LandscapePortraitImageSort/spring/properties-config.xml" })
 public class AppConfigTest {
+  private String startDirectory;
+  private String destinationDirectory;
+  private final List<File> ignoreDirectories = new ArrayList<File>();
+  private final List<File> ignoreFiles = new ArrayList<File>();
 
   @Before
   public void setUp() throws Exception {
+    ResourceBundle labels = ResourceBundle
+        .getBundle("LandscapePortraitImageSort");
+    startDirectory = labels.getString("start_directory");
+    destinationDirectory = labels.getString("destination_directory");
+    String ignoreDirectoriesString = labels.getString("ignore_directories");
+    for (String directoryString : ignoreDirectoriesString.split(AppConfig.LIST_SEPARATOR)) {
+      ignoreDirectories.add(new File(directoryString));
+    }
+    String ignoreFilesString = labels.getString("ignore_files");
+    for (String fileString : ignoreFilesString.split(AppConfig.LIST_SEPARATOR)) {
+      ignoreFiles.add(new File(fileString));
+    }
   }
 
   @After
@@ -28,10 +45,14 @@ public class AppConfigTest {
 
   @Test
   public void testWiring() throws Exception {
-    File actual = (File) AppContextFactory.getContext().getBean("startDirectory");
-    System.out.println("File: " + actual.getAbsolutePath());
-    File expected = new File("/some/start/dir");
-    assertEquals(expected, actual);
+    assertEquals(new File(startDirectory), AppContextFactory.getContext()
+        .getBean("startDirectory"));
+    assertEquals(new File(destinationDirectory), AppContextFactory.getContext()
+        .getBean("destinationDirectory"));
+    assertEquals(ignoreDirectories, AppContextFactory.getContext()
+        .getBean("ignoreDirectories"));
+    assertEquals(ignoreFiles, AppContextFactory.getContext()
+        .getBean("ignoreFiles"));
   }
 
   @Test
