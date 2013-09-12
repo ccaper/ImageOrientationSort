@@ -11,6 +11,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.StringUtils;
@@ -22,6 +24,8 @@ public class AppConfigTest {
   private String destinationDirectory;
   private final List<File> ignoreDirectories = new ArrayList<File>();
   private final List<File> ignoreFiles = new ArrayList<File>();
+  ApplicationContext context = new AnnotationConfigApplicationContext(
+      AppConfig.class);
 
   @Before
   public void setUp() throws Exception {
@@ -30,7 +34,8 @@ public class AppConfigTest {
     startDirectory = labels.getString("start_directory");
     destinationDirectory = labels.getString("destination_directory");
     String ignoreDirectoriesString = labels.getString("ignore_directories");
-    for (String directoryString : ignoreDirectoriesString.split(AppConfig.LIST_SEPARATOR)) {
+    for (String directoryString : ignoreDirectoriesString
+        .split(AppConfig.LIST_SEPARATOR)) {
       ignoreDirectories.add(new File(directoryString));
     }
     String ignoreFilesString = labels.getString("ignore_files");
@@ -45,14 +50,11 @@ public class AppConfigTest {
 
   @Test
   public void testWiring() throws Exception {
-    assertEquals(new File(startDirectory), AppContextFactory.getContext()
-        .getBean("startDirectory"));
-    assertEquals(new File(destinationDirectory), AppContextFactory.getContext()
-        .getBean("destinationDirectory"));
-    assertEquals(ignoreDirectories, AppContextFactory.getContext()
-        .getBean("ignoreDirectories"));
-    assertEquals(ignoreFiles, AppContextFactory.getContext()
-        .getBean("ignoreFiles"));
+    assertEquals(new File(startDirectory), context.getBean("startDirectory"));
+    assertEquals(new File(destinationDirectory),
+        context.getBean("destinationDirectory"));
+    assertEquals(ignoreDirectories, context.getBean("ignoreDirectories"));
+    assertEquals(ignoreFiles, context.getBean("ignoreFiles"));
   }
 
   @Test
