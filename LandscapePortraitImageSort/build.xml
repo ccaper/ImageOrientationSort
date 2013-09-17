@@ -1,0 +1,93 @@
+<project name="LandscapePortraitImageSort" default="dist" basedir=".">
+    <description>
+        Ant build file for LandscapePortraitImageSort
+    </description>
+  <!-- set global properties for this build -->
+  <property name="src" location="src"/>
+  <property name="build" location="build"/>
+  <property name="dist"  location="dist"/>
+  <property name="third_party_libs" value="../../ccaper-local/libs/libs" />
+  
+  <fileset id="build_jars" dir="${third_party_libs}">
+    <patternset>
+      <include name="spring/spring-framework-3.2.2/libs/spring-beans-3.2.2.RELEASE.jar" />
+      <include name="spring/spring-framework-3.2.2/libs/spring-context-3.2.2.RELEASE.jar" />
+      <include name="spring/spring-framework-3.2.2/libs/spring-context-support-3.2.2.RELEASE.jar" />
+      <include name="spring/spring-framework-3.2.2/libs/spring-core-3.2.2.RELEASE.jar" />
+      <include name="spring/spring-framework-3.2.2/libs/spring-expression-3.2.2.RELEASE.jar" />
+      <include name="commons-logging/commons-logging-1.1.1/commons-logging-1.1.1.jar" />
+      <include name="log4j/1.2.17/log4j-1.2.17.jar" />
+      <include name="commons-lang/commons-lang-3-3.1/commons-lang3-3.1.jar" />
+    </patternset>
+  </fileset>
+  
+  <path id="classpath">
+    <fileset dir="${build}/libs">
+      <include name="**/*.jar" />
+    </fileset>
+    <pathelement path="${build}" />
+  </path>
+  
+  <target name="init">
+    <!-- Create the build directory structure used by compile -->
+    <mkdir dir="${build}"/>
+    <mkdir dir="${build}/libs"/>
+  </target>
+
+  <target name="compile" depends="init"
+        description="compile the source " >
+    <!-- Compile the java code from ${src} into ${build} -->
+    <copy todir="${build}/libs" flatten="true">
+      <fileset refid="build_jars" />
+    </copy>
+    <javac srcdir="${src}" destdir="${build}" includeAntRuntime="false">
+      <classpath refid="classpath" />
+    </javac>
+  </target>
+
+  <target name="_copy_conf">
+    <copy todir="${dist}/classes" flatten="false">
+      <fileset dir="conf">
+        <patternset>
+          <include name="**/*.properties" />
+          <include name="**/*.xml" />
+        </patternset>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="dist" depends="clean,compile,_copy_conf"
+        description="generate the distribution" >
+    <!-- Create the distribution directory -->
+    <mkdir dir="${dist}"/>
+    <mkdir dir="${dist}/classes"/>
+
+    <manifestclasspath property="manifest.classpath" jarfile="${dist}/LandscapePortraitImageSort.jar">
+      <classpath>
+        <pathelement path="${dist}/classes" />
+        <fileset dir="${build}/libs">
+          <include name="**/*.jar" />
+        </fileset>
+      </classpath>
+    </manifestclasspath>
+    <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
+    <jar destfile="${dist}/LandscapePortraitImageSort.jar">
+      <fileset dir="${build}">
+        <exclude name="**/*Test*.class" />
+        <include name="**/*.class" />
+        <include name="**/*.jar" />
+      </fileset>
+      <manifest>
+        <attribute name="Main-Class" value="net.ccaper.LandscapePortraitImageSort.Driver" />
+        <attribute name="Class-Path" value="${manifest.classpath}" />
+      </manifest>
+    </jar>
+  </target>
+
+  <target name="clean"
+        description="clean up" >
+    <!-- Delete the ${build} and ${dist} directory trees -->
+    <delete dir="${build}"/>
+    <delete dir="${dist}"/>
+  </target>
+</project>
