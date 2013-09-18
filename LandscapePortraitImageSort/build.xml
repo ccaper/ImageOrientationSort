@@ -10,7 +10,9 @@
   <property name="classes" value="classes" />
   <property name="libs" value="libs" />
   <property name="conf" value="conf" />
+  <property name="test_src" value="test" />
   <property name="third_party_libs" value="../../ccaper-local/libs/libs" />
+  <property name="junit" value="junit" />
 
   <fileset id="build_jars" dir="${third_party_libs}">
     <patternset>
@@ -22,6 +24,14 @@
       <include name="commons-logging/commons-logging-1.1.1/commons-logging-1.1.1.jar" />
       <include name="log4j/1.2.17/log4j-1.2.17.jar" />
       <include name="commons-lang/commons-lang-3-3.1/commons-lang3-3.1.jar" />
+    </patternset>
+  </fileset>
+
+  <fileset id="test_jars" dir="${third_party_libs}">
+    <patternset>
+      <include name="cglib/cglib-3.0/cglib-nodep-3.0.jar" />
+      <include name="junit/junit-4.11/junit-4.11.jar" />
+      <include name="spring/spring-framework-3.2.2/libs/spring-test-3.2.2.RELEASE.jar" />
     </patternset>
   </fileset>
 
@@ -101,5 +111,32 @@
     <!-- Delete the ${buildDir} and ${distDir} directory trees -->
     <delete dir="${buildDir}" />
     <delete dir="${distDir}" />
+    <delete dir="${junit}" quiet="true" />
+  </target>
+
+  <target name="_test_cp_jars" depends="compile">
+    <copy todir="${buildDir}/${libs}" flatten="true">
+      <fileset refid="test_jars" />
+    </copy>
+  </target>
+
+  <target name="test" depends="clean,_test_cp_jars">
+    <mkdir dir="${junit}" />
+    <javac srcdir="${test_src}" destdir="${buildDir}" failonerror="true" verbose="true" debug="true" includeAntRuntime="false">
+      <classpath refid="classpath" />
+    </javac>
+    <junit errorProperty="${TEST_FAILED}" failureProperty="${TEST_FAILED}">
+      <batchtest fork="yes" todir="${junit}">
+        <fileset dir="${test_src}">
+          <include name="**/*Test*.java" />
+          <exclude name="**/AllTests.java" />
+        </fileset>
+      </batchtest>
+      <classpath refid="classpath" />
+      <classpath location="${conf}" />
+      <formatter type="plain" usefile="false" />
+      <formatter type="xml" />
+    </junit>
+    <fail if="${TEST_FAILED}" message="Tests failed." />
   </target>
 </project>
