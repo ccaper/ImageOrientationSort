@@ -3,11 +3,13 @@
         Ant build file for LandscapePortraitImageSort
     </description>
   <!-- set global properties for this build -->
-  <property name="src" location="src" />
-  <property name="build" location="build" />
-  <property name="dist" location="dist" />
+  <property name="srcDir" location="src" />
+  <property name="buildDir" location="build" />
+  <property name="distDir" location="dist" />
+  <property name="confDir" location="conf" />
   <property name="classes" value="classes" />
   <property name="libs" value="libs" />
+  <property name="conf" value="conf" />
   <property name="third_party_libs" value="../../ccaper-local/libs/libs" />
 
   <fileset id="build_jars" dir="${third_party_libs}">
@@ -24,41 +26,40 @@
   </fileset>
 
   <path id="classpath">
-    <fileset dir="${build}/${libs}">
+    <fileset dir="${buildDir}/${libs}">
       <include name="*.jar" />
     </fileset>
-    <pathelement path="${build}" />
+    <pathelement path="${buildDir}" />
   </path>
 
   <target name="init">
     <!-- Create the build directory structure used by compile -->
-    <mkdir dir="${build}" />
+    <mkdir dir="${buildDir}" />
   </target>
 
   <target name="compile" depends="init" description="compile the source ">
-    <!-- Compile the java code from ${src} into ${build} -->
-    <copy todir="${build}/${libs}" flatten="true">
+    <!-- Compile the java code from ${srcDir} into ${buildDir} -->
+    <copy todir="${buildDir}/${libs}" flatten="true">
       <fileset refid="build_jars" />
     </copy>
-    <javac srcdir="${src}" destdir="${build}" includeAntRuntime="false" debug="true">
+    <javac srcdir="${srcDir}" destdir="${buildDir}" includeAntRuntime="false" debug="true">
       <classpath refid="classpath" />
     </javac>
   </target>
 
   <target name="_copy_conf">
-    <copy todir="${dist}/${classes}" flatten="false">
-      <fileset dir="conf">
+    <copy todir="${distDir}/${conf}" flatten="false">
+      <fileset dir="${confDir}">
         <patternset>
-          <include name="**/*.properties" />
-          <include name="**/*.xml" />
+          <include name="LandscapePortraitImageSort.properties" />
         </patternset>
       </fileset>
     </copy>
   </target>
 
   <target name="_copy_libs">
-    <copy todir="${dist}/${libs}" flatten="false">
-      <fileset dir="${build}/${libs}">
+    <copy todir="${distDir}/${libs}" flatten="false">
+      <fileset dir="${buildDir}/${libs}">
         <patternset>
           <include name="*.jar" />
         </patternset>
@@ -68,21 +69,26 @@
 
   <target name="dist" depends="clean,compile,_copy_conf,_copy_libs" description="generate the distribution">
     <!-- Create the distribution directory -->
-    <mkdir dir="${dist}" />
+    <mkdir dir="${distDir}" />
 
-    <manifestclasspath property="manifest.classpath" jarfile="${dist}/LandscapePortraitImageSort.jar">
+    <manifestclasspath property="manifest.classpath" jarfile="${distDir}/LandscapePortraitImageSort.jar">
       <classpath>
-        <pathelement path="${dist}/${classes}" />
-        <fileset dir="${dist}/${libs}">
+        <pathelement path="${distDir}/${conf}" />
+        <fileset dir="${distDir}/${libs}">
           <include name="**/*.jar" />
         </fileset>
       </classpath>
     </manifestclasspath>
-    <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
-    <jar destfile="${dist}/LandscapePortraitImageSort.jar">
-      <fileset dir="${build}">
+    <!-- Put everything in ${buildDir} into the MyProject-${DSTAMP}.jar file -->
+    <jar destfile="${distDir}/LandscapePortraitImageSort.jar">
+      <fileset dir="${buildDir}">
         <exclude name="**/*Test*.class" />
         <include name="**/*.class" />
+      </fileset>
+      <fileset dir="${confDir}">
+        <include name="**/*.properties" />
+        <include name="**/*.xml" />
+        <exclude name="LandscapePortraitImageSort.properties" />
       </fileset>
       <manifest>
         <attribute name="Main-Class" value="net.ccaper.LandscapePortraitImageSort.Driver" />
@@ -92,8 +98,8 @@
   </target>
 
   <target name="clean" description="clean up">
-    <!-- Delete the ${build} and ${dist} directory trees -->
-    <delete dir="${build}" />
-    <delete dir="${dist}" />
+    <!-- Delete the ${buildDir} and ${distDir} directory trees -->
+    <delete dir="${buildDir}" />
+    <delete dir="${distDir}" />
   </target>
 </project>
