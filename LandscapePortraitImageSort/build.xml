@@ -40,7 +40,7 @@
     <copy todir="${build}/${libs}" flatten="true">
       <fileset refid="build_jars" />
     </copy>
-    <javac srcdir="${src}" destdir="${build}" includeAntRuntime="false">
+    <javac srcdir="${src}" destdir="${build}" includeAntRuntime="false" debug="true">
       <classpath refid="classpath" />
     </javac>
   </target>
