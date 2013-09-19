@@ -26,53 +26,55 @@ The 3rd party libs for unit tests are:
 -Spring 3.2.2 (spring-test-3.2.2.RELEASE.jar)
 
 For easiest use of my ant script, I suggest creating a libs directtory with a structure like the following:
-    |-libs
+````
+|-libs
+  |
+  |-cglib
+  | |
+  | |-cglib-3.0
+  |   |
+  |   |-cglib-nodep-3.0.jar
+  |
+  |-commons-lang
+  | |
+  | |-commons-lang-3.3.1
+  |   |
+  |   |-commons-lang-3.3.1.jar
+  |
+  |-commons-logging
+  | |
+  | |-commons-logging-1.1.1
+  |   |
+  |   |-commons-logging-1.1.1.jar
+  |
+  |-log4j
+  | |
+  | |-log4j-1.2.17
+  |   |
+  |   |-log4j-1.2.17.jar
+  |
+  |-junit
+  | |
+  | |-junit-4.11
+  |   |
+  |   |-junit-4.11.jar
+  |
+  |-spring
+    |
+    |-spring-3.2.1
       |
-      |-cglib
-      | |
-      | |-cglib-3.0
-      |   |
-      |   |-cglib-nodep-3.0.jar
+      |-spring-beans-3.2.2.RELEASE.jar
       |
-      |-commons-lang
-      | |
-      | |-commons-lang-3.3.1
-      |   |
-      |   |-commons-lang-3.3.1.jar
+      |-spring-context-3.2.2.RELEASE.jar
       |
-      |-commons-logging
-      | |
-      | |-commons-logging-1.1.1
-      |   |
-      |   |-commons-logging-1.1.1.jar
+      |-spring-context-support-3.2.2.RELEASE.jar
       |
-      |-log4j
-      | |
-      | |-log4j-1.2.17
-      |   |
-      |   |-log4j-1.2.17.jar
+      |-spring-core-3.2.2.RELEASE.jar
       |
-      |-junit
-      | |
-      | |-junit-4.11
-      |   |
-      |   |-junit-4.11.jar
+      |-spring-expression-3.2.2.RELEASE.jar
       |
-      |-spring
-        |
-        |-spring-3.2.1
-          |
-          |-spring-beans-3.2.2.RELEASE.jar
-          |
-          |-spring-context-3.2.2.RELEASE.jar
-          |
-          |-spring-context-support-3.2.2.RELEASE.jar
-          |
-          |-spring-core-3.2.2.RELEASE.jar
-          |
-          |-spring-expression-3.2.2.RELEASE.jar
-          |
-          |-spring-test-3.2.2.RELEASE.jar
+      |-spring-test-3.2.2.RELEASE.jar
+````
 
 If you follow this model for your libs, all you will need to for the ant script to compile is to locate in the ant file (build.xml) the line <property name="third_party_libs" value="../../ccaper-local/libs/libs" /> near the beginning of the file, and change the value to either be the full path to your libs directory, or the relative path from the location of the ant script to your directory.
 
