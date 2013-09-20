@@ -8,26 +8,7 @@ import java.util.Queue;
 
 import net.ccaper.LandscapePortraitImageSort.service.IterateDirectories;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 public class IterateDirectoriesImpl implements IterateDirectories {
-  private static final Log LOG = LogFactory
-      .getLog(IterateDirectoriesImpl.class);
-  // TODO: move to app config
-  static final String[] IMAGE_TYPES = new String[] { "jpg", "jpeg" };
-  // TODO: move to app config, pass in for testing
-  private static final FilenameFilter IMAGE_FILE_FILTER = new FilenameFilter() {
-    @Override
-    public boolean accept(File dir, String name) {
-      for (String extension : IMAGE_TYPES) {
-        if (name.toLowerCase().endsWith("." + extension)) {
-          return true;
-        }
-      }
-      return false;
-    }
-  };
   private static final FilenameFilter DIRECTORY_FILTER = new FilenameFilter() {
     @Override
     public boolean accept(File dir, String name) {
@@ -36,9 +17,12 @@ public class IterateDirectoriesImpl implements IterateDirectories {
   };
   private final Queue<File> files = new LinkedList<File>();
   private final Queue<File> dirs = new LinkedList<File>();
+  private final FilenameFilter extensionFilter;
 
-  public IterateDirectoriesImpl(File startDirectory) {
-    files.addAll(Arrays.asList(startDirectory.listFiles(IMAGE_FILE_FILTER)));
+  public IterateDirectoriesImpl(File startDirectory,
+      FilenameFilter extensionFilter) {
+    this.extensionFilter = extensionFilter;
+    files.addAll(Arrays.asList(startDirectory.listFiles(this.extensionFilter)));
     dirs.addAll(Arrays.asList(startDirectory.listFiles(DIRECTORY_FILTER)));
   }
 
@@ -48,7 +32,7 @@ public class IterateDirectoriesImpl implements IterateDirectories {
       return files.remove();
     } else if (!dirs.isEmpty()) {
       File dir = dirs.remove();
-      files.addAll(Arrays.asList(dir.listFiles(IMAGE_FILE_FILTER)));
+      files.addAll(Arrays.asList(dir.listFiles(extensionFilter)));
       dirs.addAll(Arrays.asList((dir.listFiles(DIRECTORY_FILTER))));
       return getFile();
     } else {

@@ -1,8 +1,12 @@
 package net.ccaper.LandscapePortraitImageSort.spring;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.List;
+
+import net.ccaper.LandscapePortraitImageSort.service.IterateDirectories;
+import net.ccaper.LandscapePortraitImageSort.serviceImpl.IterateDirectoriesImpl;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +23,7 @@ public class AppConfig {
   static final String UNIX_FILE_DELIMETER = "/";
   // visible for testing
   static final String LIST_SEPARATOR = ",";
+  static final String[] IMAGE_TYPES = new String[] { "jpg", "jpeg" };
   private @Value("${start_directory}")
   String startDirectory;
   private @Value("${destination_directory}")
@@ -46,6 +51,11 @@ public class AppConfig {
   @Bean(name = "ignoreFiles")
   public List<File> getIgnoreFiles() {
     return generateFilesFromString(ignoreFiles);
+  }
+
+  @Bean
+  public IterateDirectories getIterateDirectiesService() {
+    return new IterateDirectoriesImpl(getStartDirectory(), getFilenameFilter());
   }
 
   // visible for testing
@@ -86,5 +96,19 @@ public class AppConfig {
       throw new IllegalArgumentException(String.format(
           "The path %s contains illegal file delimiters.", string));
     }
+  }
+
+  private FilenameFilter getFilenameFilter() {
+    return new FilenameFilter() {
+      @Override
+      public boolean accept(File dir, String name) {
+        for (String extension : IMAGE_TYPES) {
+          if (name.toLowerCase().endsWith("." + extension)) {
+            return true;
+          }
+        }
+        return false;
+      }
+    };
   }
 }

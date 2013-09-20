@@ -21,16 +21,17 @@ public class Driver {
     File startDirectory = (File) context.getBean("startDirectory");
     File destinationDirectory = (File) context.getBean("destinationDirectory");
     @SuppressWarnings("unchecked")
-    List<File> ignoreDirectories = (List<File>) context.getBean("ignoreDirectories");
+    List<File> ignoreDirectories = (List<File>) context
+    .getBean("ignoreDirectories");
     @SuppressWarnings("unchecked")
     List<File> ignoreFiles = (List<File>) context.getBean("ignoreFiles");
 
     Driver.LOG.info("Starting Landscape Portrait Image Sort");
     Driver.LOG.info("Start directory: " + startDirectory);
     Driver.LOG.info("Destination directory: " + destinationDirectory);
-    Driver.LOG.info("Ignore directories: " + StringUtils.join(ignoreDirectories, ", "));
+    Driver.LOG.info("Ignore directories: "
+        + StringUtils.join(ignoreDirectories, ", "));
     Driver.LOG.info("Ignore files: " + StringUtils.join(ignoreFiles, ", "));
     Driver.LOG.info("Ending Landscape Portrait Image Sort");
   }
-
 }
