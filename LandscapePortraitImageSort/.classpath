@@ -14,5 +14,8 @@
 	<classpathentry kind="lib" path="/libs/commons-logging/commons-logging-1.1.1/commons-logging-1.1.1.jar"/>
 	<classpathentry kind="lib" path="/libs/log4j/1.2.17/log4j-1.2.17.jar"/>
 	<classpathentry kind="lib" path="/libs/commons-lang/commons-lang-3-3.1/commons-lang3-3.1.jar"/>
+	<classpathentry kind="lib" path="/libs/cglib/cglib-3.0/cglib-nodep-3.0.jar"/>
+	<classpathentry kind="lib" path="/libs/easymock/easymock-3.1/easymock-3.1.jar"/>
+	<classpathentry kind="lib" path="/libs/easymock/easymockclassextension-3.1/easymockclassextension-3.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

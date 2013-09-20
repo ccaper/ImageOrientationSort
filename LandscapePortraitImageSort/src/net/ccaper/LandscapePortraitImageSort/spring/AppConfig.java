@@ -98,7 +98,9 @@ public class AppConfig {
     }
   }
 
-  private FilenameFilter getFilenameFilter() {
+  // TODO: junit
+  // visble for testing
+  public FilenameFilter getFilenameFilter() {
     return new FilenameFilter() {
       @Override
       public boolean accept(File dir, String name) {

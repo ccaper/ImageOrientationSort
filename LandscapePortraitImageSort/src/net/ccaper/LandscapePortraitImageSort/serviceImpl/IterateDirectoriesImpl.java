@@ -9,7 +9,8 @@ import java.util.Queue;
 import net.ccaper.LandscapePortraitImageSort.service.IterateDirectories;
 
 public class IterateDirectoriesImpl implements IterateDirectories {
-  private static final FilenameFilter DIRECTORY_FILTER = new FilenameFilter() {
+  // visible for testing
+  static final FilenameFilter DIRECTORY_FILTER = new FilenameFilter() {
     @Override
     public boolean accept(File dir, String name) {
       return new File(dir, name).isDirectory();
