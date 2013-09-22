@@ -23,8 +23,14 @@ public class IterateDirectoriesImpl implements IterateDirectories {
   public IterateDirectoriesImpl(File startDirectory,
       FilenameFilter extensionFilter) {
     this.extensionFilter = extensionFilter;
-    files.addAll(Arrays.asList(startDirectory.listFiles(this.extensionFilter)));
-    dirs.addAll(Arrays.asList(startDirectory.listFiles(DIRECTORY_FILTER)));
+    File[] filesArray = startDirectory.listFiles(this.extensionFilter);
+    if (filesArray != null) {
+      files.addAll(Arrays.asList(filesArray));
+    }
+    File[] dirsArray = startDirectory.listFiles(this.extensionFilter);
+    if (dirsArray != null) {
+      dirs.addAll(Arrays.asList(dirsArray));
+    }
   }
 
   @Override
