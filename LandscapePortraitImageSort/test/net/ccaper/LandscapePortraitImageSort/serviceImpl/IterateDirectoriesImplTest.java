@@ -7,6 +7,7 @@ import static org.easymock.EasyMock.verify;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,14 +33,15 @@ public class IterateDirectoriesImplTest {
 
   @Test
   public void testGetFile() {
+    FilenameFilter extensionFilter = appConfig.getFilenameFilter();
     File fileMock = createMock(File.class);
-    expect(fileMock.listFiles(appConfig.getFilenameFilter())).andReturn(
+    expect(fileMock.listFiles(extensionFilter)).andReturn(
         expectedFiles);
     expect(fileMock.listFiles(IterateDirectoriesImpl.DIRECTORY_FILTER))
     .andReturn(null);
     replay(fileMock);
     IterateDirectories iterateDirs = new IterateDirectoriesImpl(fileMock,
-        appConfig.getFilenameFilter());
+        extensionFilter);
     File file = iterateDirs.getFile();
     List<File> files = new ArrayList<File>();
     while (file != null) {

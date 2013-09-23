@@ -49,11 +49,11 @@ public class IterateDirectoriesImpl implements IterateDirectories {
   // TODO: test
   private void seedFilesAndDirs() {
     if (startDirectory != null) {
-      File[] filesArray = startDirectory.listFiles(this.extensionFilter);
+      File[] filesArray = startDirectory.listFiles(extensionFilter);
       if (filesArray != null) {
         files.addAll(Arrays.asList(filesArray));
       }
-      File[] dirsArray = startDirectory.listFiles(this.extensionFilter);
+      File[] dirsArray = startDirectory.listFiles(DIRECTORY_FILTER);
       if (dirsArray != null) {
         dirs.addAll(Arrays.asList(dirsArray));
       }

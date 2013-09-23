@@ -5,9 +5,6 @@ import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.ccaper.LandscapePortraitImageSort.service.IterateDirectories;
-import net.ccaper.LandscapePortraitImageSort.serviceImpl.IterateDirectoriesImpl;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -51,12 +48,6 @@ public class AppConfig {
   @Bean(name = "ignoreFiles")
   public List<File> getIgnoreFiles() {
     return generateFilesFromString(ignoreFiles);
-  }
-
-  // TODO: junit?
-  @Bean
-  public IterateDirectories getIterateDirectiesService() {
-    return new IterateDirectoriesImpl(getStartDirectory(), getFilenameFilter());
   }
 
   // visible for testing
