@@ -19,22 +19,21 @@ public class IterateDirectoriesImpl implements IterateDirectories {
   private final Queue<File> files = new LinkedList<File>();
   private final Queue<File> dirs = new LinkedList<File>();
   private final FilenameFilter extensionFilter;
+  private final File startDirectory;
+  private boolean filesAndDirsSeeded = false;
 
   public IterateDirectoriesImpl(File startDirectory,
       FilenameFilter extensionFilter) {
     this.extensionFilter = extensionFilter;
-    File[] filesArray = startDirectory.listFiles(this.extensionFilter);
-    if (filesArray != null) {
-      files.addAll(Arrays.asList(filesArray));
-    }
-    File[] dirsArray = startDirectory.listFiles(this.extensionFilter);
-    if (dirsArray != null) {
-      dirs.addAll(Arrays.asList(dirsArray));
-    }
+    this.startDirectory = startDirectory;
   }
 
   @Override
+  // TODO: test
   public File getFile() {
+    if (filesAndDirsSeeded == false) {
+      seedFilesAndDirs();
+    }
     if (!files.isEmpty()) {
       return files.remove();
     } else if (!dirs.isEmpty()) {
@@ -45,5 +44,20 @@ public class IterateDirectoriesImpl implements IterateDirectories {
     } else {
       return null;
     }
+  }
+
+  // TODO: test
+  private void seedFilesAndDirs() {
+    if (startDirectory != null) {
+      File[] filesArray = startDirectory.listFiles(this.extensionFilter);
+      if (filesArray != null) {
+        files.addAll(Arrays.asList(filesArray));
+      }
+      File[] dirsArray = startDirectory.listFiles(this.extensionFilter);
+      if (dirsArray != null) {
+        dirs.addAll(Arrays.asList(dirsArray));
+      }
+    }
+    filesAndDirsSeeded = true;
   }
 }

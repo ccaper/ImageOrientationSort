@@ -53,6 +53,7 @@ public class AppConfig {
     return generateFilesFromString(ignoreFiles);
   }
 
+  // TODO: junit?
   @Bean
   public IterateDirectories getIterateDirectiesService() {
     return new IterateDirectoriesImpl(getStartDirectory(), getFilenameFilter());
