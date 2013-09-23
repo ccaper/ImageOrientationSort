@@ -29,7 +29,6 @@ public class IterateDirectoriesImpl implements IterateDirectories {
   }
 
   @Override
-  // TODO: test
   public File getFile() {
     if (filesAndDirsSeeded == false) {
       seedFilesAndDirs();
@@ -38,8 +37,14 @@ public class IterateDirectoriesImpl implements IterateDirectories {
       return files.remove();
     } else if (!dirs.isEmpty()) {
       File dir = dirs.remove();
-      files.addAll(Arrays.asList(dir.listFiles(extensionFilter)));
-      dirs.addAll(Arrays.asList((dir.listFiles(DIRECTORY_FILTER))));
+      File[] filesInDir = dir.listFiles(extensionFilter);
+      if (filesInDir != null) {
+        files.addAll(Arrays.asList(filesInDir));
+      }
+      File[] dirsInDir = dir.listFiles(DIRECTORY_FILTER);
+      if (dirsInDir != null) {
+        dirs.addAll(Arrays.asList((dirsInDir)));
+      }
       return getFile();
     } else {
       return null;

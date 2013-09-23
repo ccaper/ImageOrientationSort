@@ -90,7 +90,6 @@ public class AppConfig {
     }
   }
 
-  // TODO: junit
   // visble for testing
   public FilenameFilter getFilenameFilter() {
     return new FilenameFilter() {
