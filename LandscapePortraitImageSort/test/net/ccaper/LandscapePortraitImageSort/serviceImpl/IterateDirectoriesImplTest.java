@@ -40,7 +40,7 @@ public class IterateDirectoriesImplTest {
     .andReturn(null);
     replay(startDirectoryMock);
     IterateDirectories iterateDirs = new IterateDirectoriesImpl(startDirectoryMock,
-        extensionFilter);
+        extensionFilter, null, null);
     File file = iterateDirs.getFile();
     List<File> files = new ArrayList<File>();
     while (file != null) {
@@ -62,7 +62,7 @@ public class IterateDirectoriesImplTest {
     .andReturn(null);
     replay(startDirectoryMock);
     IterateDirectories iterateDirs = new IterateDirectoriesImpl(startDirectoryMock,
-        extensionFilter);
+        extensionFilter, null, null);
     File file = iterateDirs.getFile();
     List<File> files = new ArrayList<File>();
     while (file != null) {
@@ -85,7 +85,7 @@ public class IterateDirectoriesImplTest {
     .andReturn(expectedDirectories);
     replay(startDirectoryMock);
     IterateDirectories iterateDirs = new IterateDirectoriesImpl(startDirectoryMock,
-        extensionFilter);
+        extensionFilter, null, null);
     File file = iterateDirs.getFile();
     List<File> files = new ArrayList<File>();
     while (file != null) {
@@ -108,7 +108,7 @@ public class IterateDirectoriesImplTest {
     .andReturn(null);
     replay(startDirectoryMock);
     IterateDirectories iterateDirs = new IterateDirectoriesImpl(startDirectoryMock,
-        extensionFilter);
+        extensionFilter, null, null);
     File file = iterateDirs.getFile();
     List<File> files = new ArrayList<File>();
     while (file != null) {
@@ -140,7 +140,7 @@ public class IterateDirectoriesImplTest {
     replay(startDirectoryMock);
     replay(dir1Mock);
     IterateDirectories iterateDirs = new IterateDirectoriesImpl(startDirectoryMock,
-        extensionFilter);
+        extensionFilter, null, null);
     File file = iterateDirs.getFile();
     List<File> files = new ArrayList<File>();
     while (file != null) {
@@ -177,7 +177,7 @@ public class IterateDirectoriesImplTest {
     replay(startDirectoryMock);
     replay(dir1Mock);
     IterateDirectories iterateDirs = new IterateDirectoriesImpl(startDirectoryMock,
-        extensionFilter);
+        extensionFilter, null, null);
     File file = iterateDirs.getFile();
     List<File> files = new ArrayList<File>();
     while (file != null) {

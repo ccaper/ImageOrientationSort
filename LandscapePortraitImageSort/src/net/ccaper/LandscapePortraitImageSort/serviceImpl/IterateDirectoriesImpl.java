@@ -2,8 +2,10 @@ package net.ccaper.LandscapePortraitImageSort.serviceImpl;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 import net.ccaper.LandscapePortraitImageSort.service.IterateDirectories;
@@ -21,32 +23,55 @@ public class IterateDirectoriesImpl implements IterateDirectories {
   private final FilenameFilter extensionFilter;
   private final File startDirectory;
   private boolean filesAndDirsSeeded = false;
+  private final List<File> ignoreFiles;
+  private final List<File> ignoreDirectories;
 
   public IterateDirectoriesImpl(File startDirectory,
-      FilenameFilter extensionFilter) {
+      FilenameFilter extensionFilter, List<File> ignoreFiles,
+      List<File> ignoreDirectories) {
     this.extensionFilter = extensionFilter;
     this.startDirectory = startDirectory;
+    if (ignoreFiles == null) {
+      this.ignoreFiles = new ArrayList<File>();
+    } else {
+      this.ignoreFiles = ignoreFiles;
+    }
+    if (ignoreDirectories == null) {
+      this.ignoreDirectories = new ArrayList<File>();
+    } else {
+      this.ignoreDirectories = ignoreDirectories;
+    }
   }
 
   @Override
+  // TODO: test ignore files and dirs
   public File getFile() {
     if (filesAndDirsSeeded == false) {
       seedFilesAndDirs();
     }
-    if (!files.isEmpty()) {
-      return files.remove();
-    } else if (!dirs.isEmpty()) {
+    if (!files.isEmpty()) { // exhaust files before stepping into sub dirs
+      File file = files.remove();
+      if (ignoreFiles.contains(file)) { // skip if file should be ignored
+        return getFile();
+      } else {
+        return file;
+      }
+    } else if (!dirs.isEmpty()) { // files exhausted, step into sub dir
       File dir = dirs.remove();
-      File[] filesInDir = dir.listFiles(extensionFilter);
-      if (filesInDir != null) {
-        files.addAll(Arrays.asList(filesInDir));
+      if (ignoreDirectories.contains(dir)) { // skip if dir should be ignored
+        return getFile();
+      } else {
+        File[] filesInDir = dir.listFiles(extensionFilter);
+        if (filesInDir != null) {
+          files.addAll(Arrays.asList(filesInDir));
+        }
+        File[] dirsInDir = dir.listFiles(DIRECTORY_FILTER);
+        if (dirsInDir != null) {
+          dirs.addAll(Arrays.asList((dirsInDir)));
+        }
+        return getFile();
       }
-      File[] dirsInDir = dir.listFiles(DIRECTORY_FILTER);
-      if (dirsInDir != null) {
-        dirs.addAll(Arrays.asList((dirsInDir)));
-      }
-      return getFile();
-    } else {
+    } else { // files and dirs exhausted, return
       return null;
     }
   }
