@@ -22,9 +22,11 @@ The 3rd party libs for application are:
 -Apache Commons Lang 3.3.1 (commons-lang3-3.1.jar)
 
 The 3rd party libs for unit tests are:
--CGLIB 3.0 (cglib-nodep-3.0.jar)
+-CGLIB 2.2.3 (cglib-nodep-2.2.3.jar)
 -JUnit 4.11 (junit-4.11.jar)
 -Spring 3.2.2 (spring-test-3.2.2.RELEASE.jar)
+-EasyMock 3.1 (easymock-3.1.jar & easymockclassextension-3.1.jar)
+-Objenesis 1.1 (objenesis-1.1.jar)
 ````
 
 For easiest use of my ant script, I suggest creating a libs directtory with a structure like the following:
@@ -33,9 +35,9 @@ For easiest use of my ant script, I suggest creating a libs directtory with a st
   |
   |-cglib
   | |
-  | |-cglib-3.0
+  | |-cglib-2.2.3
   |   |
-  |   |-cglib-nodep-3.0.jar
+  |   |-cglib-nodep-2.2.3.jar
   |
   |-commons-lang
   | |
@@ -49,6 +51,16 @@ For easiest use of my ant script, I suggest creating a libs directtory with a st
   |   |
   |   |-commons-logging-1.1.1.jar
   |
+  |-easymock
+  | |
+  | |-easymock-3.1
+  | | |
+  | | |-easymock-3.1.jar
+  | |
+  | |-easymockckassextension-3.1
+  |   |
+  |   |-easymockclassextension-3.1.jar
+  |
   |-log4j
   | |
   | |-log4j-1.2.17
@@ -60,6 +72,12 @@ For easiest use of my ant script, I suggest creating a libs directtory with a st
   | |-junit-4.11
   |   |
   |   |-junit-4.11.jar
+  |
+  |-objenesis
+  | |
+  | |-objenesis-1.1
+  |   |
+  |   |-objenesis-1.1.jar
   |
   |-spring
     |
