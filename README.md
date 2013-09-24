@@ -124,6 +124,8 @@ Note, you can write the file paths as either Unix or DOS style separators (Unix 
 
 Note, all paths must be full absolute paths.
 
+Note, if a directory is added to ignore_directories, all subdirectories in that directory will also be ignored.
+
 Running The Application
 -----------------------
 
