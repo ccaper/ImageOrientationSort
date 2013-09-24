@@ -9,6 +9,7 @@ To Build With Ant
 
 This project has some third part library dependencies that must be downloaded for ant to build.
 
+````
 The 3rd party libs for application are:
 -Spring 3.2, specifically
   -spring-beans-3.2.2.RELEASE.jar
@@ -24,6 +25,7 @@ The 3rd party libs for unit tests are:
 -CGLIB 3.0 (cglib-nodep-3.0.jar)
 -JUnit 4.11 (junit-4.11.jar)
 -Spring 3.2.2 (spring-test-3.2.2.RELEASE.jar)
+````
 
 For easiest use of my ant script, I suggest creating a libs directtory with a structure like the following:
 ````
