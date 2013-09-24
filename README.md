@@ -1,11 +1,9 @@
 LandscapePortraitImageSort
 ==========================
 
-Summary
-Traverses a directory, for known image types decides if landscape or portrait, copies image to appropriate directory.
+Summary: Traverses a directory, for known image types decides if landscape or portrait, copies image to appropriate directory.
 
-Details
-Have you ever want to separate all your digital photos into two categories, Landscape (longer on the horizontal) and Portrait (longer on the vertical), but the amount of your digital photo stock makes this too daunting to ever consider?  Great usage scenario is you have two digital photo frames, and you want to load one with only landscape images, and the other with portrait images, so you can turn the fram the optimal direction to minimize those black bars and make the image as large as possible.  Well, my LandscapePortraitImageSort can help you.  It will traverse your image directories non desctructively, and copy your images to a new directory, mimicking the original directory structure, with landscape images going to one root folder, and portrait images going to another.  Have a few embarassing pictures of you wearing a lampshade?  No fret, you can set a property file to ignore files and complete directories.
+Details: Have you ever want to separate all your digital photos into two categories, Landscape (longer on the horizontal) and Portrait (longer on the vertical), but the amount of your digital photo stock makes this too daunting to ever consider?  Great usage scenario is you have two digital photo frames, and you want to load one with only landscape images, and the other with portrait images, so you can turn the fram the optimal direction to minimize those black bars and make the image as large as possible.  Well, my LandscapePortraitImageSort can help you.  It will traverse your image directories non desctructively, and copy your images to a new directory, mimicking the original directory structure, with landscape images going to one root folder, and portrait images going to another.  Have a few embarassing pictures of you wearing a lampshade?  No fret, you can set a property file to ignore files and complete directories.
 
 
 To Build With Ant
