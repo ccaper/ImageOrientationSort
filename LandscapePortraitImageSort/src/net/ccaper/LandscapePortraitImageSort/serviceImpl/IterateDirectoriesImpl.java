@@ -45,6 +45,7 @@ public class IterateDirectoriesImpl implements IterateDirectories {
 
   @Override
   // TODO: test ignore files and dirs
+  // TODO: add logging when file or dir ignored
   public File getFile() {
     if (filesAndDirsSeeded == false) {
       seedFilesAndDirs();
