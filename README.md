@@ -109,13 +109,17 @@ The properties file, after building, will be located outside of the executable j
 
 Please edit this file to your needs.
 
+````
 Description of values:
 -start_directory: the top level directory you want to scan for images
 -destination_directory: the directory you want the images copied to when sorted
 -ignore_directories: comma separated list of directories you want to ignore, within the start directory.  Any contents, including subfolders, will not be copied to destination directory
 -ignore_files: comma separated list of files you want to ignore.  Any file in this list will not be copied to the destination directory.
+````
 
 Note, you can write the file paths as either Unix or DOS style separators (Unix uses '/', DOS uses '\').  The application will detect the operating system you are using, and convert them as needed for the environement you are running.
+
+Note, all paths must be full absolute paths.
 
 Running The Application
 -----------------------
