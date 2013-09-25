@@ -10,7 +10,12 @@ import java.util.Queue;
 
 import net.ccaper.LandscapePortraitImageSort.service.IterateDirectories;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class IterateDirectoriesImpl implements IterateDirectories {
+  private static final Log LOG = LogFactory
+      .getLog(IterateDirectoriesImpl.class);
   // visible for testing
   static final FilenameFilter DIRECTORY_FILTER = new FilenameFilter() {
     @Override
@@ -45,7 +50,7 @@ public class IterateDirectoriesImpl implements IterateDirectories {
 
   @Override
   // TODO: test ignore files and dirs
-  // TODO: add logging when file or dir ignored
+  // TODO: method too large, refactor
   public File getFile() {
     if (filesAndDirsSeeded == false) {
       seedFilesAndDirs();
@@ -53,6 +58,9 @@ public class IterateDirectoriesImpl implements IterateDirectories {
     if (!files.isEmpty()) { // exhaust files before stepping into sub dirs
       File file = files.remove();
       if (ignoreFiles.contains(file)) { // skip if file should be ignored
+        LOG.info(String.format(
+            "The file '%s' was found in the ignore files list, skipped.",
+            file.getAbsolutePath()));
         return getFile();
       } else {
         return file;
@@ -60,6 +68,9 @@ public class IterateDirectoriesImpl implements IterateDirectories {
     } else if (!dirs.isEmpty()) { // files exhausted, step into sub dir
       File dir = dirs.remove();
       if (ignoreDirectories.contains(dir)) { // skip if dir should be ignored
+        LOG.info(String.format(
+            "The directory '%s' was found in the ignore files list, skipped.",
+            dir.getAbsolutePath()));
         return getFile();
       } else {
         File[] filesInDir = dir.listFiles(extensionFilter);
