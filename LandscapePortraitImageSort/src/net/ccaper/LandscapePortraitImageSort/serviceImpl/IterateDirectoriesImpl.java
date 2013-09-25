@@ -50,41 +50,50 @@ public class IterateDirectoriesImpl implements IterateDirectories {
 
   @Override
   // TODO: test ignore files and dirs
-  // TODO: method too large, refactor
   public File getFile() {
     if (filesAndDirsSeeded == false) {
       seedFilesAndDirs();
     }
     if (!files.isEmpty()) { // exhaust files before stepping into sub dirs
-      File file = files.remove();
-      if (ignoreFiles.contains(file)) { // skip if file should be ignored
-        LOG.info(String.format(
-            "The file '%s' was found in the ignore files list, skipped.",
-            file.getAbsolutePath()));
-        return getFile();
-      } else {
-        return file;
-      }
+      return getFileFromFiles();
     } else if (!dirs.isEmpty()) { // files exhausted, step into sub dir
-      File dir = dirs.remove();
-      if (ignoreDirectories.contains(dir)) { // skip if dir should be ignored
-        LOG.info(String.format(
-            "The directory '%s' was found in the ignore files list, skipped.",
-            dir.getAbsolutePath()));
-        return getFile();
-      } else {
-        File[] filesInDir = dir.listFiles(extensionFilter);
-        if (filesInDir != null) {
-          files.addAll(Arrays.asList(filesInDir));
-        }
-        File[] dirsInDir = dir.listFiles(DIRECTORY_FILTER);
-        if (dirsInDir != null) {
-          dirs.addAll(Arrays.asList((dirsInDir)));
-        }
-        return getFile();
-      }
+      return getFileFromSubDirecty();
     } else { // files and dirs exhausted, return
       return null;
+    }
+  }
+
+  // TODO: test
+  private File getFileFromFiles() {
+    File file = files.remove();
+    if (ignoreFiles.contains(file)) { // skip if file should be ignored
+      LOG.info(String.format(
+          "The file '%s' was found in the ignore files list, skipped.",
+          file.getAbsolutePath()));
+      return getFile();
+    } else {
+      return file;
+    }
+  }
+
+  // TODO: test
+  private File getFileFromSubDirecty() {
+    File dir = dirs.remove();
+    if (ignoreDirectories.contains(dir)) { // skip if dir should be ignored
+      LOG.info(String.format(
+          "The directory '%s' was found in the ignore files list, skipped.",
+          dir.getAbsolutePath()));
+      return getFile();
+    } else {
+      File[] filesInDir = dir.listFiles(extensionFilter);
+      if (filesInDir != null) {
+        files.addAll(Arrays.asList(filesInDir));
+      }
+      File[] dirsInDir = dir.listFiles(DIRECTORY_FILTER);
+      if (dirsInDir != null) {
+        dirs.addAll(Arrays.asList((dirsInDir)));
+      }
+      return getFile();
     }
   }
 
