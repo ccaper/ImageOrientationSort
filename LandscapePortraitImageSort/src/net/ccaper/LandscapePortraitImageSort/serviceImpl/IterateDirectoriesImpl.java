@@ -49,7 +49,6 @@ public class IterateDirectoriesImpl implements IterateDirectories {
   }
 
   @Override
-  // TODO: test ignore files and dirs
   public File getFile() {
     if (filesAndDirsSeeded == false) {
       seedFilesAndDirs();
@@ -63,7 +62,6 @@ public class IterateDirectoriesImpl implements IterateDirectories {
     }
   }
 
-  // TODO: test
   private File getFileFromFiles() {
     File file = files.remove();
     if (ignoreFiles.contains(file)) { // skip if file should be ignored
@@ -76,7 +74,6 @@ public class IterateDirectoriesImpl implements IterateDirectories {
     }
   }
 
-  // TODO: test
   private File getFileFromSubDirectory() {
     File dir = dirs.remove();
     if (ignoreDirectories.contains(dir)) { // skip if dir should be ignored
@@ -97,7 +94,6 @@ public class IterateDirectoriesImpl implements IterateDirectories {
     }
   }
 
-  // TODO: test
   private void seedFilesAndDirs() {
     if (startDirectory != null) {
       File[] filesArray = startDirectory.listFiles(extensionFilter);
