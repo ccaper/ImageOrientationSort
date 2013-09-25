@@ -57,7 +57,7 @@ public class IterateDirectoriesImpl implements IterateDirectories {
     if (!files.isEmpty()) { // exhaust files before stepping into sub dirs
       return getFileFromFiles();
     } else if (!dirs.isEmpty()) { // files exhausted, step into sub dir
-      return getFileFromSubDirecty();
+      return getFileFromSubDirectory();
     } else { // files and dirs exhausted, return
       return null;
     }
@@ -77,7 +77,7 @@ public class IterateDirectoriesImpl implements IterateDirectories {
   }
 
   // TODO: test
-  private File getFileFromSubDirecty() {
+  private File getFileFromSubDirectory() {
     File dir = dirs.remove();
     if (ignoreDirectories.contains(dir)) { // skip if dir should be ignored
       LOG.info(String.format(
