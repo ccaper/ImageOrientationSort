@@ -31,6 +31,18 @@ public class IterateDirectoriesImpl implements IterateDirectories {
   private final List<File> ignoreFiles;
   private final List<File> ignoreDirectories;
 
+  /**
+   * 
+   * @param startDirectory
+   *          The top level directory to traverse
+   * @param extensionFilter
+   *          A filename filter for the type of file extensions to allow in
+   * @param ignoreFiles
+   *          A list of files to ignore
+   * @param ignoreDirectories
+   *          A list of directories to ignore, which also ignores all sub
+   *          directories of an ignore directory
+   */
   public IterateDirectoriesImpl(File startDirectory,
       FilenameFilter extensionFilter, List<File> ignoreFiles,
       List<File> ignoreDirectories) {
@@ -62,6 +74,11 @@ public class IterateDirectoriesImpl implements IterateDirectories {
     }
   }
 
+  /**
+   * Handles files in directories
+   * 
+   * @return a file, or null if no more exist
+   */
   private File getFileFromFiles() {
     File file = files.remove();
     if (ignoreFiles.contains(file)) { // skip if file should be ignored
@@ -74,13 +91,17 @@ public class IterateDirectoriesImpl implements IterateDirectories {
     }
   }
 
+  /**
+   * Handles directories in directories
+   * 
+   * @return A file, or null if no more files exist
+   */
   private File getFileFromSubDirectory() {
     File dir = dirs.remove();
     if (ignoreDirectories.contains(dir)) { // skip if dir should be ignored
       LOG.info(String.format(
           "The directory '%s' was found in the ignore files list, skipped.",
           dir.getAbsolutePath()));
-      return getFile();
     } else {
       File[] filesInDir = dir.listFiles(extensionFilter);
       if (filesInDir != null) {
@@ -90,10 +111,14 @@ public class IterateDirectoriesImpl implements IterateDirectories {
       if (dirsInDir != null) {
         dirs.addAll(Arrays.asList((dirsInDir)));
       }
-      return getFile();
     }
+    return getFile();
   }
 
+  /**
+   * Seeds the list of files and list of directories that exist in the start
+   * directory
+   */
   private void seedFilesAndDirs() {
     if (startDirectory != null) {
       File[] filesArray = startDirectory.listFiles(extensionFilter);
