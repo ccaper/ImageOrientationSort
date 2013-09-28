@@ -20,7 +20,6 @@ public class AppConfig {
   static final String UNIX_FILE_DELIMETER = "/";
   // visible for testing
   static final String LIST_SEPARATOR = ",";
-  static final String[] IMAGE_TYPES = new String[] { "jpg", "jpeg" };
   private @Value("${start_directory}")
   String startDirectory;
   private @Value("${destination_directory}")
@@ -29,6 +28,7 @@ public class AppConfig {
   String ignoreDirectories;
   private @Value("${ignore_files}")
   String ignoreFiles;
+  public static final String[] IMAGE_TYPES = new String[] { "jpg", "jpeg" };
 
   @Bean(name = "startDirectory")
   public File getStartDirectory() {

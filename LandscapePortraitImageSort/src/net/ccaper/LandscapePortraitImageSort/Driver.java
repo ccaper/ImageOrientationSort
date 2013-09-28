@@ -1,8 +1,11 @@
 package net.ccaper.LandscapePortraitImageSort;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.util.List;
 
+import net.ccaper.LandscapePortraitImageSort.service.IterateDirectories;
+import net.ccaper.LandscapePortraitImageSort.serviceImpl.IterateDirectoriesImpl;
 import net.ccaper.LandscapePortraitImageSort.spring.AppConfig;
 
 import org.apache.commons.lang3.StringUtils;
@@ -22,7 +25,7 @@ public class Driver {
     File destinationDirectory = (File) context.getBean("destinationDirectory");
     @SuppressWarnings("unchecked")
     List<File> ignoreDirectories = (List<File>) context
-    .getBean("ignoreDirectories");
+        .getBean("ignoreDirectories");
     @SuppressWarnings("unchecked")
     List<File> ignoreFiles = (List<File>) context.getBean("ignoreFiles");
 
@@ -32,6 +35,15 @@ public class Driver {
     Driver.LOG.info("Ignore directories: "
         + StringUtils.join(ignoreDirectories, ", "));
     Driver.LOG.info("Ignore files: " + StringUtils.join(ignoreFiles, ", "));
+    Driver.LOG.info("Filtering files for extensions: "
+        + StringUtils.join(AppConfig.IMAGE_TYPES, ", "));
+    IterateDirectories iterateDirectories = new IterateDirectoriesImpl(
+        startDirectory, (FilenameFilter) context.getBean(FilenameFilter.class), ignoreFiles, ignoreDirectories);
+    File file = iterateDirectories.getFile();
+    while (file != null) {
+      Driver.LOG.info(String.format("Found file '%s'", file.getAbsolutePath()));
+      file = iterateDirectories.getFile();
+    }
     Driver.LOG.info("Ending Landscape Portrait Image Sort");
   }
 }
