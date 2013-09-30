@@ -113,10 +113,10 @@ Please edit this file to your needs.
 Description of values:
 -start_directory: the top level directory you want to scan for images
 -destination_directory: the directory you want the images copied to when sorted
--ignore_directories: comma separated list of directories you want to ignore,
+-ignore_directories: semicolon (';') separated list of directories you want to ignore,
 within the start directory.  Any contents, including subfolders, will not be
 copied to destination directory
--ignore_files: comma separated list of files you want to ignore.  Any file in
+-ignore_files: semicolon (';') separated list of files you want to ignore.  Any file in
 this list will not be copied to the destination directory.
 ````
 
