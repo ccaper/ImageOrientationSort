@@ -49,7 +49,7 @@ public class AppConfig {
   public List<File> getIgnoreFiles() {
     return generateFilesFromString(ignoreFiles);
   }
-
+  
   @Bean
   public FilenameFilter getImageTypeFilenameFilter() {
     return new FilenameFilter() {

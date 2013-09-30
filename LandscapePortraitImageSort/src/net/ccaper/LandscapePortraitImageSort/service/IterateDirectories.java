@@ -22,4 +22,16 @@ public interface IterateDirectories {
    * @return a file or null if no more files exist.
    */
   File getFile();
+
+  int getFilesFound();
+
+  int getFilesSkipped();
+
+  int getFilesNotSkipped();
+
+  int getDirectoriesFound();
+
+  int getDirectoriesSkipped();
+
+  int getDirectoriesNotSkipped();
 }

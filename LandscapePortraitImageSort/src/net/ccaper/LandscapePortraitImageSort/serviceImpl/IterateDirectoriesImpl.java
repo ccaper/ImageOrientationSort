@@ -30,6 +30,13 @@ public class IterateDirectoriesImpl implements IterateDirectories {
   private boolean filesAndDirsSeeded = false;
   private final List<File> ignoreFiles;
   private final List<File> ignoreDirectories;
+  private int filesFound = 0;
+  private int directoriesFound = 0;
+  private int filesSkipped = 0;
+  private int directoriesSkipped = 0;
+  private int filesNotSkipped = 0;
+  private int directoriesNotSkipped = 0;
+
 
   /**
    * 
@@ -81,12 +88,16 @@ public class IterateDirectoriesImpl implements IterateDirectories {
    */
   private File getFileFromFiles() {
     File file = files.remove();
+    ++filesFound;
+    // fix ignore bug
     if (ignoreFiles.contains(file)) { // skip if file should be ignored
+      ++filesSkipped;
       LOG.info(String.format(
           "The file '%s' was found in the ignore files list, skipped.",
           file.getAbsolutePath()));
       return getFile();
     } else {
+      ++filesNotSkipped;
       return file;
     }
   }
@@ -98,11 +109,15 @@ public class IterateDirectoriesImpl implements IterateDirectories {
    */
   private File getFileFromSubDirectory() {
     File dir = dirs.remove();
+    ++directoriesFound;
+    // TODO: fix ignore bug
     if (ignoreDirectories.contains(dir)) { // skip if dir should be ignored
+      ++directoriesSkipped;
       LOG.info(String.format(
           "The directory '%s' was found in the ignore files list, skipped.",
           dir.getAbsolutePath()));
     } else {
+      ++directoriesNotSkipped;
       File[] filesInDir = dir.listFiles(extensionFilter);
       if (filesInDir != null) {
         files.addAll(Arrays.asList(filesInDir));
@@ -131,5 +146,35 @@ public class IterateDirectoriesImpl implements IterateDirectories {
       }
     }
     filesAndDirsSeeded = true;
+  }
+
+  @Override
+  public int getFilesFound() {
+    return filesFound;
+  }
+
+  @Override
+  public int getFilesSkipped() {
+    return filesSkipped;
+  }
+
+  @Override
+  public int getFilesNotSkipped() {
+    return filesNotSkipped;
+  }
+
+  @Override
+  public int getDirectoriesFound() {
+    return directoriesFound;
+  }
+
+  @Override
+  public int getDirectoriesSkipped() {
+    return directoriesSkipped;
+  }
+
+  @Override
+  public int getDirectoriesNotSkipped() {
+    return directoriesNotSkipped;
   }
 }

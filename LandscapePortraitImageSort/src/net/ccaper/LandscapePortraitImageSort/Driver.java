@@ -25,7 +25,7 @@ public class Driver {
     File destinationDirectory = (File) context.getBean("destinationDirectory");
     @SuppressWarnings("unchecked")
     List<File> ignoreDirectories = (List<File>) context
-        .getBean("ignoreDirectories");
+    .getBean("ignoreDirectories");
     @SuppressWarnings("unchecked")
     List<File> ignoreFiles = (List<File>) context.getBean("ignoreFiles");
 
@@ -38,12 +38,25 @@ public class Driver {
     Driver.LOG.info("Filtering files for extensions: "
         + StringUtils.join(AppConfig.IMAGE_TYPES, ", "));
     IterateDirectories iterateDirectories = new IterateDirectoriesImpl(
-        startDirectory, (FilenameFilter) context.getBean(FilenameFilter.class), ignoreFiles, ignoreDirectories);
+        startDirectory, context.getBean(FilenameFilter.class), ignoreFiles,
+        ignoreDirectories);
     File file = iterateDirectories.getFile();
     while (file != null) {
       Driver.LOG.info(String.format("Found file '%s'", file.getAbsolutePath()));
       file = iterateDirectories.getFile();
     }
+    Driver.LOG.info(String.format("Number files found: %d",
+        iterateDirectories.getFilesFound()));
+    Driver.LOG.info(String.format("Number files skipped: %d",
+        iterateDirectories.getFilesSkipped()));
+    Driver.LOG.info(String.format("Number files not skipped: %d",
+        iterateDirectories.getFilesNotSkipped()));
+    Driver.LOG.info(String.format("Number directories found: %d",
+        iterateDirectories.getDirectoriesFound()));
+    Driver.LOG.info(String.format("Number directories skipped: %d",
+        iterateDirectories.getDirectoriesSkipped()));
+    Driver.LOG.info(String.format("Number directories not skipped: %d",
+        iterateDirectories.getDirectoriesNotSkipped()));
     Driver.LOG.info("Ending Landscape Portrait Image Sort");
   }
 }
