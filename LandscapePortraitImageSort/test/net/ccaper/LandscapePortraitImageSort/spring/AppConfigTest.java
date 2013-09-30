@@ -1,6 +1,8 @@
 package net.ccaper.LandscapePortraitImageSort.spring;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -108,5 +110,13 @@ public class AppConfigTest {
         expected,
         AppConfig
         .generateFilesFromString(" /some/path/File1.txt , /some/path/File 2.txt , /some/path/File3.txt "));
+  }
+
+  @Test
+  public void testExtensionFilenameFilterAccept() {
+    assertTrue(AppConfig.extensionFilenameFilter.accept(new File("blahDir"),
+        "blahFile." + AppConfig.IMAGE_TYPES[0]));
+    assertFalse(AppConfig.extensionFilenameFilter.accept(new File("blahDir"),
+        "blahFile.blah"));
   }
 }

@@ -20,6 +20,18 @@ public class AppConfig {
   static final String UNIX_FILE_DELIMETER = "/";
   // visible for testing
   static final String LIST_SEPARATOR = ",";
+  // visible for testing
+  static FilenameFilter extensionFilenameFilter = new FilenameFilter() {
+    @Override
+    public boolean accept(File dir, String name) {
+      for (String extension : IMAGE_TYPES) {
+        if (name.toLowerCase().endsWith("." + extension)) {
+          return true;
+        }
+      }
+      return false;
+    }
+  };
   private @Value("${start_directory}")
   String startDirectory;
   private @Value("${destination_directory}")
@@ -49,20 +61,10 @@ public class AppConfig {
   public List<File> getIgnoreFiles() {
     return generateFilesFromString(ignoreFiles);
   }
-  
+
   @Bean
   public FilenameFilter getImageTypeFilenameFilter() {
-    return new FilenameFilter() {
-      @Override
-      public boolean accept(File dir, String name) {
-        for (String extension : IMAGE_TYPES) {
-          if (name.toLowerCase().endsWith("." + extension)) {
-            return true;
-          }
-        }
-        return false;
-      }
-    };
+    return extensionFilenameFilter;
   }
 
   // visible for testing
