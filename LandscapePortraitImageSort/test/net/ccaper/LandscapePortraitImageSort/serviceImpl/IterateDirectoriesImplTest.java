@@ -34,7 +34,7 @@ public class IterateDirectoriesImplTest {
 
   @Test
   public void testGetFile_NullStartDirectory() {
-    FilenameFilter extensionFilter = appConfig.getFilenameFilter();
+    FilenameFilter extensionFilter = appConfig.getImageTypeFilenameFilter();
     IterateDirectories iterateDirs = new IterateDirectoriesImpl(null,
         extensionFilter, null, null);
     File file = iterateDirs.getFile();
@@ -48,7 +48,7 @@ public class IterateDirectoriesImplTest {
 
   @Test
   public void testGetFile_NullFilesNullDirectories() {
-    FilenameFilter extensionFilter = appConfig.getFilenameFilter();
+    FilenameFilter extensionFilter = appConfig.getImageTypeFilenameFilter();
     File startDirectoryMock = createMock(File.class);
     expect(startDirectoryMock.listFiles(extensionFilter)).andReturn(null);
     expect(startDirectoryMock.listFiles(IterateDirectoriesImpl.DIRECTORY_FILTER))
@@ -70,7 +70,7 @@ public class IterateDirectoriesImplTest {
   @Test
   public void testGetFile_EmptyFilesNullDirectories() {
     File[] expectedFiles = new File[] {};
-    FilenameFilter extensionFilter = appConfig.getFilenameFilter();
+    FilenameFilter extensionFilter = appConfig.getImageTypeFilenameFilter();
     File startDirectoryMock = createMock(File.class);
     expect(startDirectoryMock.listFiles(extensionFilter)).andReturn(expectedFiles);
     expect(startDirectoryMock.listFiles(IterateDirectoriesImpl.DIRECTORY_FILTER))
@@ -93,7 +93,7 @@ public class IterateDirectoriesImplTest {
   public void testGetFile_EmptyFilesEmptyDirectories() {
     File[] expectedFiles = new File[] {};
     File[] expectedDirectories = new File[] {};
-    FilenameFilter extensionFilter = appConfig.getFilenameFilter();
+    FilenameFilter extensionFilter = appConfig.getImageTypeFilenameFilter();
     File startDirectoryMock = createMock(File.class);
     expect(startDirectoryMock.listFiles(extensionFilter)).andReturn(expectedFiles);
     expect(startDirectoryMock.listFiles(IterateDirectoriesImpl.DIRECTORY_FILTER))
@@ -116,7 +116,7 @@ public class IterateDirectoriesImplTest {
   public void testGetFile_OnlyFilesNoDirectories() {
     File[] expectedFiles = new File[] { new File("file1.jpg"),
         new File("file2.jpg") };
-    FilenameFilter extensionFilter = appConfig.getFilenameFilter();
+    FilenameFilter extensionFilter = appConfig.getImageTypeFilenameFilter();
     File startDirectoryMock = createMock(File.class);
     expect(startDirectoryMock.listFiles(extensionFilter)).andReturn(expectedFiles);
     expect(startDirectoryMock.listFiles(IterateDirectoriesImpl.DIRECTORY_FILTER))
@@ -143,7 +143,7 @@ public class IterateDirectoriesImplTest {
     File[] expectedDirectoriesTopLevel = new File[] { dir1Mock };
     File[] expectedFilesDir1Level = new File[] { new File("file3.jpg"),
         new File("file4.jpg") };
-    FilenameFilter extensionFilter = appConfig.getFilenameFilter();
+    FilenameFilter extensionFilter = appConfig.getImageTypeFilenameFilter();
     expect(startDirectoryMock.listFiles(extensionFilter))
     .andReturn(expectedFilesTopLevel);
     expect(startDirectoryMock.listFiles(IterateDirectoriesImpl.DIRECTORY_FILTER))
@@ -180,7 +180,7 @@ public class IterateDirectoriesImplTest {
     File[] expectedDirectoriesTopLevel = new File[] { dir1Mock };
     File[] expectedFilesDir1Level = new File[] { new File("file3.jpg"),
         new File("file4.jpg") };
-    FilenameFilter extensionFilter = appConfig.getFilenameFilter();
+    FilenameFilter extensionFilter = appConfig.getImageTypeFilenameFilter();
     expect(startDirectoryMock.listFiles(extensionFilter))
     .andReturn(expectedFilesTopLevel);
     expect(startDirectoryMock.listFiles(IterateDirectoriesImpl.DIRECTORY_FILTER))
@@ -217,7 +217,7 @@ public class IterateDirectoriesImplTest {
         new File("file2.jpg")};
     File[] expectedDirectoriesTopLevel = new File[] { dir1Mock };
     File[] expectedDirectoriesSecondLevel = new File[] { dir2Mock };
-    FilenameFilter extensionFilter = appConfig.getFilenameFilter();
+    FilenameFilter extensionFilter = appConfig.getImageTypeFilenameFilter();
     expect(startDirectoryMock.listFiles(extensionFilter))
     .andReturn(expectedFilesTopLevel);
     expect(startDirectoryMock.listFiles(IterateDirectoriesImpl.DIRECTORY_FILTER))
@@ -258,7 +258,7 @@ public class IterateDirectoriesImplTest {
     File startDirectoryMock = createMock(File.class);
     File[] expectedFiles = new File[] { new File("file1.jpg"),
         new File("file2.jpg"), ignoreFile };
-    FilenameFilter extensionFilter = appConfig.getFilenameFilter();
+    FilenameFilter extensionFilter = appConfig.getImageTypeFilenameFilter();
     expect(startDirectoryMock.listFiles(extensionFilter)).andReturn(expectedFiles);
     expect(startDirectoryMock.listFiles(IterateDirectoriesImpl.DIRECTORY_FILTER))
     .andReturn(null);
@@ -285,7 +285,7 @@ public class IterateDirectoriesImplTest {
     File[] expectedFiles = new File[] { new File("file1.jpg"),
         new File("file2.jpg") };
     File[] expectedDirectoriesTopLevel = new File[] { ignoreDir };
-    FilenameFilter extensionFilter = appConfig.getFilenameFilter();
+    FilenameFilter extensionFilter = appConfig.getImageTypeFilenameFilter();
     expect(startDirectoryMock.listFiles(extensionFilter)).andReturn(expectedFiles);
     expect(startDirectoryMock.listFiles(IterateDirectoriesImpl.DIRECTORY_FILTER))
     .andReturn(expectedDirectoriesTopLevel);
@@ -315,7 +315,7 @@ public class IterateDirectoriesImplTest {
     File[] expectedFiles = new File[] { new File("file1.jpg"),
         new File("file2.jpg"), ignoreFile };
     File[] expectedDirectoriesTopLevel = new File[] { ignoreDir };
-    FilenameFilter extensionFilter = appConfig.getFilenameFilter();
+    FilenameFilter extensionFilter = appConfig.getImageTypeFilenameFilter();
     expect(startDirectoryMock.listFiles(extensionFilter)).andReturn(expectedFiles);
     expect(startDirectoryMock.listFiles(IterateDirectoriesImpl.DIRECTORY_FILTER))
     .andReturn(expectedDirectoriesTopLevel);

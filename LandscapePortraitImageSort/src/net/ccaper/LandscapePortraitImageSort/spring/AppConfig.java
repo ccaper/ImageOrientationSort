@@ -91,7 +91,7 @@ public class AppConfig {
   }
 
   // visible for testing
-  public FilenameFilter getFilenameFilter() {
+  public FilenameFilter getImageTypeFilenameFilter() {
     return new FilenameFilter() {
       @Override
       public boolean accept(File dir, String name) {
