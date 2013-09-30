@@ -50,6 +50,21 @@ public class AppConfig {
     return generateFilesFromString(ignoreFiles);
   }
 
+  @Bean
+  public FilenameFilter getImageTypeFilenameFilter() {
+    return new FilenameFilter() {
+      @Override
+      public boolean accept(File dir, String name) {
+        for (String extension : IMAGE_TYPES) {
+          if (name.toLowerCase().endsWith("." + extension)) {
+            return true;
+          }
+        }
+        return false;
+      }
+    };
+  }
+
   // visible for testing
   static File generateFileFromString(String string) {
     return new File(convertSlashToOsFileDelimiter(
@@ -88,20 +103,5 @@ public class AppConfig {
       throw new IllegalArgumentException(String.format(
           "The path %s contains illegal file delimiters.", string));
     }
-  }
-
-  // visible for testing
-  public FilenameFilter getImageTypeFilenameFilter() {
-    return new FilenameFilter() {
-      @Override
-      public boolean accept(File dir, String name) {
-        for (String extension : IMAGE_TYPES) {
-          if (name.toLowerCase().endsWith("." + extension)) {
-            return true;
-          }
-        }
-        return false;
-      }
-    };
   }
 }
