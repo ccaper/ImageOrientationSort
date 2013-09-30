@@ -37,7 +37,6 @@ public class IterateDirectoriesImpl implements IterateDirectories {
   private int filesNotSkipped = 0;
   private int directoriesNotSkipped = 0;
 
-
   /**
    * 
    * @param startDirectory
@@ -148,31 +147,37 @@ public class IterateDirectoriesImpl implements IterateDirectories {
     filesAndDirsSeeded = true;
   }
 
+  // TODO: test
   @Override
   public int getFilesFound() {
     return filesFound;
   }
 
+  // TODO: test
   @Override
   public int getFilesSkipped() {
     return filesSkipped;
   }
 
+  // TODO: test
   @Override
   public int getFilesNotSkipped() {
     return filesNotSkipped;
   }
 
+  // TODO: test
   @Override
   public int getDirectoriesFound() {
     return directoriesFound;
   }
 
+  // TODO: test
   @Override
   public int getDirectoriesSkipped() {
     return directoriesSkipped;
   }
 
+  // TODO: test
   @Override
   public int getDirectoriesNotSkipped() {
     return directoriesNotSkipped;
