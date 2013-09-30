@@ -88,7 +88,6 @@ public class IterateDirectoriesImpl implements IterateDirectories {
   private File getFileFromFiles() {
     File file = files.remove();
     ++filesFound;
-    // fix ignore bug
     if (ignoreFiles.contains(file)) { // skip if file should be ignored
       ++filesSkipped;
       LOG.info(String.format(
@@ -109,7 +108,6 @@ public class IterateDirectoriesImpl implements IterateDirectories {
   private File getFileFromSubDirectory() {
     File dir = dirs.remove();
     ++directoriesFound;
-    // TODO: fix ignore bug
     if (ignoreDirectories.contains(dir)) { // skip if dir should be ignored
       ++directoriesSkipped;
       LOG.info(String.format(
