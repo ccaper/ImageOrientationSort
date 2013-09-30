@@ -90,7 +90,7 @@ public class AppConfig {
     }
   }
 
-  // visble for testing
+  // visible for testing
   public FilenameFilter getFilenameFilter() {
     return new FilenameFilter() {
       @Override
