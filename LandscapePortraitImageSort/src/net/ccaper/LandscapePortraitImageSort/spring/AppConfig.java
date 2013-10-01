@@ -1,7 +1,6 @@
 package net.ccaper.LandscapePortraitImageSort.spring;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,19 +19,6 @@ public class AppConfig {
   static final String UNIX_FILE_DELIMETER = "/";
   // visible for testing
   static final String LIST_SEPARATOR = ";";
-  // visible for testing
-  // TODO: count number of files that are filtered out
-  static FilenameFilter extensionFilenameFilter = new FilenameFilter() {
-    @Override
-    public boolean accept(File dir, String name) {
-      for (String extension : IMAGE_TYPES) {
-        if (name.toLowerCase().endsWith("." + extension)) {
-          return true;
-        }
-      }
-      return false;
-    }
-  };
   private @Value("${start_directory}")
   String startDirectory;
   private @Value("${destination_directory}")
@@ -61,11 +47,6 @@ public class AppConfig {
   @Bean(name = "ignoreFiles")
   public List<File> getIgnoreFiles() {
     return generateFilesFromString(ignoreFiles);
-  }
-
-  @Bean
-  public FilenameFilter getImageTypeFilenameFilter() {
-    return extensionFilenameFilter;
   }
 
   // visible for testing

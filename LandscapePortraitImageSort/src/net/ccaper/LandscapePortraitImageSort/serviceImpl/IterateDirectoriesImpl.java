@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Queue;
 
 import net.ccaper.LandscapePortraitImageSort.service.IterateDirectories;
+import net.ccaper.LandscapePortraitImageSort.spring.AppConfig;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -23,9 +24,21 @@ public class IterateDirectoriesImpl implements IterateDirectories {
       return new File(dir, name).isDirectory();
     }
   };
+  // visible for testing
+  // TODO: count number of files that are filtered out
+  static FilenameFilter extensionFilenameFilter = new FilenameFilter() {
+    @Override
+    public boolean accept(File dir, String name) {
+      for (String extension : AppConfig.IMAGE_TYPES) {
+        if (name.toLowerCase().endsWith("." + extension)) {
+          return true;
+        }
+      }
+      return false;
+    }
+  };
   private final Queue<File> files = new LinkedList<File>();
   private final Queue<File> dirs = new LinkedList<File>();
-  private final FilenameFilter extensionFilter;
   private final File startDirectory;
   private boolean filesAndDirsSeeded = false;
   private final List<File> ignoreFiles;
@@ -49,10 +62,8 @@ public class IterateDirectoriesImpl implements IterateDirectories {
    *          A list of directories to ignore, which also ignores all sub
    *          directories of an ignore directory
    */
-  public IterateDirectoriesImpl(File startDirectory,
-      FilenameFilter extensionFilter, List<File> ignoreFiles,
+  public IterateDirectoriesImpl(File startDirectory, List<File> ignoreFiles,
       List<File> ignoreDirectories) {
-    this.extensionFilter = extensionFilter;
     this.startDirectory = startDirectory;
     if (ignoreFiles == null) {
       this.ignoreFiles = new ArrayList<File>();
@@ -115,7 +126,7 @@ public class IterateDirectoriesImpl implements IterateDirectories {
           dir.getAbsolutePath()));
     } else {
       ++numberDirectoriesNotSkipped;
-      File[] filesInDir = dir.listFiles(extensionFilter);
+      File[] filesInDir = dir.listFiles(extensionFilenameFilter);
       if (filesInDir != null) {
         files.addAll(Arrays.asList(filesInDir));
       }
@@ -133,7 +144,7 @@ public class IterateDirectoriesImpl implements IterateDirectories {
    */
   private void seedFilesAndDirs() {
     if (startDirectory != null) {
-      File[] filesArray = startDirectory.listFiles(extensionFilter);
+      File[] filesArray = startDirectory.listFiles(extensionFilenameFilter);
       if (filesArray != null) {
         files.addAll(Arrays.asList(filesArray));
       }

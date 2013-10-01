@@ -1,7 +1,6 @@
 package net.ccaper.LandscapePortraitImageSort;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.util.List;
 
 import net.ccaper.LandscapePortraitImageSort.service.IterateDirectories;
@@ -38,7 +37,7 @@ public class Driver {
     Driver.LOG.info("Filtering files for extensions: "
         + StringUtils.join(AppConfig.IMAGE_TYPES, ", "));
     IterateDirectories iterateDirectories = new IterateDirectoriesImpl(
-        startDirectory, context.getBean(FilenameFilter.class), ignoreFiles,
+        startDirectory, ignoreFiles,
         ignoreDirectories);
     File file = iterateDirectories.getFile();
     while (file != null) {
