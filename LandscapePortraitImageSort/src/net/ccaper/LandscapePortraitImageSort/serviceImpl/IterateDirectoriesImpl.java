@@ -26,7 +26,7 @@ public class IterateDirectoriesImpl implements IterateDirectories {
   };
   // visible for testing
   // TODO: count number of files that are filtered out
-  static FilenameFilter extensionFilenameFilter = new FilenameFilter() {
+  final FilenameFilter extensionFilenameFilter = new FilenameFilter() {
     @Override
     public boolean accept(File dir, String name) {
       for (String extension : AppConfig.IMAGE_TYPES) {
