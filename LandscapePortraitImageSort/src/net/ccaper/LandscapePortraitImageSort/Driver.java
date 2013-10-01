@@ -56,6 +56,8 @@ public class Driver {
         iterateDirectories.getNumberDirectoriesSkipped()));
     Driver.LOG.info(String.format("Number directories not skipped: %d",
         iterateDirectories.getNumberDirectoriesNotSkipped()));
+    Driver.LOG.info(String.format("Number non image files: %d",
+        iterateDirectories.getNumberNonImageFiles()));
     Driver.LOG.info("Ending Landscape Portrait Image Sort");
   }
 }
