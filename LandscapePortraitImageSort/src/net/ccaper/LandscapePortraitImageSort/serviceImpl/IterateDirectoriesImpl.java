@@ -25,7 +25,6 @@ public class IterateDirectoriesImpl implements IterateDirectories {
     }
   };
   // visible for testing
-  // TODO: count number of files that are filtered out
   final FilenameFilter extensionFilenameFilter = new FilenameFilter() {
     @Override
     public boolean accept(File dir, String name) {
@@ -34,6 +33,7 @@ public class IterateDirectoriesImpl implements IterateDirectories {
           return true;
         }
       }
+      ++numberNonImageFiles;
       return false;
     }
   };
@@ -49,6 +49,7 @@ public class IterateDirectoriesImpl implements IterateDirectories {
   private int numberDirectoriesFound = 0;
   private int numberDirectoriesSkipped = 0;
   private int numberDirectoriesNotSkipped = 0;
+  private int numberNonImageFiles = 0;
 
   /**
    * 
@@ -184,5 +185,10 @@ public class IterateDirectoriesImpl implements IterateDirectories {
   @Override
   public int getNumberDirectoriesNotSkipped() {
     return numberDirectoriesNotSkipped;
+  }
+
+  @Override
+  public int getNumberNonImageFiles() {
+    return numberNonImageFiles;
   }
 }

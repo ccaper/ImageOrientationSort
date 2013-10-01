@@ -107,6 +107,6 @@ public class AppConfigTest {
     assertEquals(
         expected,
         AppConfig
-        .generateFilesFromString(" /some/path/File1.txt , /some/path/File 2.txt , /some/path/File3.txt "));
+        .generateFilesFromString(" /some/path/File1.txt ; /some/path/File 2.txt ; /some/path/File3.txt "));
   }
 }

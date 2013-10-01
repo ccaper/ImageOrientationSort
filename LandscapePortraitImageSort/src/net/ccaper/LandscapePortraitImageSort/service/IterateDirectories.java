@@ -67,4 +67,11 @@ public interface IterateDirectories {
    * @return The number of directories not skipped
    */
   int getNumberDirectoriesNotSkipped();
+
+  /**
+   * Returns the number of non image files
+   * 
+   * @return the number of non image files
+   */
+  int getNumberNonImageFiles();
 }

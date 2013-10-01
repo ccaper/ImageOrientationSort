@@ -71,6 +71,7 @@ public class IterateDirectoriesImplTest {
     assertEquals(0, iterateDirs.getNumberDirectoriesFound());
     assertEquals(0, iterateDirs.getNumberDirectoriesSkipped());
     assertEquals(0, iterateDirs.getNumberDirectoriesNotSkipped());
+    assertEquals(0, iterateDirs.getNumberNonImageFiles());
     verify(startDirectoryMock);
   }
 
@@ -101,6 +102,7 @@ public class IterateDirectoriesImplTest {
     assertEquals(0, iterateDirs.getNumberDirectoriesFound());
     assertEquals(0, iterateDirs.getNumberDirectoriesSkipped());
     assertEquals(0, iterateDirs.getNumberDirectoriesNotSkipped());
+    assertEquals(0, iterateDirs.getNumberNonImageFiles());
     verify(startDirectoryMock);
   }
 
@@ -132,6 +134,7 @@ public class IterateDirectoriesImplTest {
     assertEquals(0, iterateDirs.getNumberDirectoriesFound());
     assertEquals(0, iterateDirs.getNumberDirectoriesSkipped());
     assertEquals(0, iterateDirs.getNumberDirectoriesNotSkipped());
+    assertEquals(0, iterateDirs.getNumberNonImageFiles());
     verify(startDirectoryMock);
   }
 
@@ -163,6 +166,7 @@ public class IterateDirectoriesImplTest {
     assertEquals(0, iterateDirs.getNumberDirectoriesFound());
     assertEquals(0, iterateDirs.getNumberDirectoriesSkipped());
     assertEquals(0, iterateDirs.getNumberDirectoriesNotSkipped());
+    assertEquals(0, iterateDirs.getNumberNonImageFiles());
     verify(startDirectoryMock);
   }
 
@@ -206,6 +210,7 @@ public class IterateDirectoriesImplTest {
     assertEquals(1, iterateDirs.getNumberDirectoriesFound());
     assertEquals(0, iterateDirs.getNumberDirectoriesSkipped());
     assertEquals(1, iterateDirs.getNumberDirectoriesNotSkipped());
+    assertEquals(0, iterateDirs.getNumberNonImageFiles());
     verify(startDirectoryMock);
     verify(dir1Mock);
   }
@@ -251,6 +256,7 @@ public class IterateDirectoriesImplTest {
     assertEquals(1, iterateDirs.getNumberDirectoriesFound());
     assertEquals(0, iterateDirs.getNumberDirectoriesSkipped());
     assertEquals(1, iterateDirs.getNumberDirectoriesNotSkipped());
+    assertEquals(0, iterateDirs.getNumberNonImageFiles());
     verify(startDirectoryMock);
     verify(dir1Mock);
   }
@@ -298,6 +304,7 @@ public class IterateDirectoriesImplTest {
     assertEquals(2, iterateDirs.getNumberDirectoriesFound());
     assertEquals(0, iterateDirs.getNumberDirectoriesSkipped());
     assertEquals(2, iterateDirs.getNumberDirectoriesNotSkipped());
+    assertEquals(0, iterateDirs.getNumberNonImageFiles());
     verify(startDirectoryMock);
     verify(dir1Mock);
     verify(dir2Mock);
@@ -335,6 +342,7 @@ public class IterateDirectoriesImplTest {
     assertEquals(0, iterateDirs.getNumberDirectoriesFound());
     assertEquals(0, iterateDirs.getNumberDirectoriesSkipped());
     assertEquals(0, iterateDirs.getNumberDirectoriesNotSkipped());
+    assertEquals(0, iterateDirs.getNumberNonImageFiles());
     verify(startDirectoryMock);
   }
 
@@ -370,6 +378,7 @@ public class IterateDirectoriesImplTest {
     assertEquals(1, iterateDirs.getNumberDirectoriesFound());
     assertEquals(1, iterateDirs.getNumberDirectoriesSkipped());
     assertEquals(0, iterateDirs.getNumberDirectoriesNotSkipped());
+    assertEquals(0, iterateDirs.getNumberNonImageFiles());
     verify(startDirectoryMock);
   }
 
@@ -409,6 +418,7 @@ public class IterateDirectoriesImplTest {
     assertEquals(1, iterateDirs.getNumberDirectoriesFound());
     assertEquals(1, iterateDirs.getNumberDirectoriesSkipped());
     assertEquals(0, iterateDirs.getNumberDirectoriesNotSkipped());
+    assertEquals(0, iterateDirs.getNumberNonImageFiles());
     verify(startDirectoryMock);
   }
 
