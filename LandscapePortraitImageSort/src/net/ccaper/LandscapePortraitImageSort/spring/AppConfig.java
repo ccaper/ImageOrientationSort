@@ -21,6 +21,7 @@ public class AppConfig {
   // visible for testing
   static final String LIST_SEPARATOR = ";";
   // visible for testing
+  // TODO: count number of files that are filtered out
   static FilenameFilter extensionFilenameFilter = new FilenameFilter() {
     @Override
     public boolean accept(File dir, String name) {
