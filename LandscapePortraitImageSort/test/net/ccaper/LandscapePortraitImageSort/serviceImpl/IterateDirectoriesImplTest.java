@@ -64,12 +64,12 @@ public class IterateDirectoriesImplTest {
     }
     assertEquals(0, files.size());
     assertTrue(files.containsAll(Arrays.asList(new File[] {})));
-    assertEquals(0, iterateDirs.getFilesFound());
-    assertEquals(0, iterateDirs.getFilesSkipped());
-    assertEquals(0, iterateDirs.getFilesNotSkipped());
-    assertEquals(0, iterateDirs.getDirectoriesFound());
-    assertEquals(0, iterateDirs.getDirectoriesSkipped());
-    assertEquals(0, iterateDirs.getDirectoriesNotSkipped());
+    assertEquals(0, iterateDirs.getNumberFilesFound());
+    assertEquals(0, iterateDirs.getNumberFilesSkipped());
+    assertEquals(0, iterateDirs.getNumberFilesNotSkipped());
+    assertEquals(0, iterateDirs.getNumberDirectoriesFound());
+    assertEquals(0, iterateDirs.getNumberDirectoriesSkipped());
+    assertEquals(0, iterateDirs.getNumberDirectoriesNotSkipped());
     verify(startDirectoryMock);
   }
 
@@ -92,12 +92,12 @@ public class IterateDirectoriesImplTest {
     }
     assertEquals(expectedFiles.length, files.size());
     assertTrue(files.containsAll(Arrays.asList(expectedFiles)));
-    assertEquals(0, iterateDirs.getFilesFound());
-    assertEquals(0, iterateDirs.getFilesSkipped());
-    assertEquals(0, iterateDirs.getFilesNotSkipped());
-    assertEquals(0, iterateDirs.getDirectoriesFound());
-    assertEquals(0, iterateDirs.getDirectoriesSkipped());
-    assertEquals(0, iterateDirs.getDirectoriesNotSkipped());
+    assertEquals(0, iterateDirs.getNumberFilesFound());
+    assertEquals(0, iterateDirs.getNumberFilesSkipped());
+    assertEquals(0, iterateDirs.getNumberFilesNotSkipped());
+    assertEquals(0, iterateDirs.getNumberDirectoriesFound());
+    assertEquals(0, iterateDirs.getNumberDirectoriesSkipped());
+    assertEquals(0, iterateDirs.getNumberDirectoriesNotSkipped());
     verify(startDirectoryMock);
   }
 
@@ -121,12 +121,12 @@ public class IterateDirectoriesImplTest {
     }
     assertEquals(expectedFiles.length, files.size());
     assertTrue(files.containsAll(Arrays.asList(expectedFiles)));
-    assertEquals(0, iterateDirs.getFilesFound());
-    assertEquals(0, iterateDirs.getFilesSkipped());
-    assertEquals(0, iterateDirs.getFilesNotSkipped());
-    assertEquals(0, iterateDirs.getDirectoriesFound());
-    assertEquals(0, iterateDirs.getDirectoriesSkipped());
-    assertEquals(0, iterateDirs.getDirectoriesNotSkipped());
+    assertEquals(0, iterateDirs.getNumberFilesFound());
+    assertEquals(0, iterateDirs.getNumberFilesSkipped());
+    assertEquals(0, iterateDirs.getNumberFilesNotSkipped());
+    assertEquals(0, iterateDirs.getNumberDirectoriesFound());
+    assertEquals(0, iterateDirs.getNumberDirectoriesSkipped());
+    assertEquals(0, iterateDirs.getNumberDirectoriesNotSkipped());
     verify(startDirectoryMock);
   }
 
@@ -150,12 +150,12 @@ public class IterateDirectoriesImplTest {
     }
     assertEquals(expectedFiles.length, files.size());
     assertTrue(files.containsAll(Arrays.asList(expectedFiles)));
-    assertEquals(2, iterateDirs.getFilesFound());
-    assertEquals(0, iterateDirs.getFilesSkipped());
-    assertEquals(2, iterateDirs.getFilesNotSkipped());
-    assertEquals(0, iterateDirs.getDirectoriesFound());
-    assertEquals(0, iterateDirs.getDirectoriesSkipped());
-    assertEquals(0, iterateDirs.getDirectoriesNotSkipped());
+    assertEquals(2, iterateDirs.getNumberFilesFound());
+    assertEquals(0, iterateDirs.getNumberFilesSkipped());
+    assertEquals(2, iterateDirs.getNumberFilesNotSkipped());
+    assertEquals(0, iterateDirs.getNumberDirectoriesFound());
+    assertEquals(0, iterateDirs.getNumberDirectoriesSkipped());
+    assertEquals(0, iterateDirs.getNumberDirectoriesNotSkipped());
     verify(startDirectoryMock);
   }
 
@@ -191,12 +191,12 @@ public class IterateDirectoriesImplTest {
     assertEquals(allExpectedFiles.size(), files.size());
     assertTrue(files.containsAll(Arrays.asList(expectedFilesTopLevel)));
     assertTrue(files.containsAll(allExpectedFiles));
-    assertEquals(2, iterateDirs.getFilesFound());
-    assertEquals(0, iterateDirs.getFilesSkipped());
-    assertEquals(2, iterateDirs.getFilesNotSkipped());
-    assertEquals(1, iterateDirs.getDirectoriesFound());
-    assertEquals(0, iterateDirs.getDirectoriesSkipped());
-    assertEquals(1, iterateDirs.getDirectoriesNotSkipped());
+    assertEquals(2, iterateDirs.getNumberFilesFound());
+    assertEquals(0, iterateDirs.getNumberFilesSkipped());
+    assertEquals(2, iterateDirs.getNumberFilesNotSkipped());
+    assertEquals(1, iterateDirs.getNumberDirectoriesFound());
+    assertEquals(0, iterateDirs.getNumberDirectoriesSkipped());
+    assertEquals(1, iterateDirs.getNumberDirectoriesNotSkipped());
     verify(startDirectoryMock);
     verify(dir1Mock);
   }
@@ -234,12 +234,12 @@ public class IterateDirectoriesImplTest {
     assertEquals(allExpectedFiles.size(), files.size());
     assertTrue(files.containsAll(Arrays.asList(expectedFilesTopLevel)));
     assertTrue(files.containsAll(allExpectedFiles));
-    assertEquals(4, iterateDirs.getFilesFound());
-    assertEquals(0, iterateDirs.getFilesSkipped());
-    assertEquals(4, iterateDirs.getFilesNotSkipped());
-    assertEquals(1, iterateDirs.getDirectoriesFound());
-    assertEquals(0, iterateDirs.getDirectoriesSkipped());
-    assertEquals(1, iterateDirs.getDirectoriesNotSkipped());
+    assertEquals(4, iterateDirs.getNumberFilesFound());
+    assertEquals(0, iterateDirs.getNumberFilesSkipped());
+    assertEquals(4, iterateDirs.getNumberFilesNotSkipped());
+    assertEquals(1, iterateDirs.getNumberDirectoriesFound());
+    assertEquals(0, iterateDirs.getNumberDirectoriesSkipped());
+    assertEquals(1, iterateDirs.getNumberDirectoriesNotSkipped());
     verify(startDirectoryMock);
     verify(dir1Mock);
   }
@@ -281,12 +281,12 @@ public class IterateDirectoriesImplTest {
     assertEquals(allExpectedFiles.size(), files.size());
     assertTrue(files.containsAll(Arrays.asList(expectedFilesTopLevel)));
     assertTrue(files.containsAll(allExpectedFiles));
-    assertEquals(2, iterateDirs.getFilesFound());
-    assertEquals(0, iterateDirs.getFilesSkipped());
-    assertEquals(2, iterateDirs.getFilesNotSkipped());
-    assertEquals(2, iterateDirs.getDirectoriesFound());
-    assertEquals(0, iterateDirs.getDirectoriesSkipped());
-    assertEquals(2, iterateDirs.getDirectoriesNotSkipped());
+    assertEquals(2, iterateDirs.getNumberFilesFound());
+    assertEquals(0, iterateDirs.getNumberFilesSkipped());
+    assertEquals(2, iterateDirs.getNumberFilesNotSkipped());
+    assertEquals(2, iterateDirs.getNumberDirectoriesFound());
+    assertEquals(0, iterateDirs.getNumberDirectoriesSkipped());
+    assertEquals(2, iterateDirs.getNumberDirectoriesNotSkipped());
     verify(startDirectoryMock);
     verify(dir1Mock);
     verify(dir2Mock);
@@ -315,12 +315,12 @@ public class IterateDirectoriesImplTest {
     }
     assertEquals(expectedFiles.length - 1, files.size());
     assertTrue(files.containsAll(Arrays.asList(ArrayUtils.subarray(expectedFiles, 0, 2))));
-    assertEquals(3, iterateDirs.getFilesFound());
-    assertEquals(1, iterateDirs.getFilesSkipped());
-    assertEquals(2, iterateDirs.getFilesNotSkipped());
-    assertEquals(0, iterateDirs.getDirectoriesFound());
-    assertEquals(0, iterateDirs.getDirectoriesSkipped());
-    assertEquals(0, iterateDirs.getDirectoriesNotSkipped());
+    assertEquals(3, iterateDirs.getNumberFilesFound());
+    assertEquals(1, iterateDirs.getNumberFilesSkipped());
+    assertEquals(2, iterateDirs.getNumberFilesNotSkipped());
+    assertEquals(0, iterateDirs.getNumberDirectoriesFound());
+    assertEquals(0, iterateDirs.getNumberDirectoriesSkipped());
+    assertEquals(0, iterateDirs.getNumberDirectoriesNotSkipped());
     verify(startDirectoryMock);
   }
 
@@ -348,12 +348,12 @@ public class IterateDirectoriesImplTest {
     }
     assertEquals(expectedFiles.length, files.size());
     assertTrue(files.containsAll(Arrays.asList(expectedFiles)));
-    assertEquals(2, iterateDirs.getFilesFound());
-    assertEquals(0, iterateDirs.getFilesSkipped());
-    assertEquals(2, iterateDirs.getFilesNotSkipped());
-    assertEquals(1, iterateDirs.getDirectoriesFound());
-    assertEquals(1, iterateDirs.getDirectoriesSkipped());
-    assertEquals(0, iterateDirs.getDirectoriesNotSkipped());
+    assertEquals(2, iterateDirs.getNumberFilesFound());
+    assertEquals(0, iterateDirs.getNumberFilesSkipped());
+    assertEquals(2, iterateDirs.getNumberFilesNotSkipped());
+    assertEquals(1, iterateDirs.getNumberDirectoriesFound());
+    assertEquals(1, iterateDirs.getNumberDirectoriesSkipped());
+    assertEquals(0, iterateDirs.getNumberDirectoriesNotSkipped());
     verify(startDirectoryMock);
   }
 
@@ -384,12 +384,12 @@ public class IterateDirectoriesImplTest {
     }
     assertEquals(expectedFiles.length - 1, files.size());
     assertTrue(files.containsAll(Arrays.asList(ArrayUtils.subarray(expectedFiles, 0, 2))));
-    assertEquals(3, iterateDirs.getFilesFound());
-    assertEquals(1, iterateDirs.getFilesSkipped());
-    assertEquals(2, iterateDirs.getFilesNotSkipped());
-    assertEquals(1, iterateDirs.getDirectoriesFound());
-    assertEquals(1, iterateDirs.getDirectoriesSkipped());
-    assertEquals(0, iterateDirs.getDirectoriesNotSkipped());
+    assertEquals(3, iterateDirs.getNumberFilesFound());
+    assertEquals(1, iterateDirs.getNumberFilesSkipped());
+    assertEquals(2, iterateDirs.getNumberFilesNotSkipped());
+    assertEquals(1, iterateDirs.getNumberDirectoriesFound());
+    assertEquals(1, iterateDirs.getNumberDirectoriesSkipped());
+    assertEquals(0, iterateDirs.getNumberDirectoriesNotSkipped());
     verify(startDirectoryMock);
   }
 }

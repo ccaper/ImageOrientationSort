@@ -30,12 +30,12 @@ public class IterateDirectoriesImpl implements IterateDirectories {
   private boolean filesAndDirsSeeded = false;
   private final List<File> ignoreFiles;
   private final List<File> ignoreDirectories;
-  private int filesFound = 0;
-  private int directoriesFound = 0;
-  private int filesSkipped = 0;
-  private int directoriesSkipped = 0;
-  private int filesNotSkipped = 0;
-  private int directoriesNotSkipped = 0;
+  private int numberFilesFound = 0;
+  private int numberFilesSkipped = 0;
+  private int numberFilesNotSkipped = 0;
+  private int numberDirectoriesFound = 0;
+  private int numberDirectoriesSkipped = 0;
+  private int numberDirectoriesNotSkipped = 0;
 
   /**
    * 
@@ -87,15 +87,15 @@ public class IterateDirectoriesImpl implements IterateDirectories {
    */
   private File getFileFromFiles() {
     File file = files.remove();
-    ++filesFound;
+    ++numberFilesFound;
     if (ignoreFiles.contains(file)) { // skip if file should be ignored
-      ++filesSkipped;
+      ++numberFilesSkipped;
       LOG.info(String.format(
           "The file '%s' was found in the ignore files list, skipped.",
           file.getAbsolutePath()));
       return getFile();
     } else {
-      ++filesNotSkipped;
+      ++numberFilesNotSkipped;
       return file;
     }
   }
@@ -107,14 +107,14 @@ public class IterateDirectoriesImpl implements IterateDirectories {
    */
   private File getFileFromSubDirectory() {
     File dir = dirs.remove();
-    ++directoriesFound;
+    ++numberDirectoriesFound;
     if (ignoreDirectories.contains(dir)) { // skip if dir should be ignored
-      ++directoriesSkipped;
+      ++numberDirectoriesSkipped;
       LOG.info(String.format(
           "The directory '%s' was found in the ignore files list, skipped.",
           dir.getAbsolutePath()));
     } else {
-      ++directoriesNotSkipped;
+      ++numberDirectoriesNotSkipped;
       File[] filesInDir = dir.listFiles(extensionFilter);
       if (filesInDir != null) {
         files.addAll(Arrays.asList(filesInDir));
@@ -146,32 +146,32 @@ public class IterateDirectoriesImpl implements IterateDirectories {
   }
 
   @Override
-  public int getFilesFound() {
-    return filesFound;
+  public int getNumberFilesFound() {
+    return numberFilesFound;
   }
 
   @Override
-  public int getFilesSkipped() {
-    return filesSkipped;
+  public int getNumberFilesSkipped() {
+    return numberFilesSkipped;
   }
 
   @Override
-  public int getFilesNotSkipped() {
-    return filesNotSkipped;
+  public int getNumberFilesNotSkipped() {
+    return numberFilesNotSkipped;
   }
 
   @Override
-  public int getDirectoriesFound() {
-    return directoriesFound;
+  public int getNumberDirectoriesFound() {
+    return numberDirectoriesFound;
   }
 
   @Override
-  public int getDirectoriesSkipped() {
-    return directoriesSkipped;
+  public int getNumberDirectoriesSkipped() {
+    return numberDirectoriesSkipped;
   }
 
   @Override
-  public int getDirectoriesNotSkipped() {
-    return directoriesNotSkipped;
+  public int getNumberDirectoriesNotSkipped() {
+    return numberDirectoriesNotSkipped;
   }
 }

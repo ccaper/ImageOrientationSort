@@ -46,17 +46,17 @@ public class Driver {
       file = iterateDirectories.getFile();
     }
     Driver.LOG.info(String.format("Number files found: %d",
-        iterateDirectories.getFilesFound()));
+        iterateDirectories.getNumberFilesFound()));
     Driver.LOG.info(String.format("Number files skipped: %d",
-        iterateDirectories.getFilesSkipped()));
+        iterateDirectories.getNumberFilesSkipped()));
     Driver.LOG.info(String.format("Number files not skipped: %d",
-        iterateDirectories.getFilesNotSkipped()));
+        iterateDirectories.getNumberFilesNotSkipped()));
     Driver.LOG.info(String.format("Number directories found: %d",
-        iterateDirectories.getDirectoriesFound()));
+        iterateDirectories.getNumberDirectoriesFound()));
     Driver.LOG.info(String.format("Number directories skipped: %d",
-        iterateDirectories.getDirectoriesSkipped()));
+        iterateDirectories.getNumberDirectoriesSkipped()));
     Driver.LOG.info(String.format("Number directories not skipped: %d",
-        iterateDirectories.getDirectoriesNotSkipped()));
+        iterateDirectories.getNumberDirectoriesNotSkipped()));
     Driver.LOG.info("Ending Landscape Portrait Image Sort");
   }
 }

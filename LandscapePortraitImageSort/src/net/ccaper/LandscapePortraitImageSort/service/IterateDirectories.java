@@ -28,14 +28,14 @@ public interface IterateDirectories {
    * 
    * @return The total number of files seen
    */
-  int getFilesFound();
+  int getNumberFilesFound();
 
   /**
    * Returns the number of files skipped due to a match in the ignore files list
    * 
    * @return The number of files skipped
    */
-  int getFilesSkipped();
+  int getNumberFilesSkipped();
 
   /**
    * Returns the number of files seen that did not match in the ignore files
@@ -43,14 +43,14 @@ public interface IterateDirectories {
    * 
    * @return The number of files not skipped
    */
-  int getFilesNotSkipped();
+  int getNumberFilesNotSkipped();
 
   /**
    * Returns the total number of directories seen
    * 
    * @return Returns the total number of directories seen
    */
-  int getDirectoriesFound();
+  int getNumberDirectoriesFound();
 
   /**
    * Returns the number of directories skipped due to a match in the ignore
@@ -58,7 +58,7 @@ public interface IterateDirectories {
    * 
    * @return The number of directories skipped
    */
-  int getDirectoriesSkipped();
+  int getNumberDirectoriesSkipped();
 
   /**
    * Returns the number of directories seen that did not match in the ignore
@@ -66,5 +66,5 @@ public interface IterateDirectories {
    * 
    * @return The number of directories not skipped
    */
-  int getDirectoriesNotSkipped();
+  int getNumberDirectoriesNotSkipped();
 }
