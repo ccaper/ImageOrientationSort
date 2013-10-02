@@ -22,10 +22,7 @@ public class LandscapePortraitUtils {
   };
 
   // TODO: junit
-  // TODO: refactor
   public static Orientation getImageOrientation(File file) {
-    int height = 0;
-    int width = 0;
     String fileExtension = getFileExtension(file);
     ImageReader imageReader = getImageReaderForImageFile(fileExtension);
     if (imageReader == null) {
@@ -33,25 +30,38 @@ public class LandscapePortraitUtils {
           "Could not find an image reader for image type '%s' for file '%s'.",
           fileExtension, file.getAbsolutePath()));
     }
-    ImageInputStream stream = null;
+    return getOrientationFromFile(file, imageReader);
+  }
+
+  // TODO: junit
+  static Orientation getOrientationFromFile(File file, ImageReader imageReader) {
+    ImageInputStream imageInputStream = null;
     try {
-      stream = new FileImageInputStream(file);
-      imageReader.setInput(stream);
-      width = imageReader.getWidth(imageReader.getMinIndex());
-      height = imageReader.getHeight(imageReader.getMinIndex());
+      imageInputStream = new FileImageInputStream(file);
+      return getOrientationFromImageInputStream(imageInputStream, imageReader);
     } catch (IOException e) {
       LOG.error(String.format("IOException while reading %s.",
-          file.getAbsoluteFile()), e);
+          file.getAbsolutePath()), e);
+      return null;
     } finally {
       imageReader.dispose();
       try {
-        stream.close();
+        imageInputStream.close();
       } catch (IOException e) {
         LOG.error(
             String.format("IOException while closing %s.",
-                file.getAbsoluteFile()), e);
+                file.getAbsolutePath()), e);
       }
     }
+  }
+
+  // TODO: junit
+  static Orientation getOrientationFromImageInputStream(
+      ImageInputStream imageInputStream, ImageReader imageReader)
+          throws IOException {
+    imageReader.setInput(imageInputStream);
+    int width = imageReader.getWidth(imageReader.getMinIndex());
+    int height = imageReader.getHeight(imageReader.getMinIndex());
     return getOrientationFromDimensions(width, height);
   }
 
