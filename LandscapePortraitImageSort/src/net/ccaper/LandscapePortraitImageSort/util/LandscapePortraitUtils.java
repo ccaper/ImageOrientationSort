@@ -34,6 +34,7 @@ public class LandscapePortraitUtils {
   }
 
   // TODO: junit
+  // visible for testing
   static Orientation getOrientationFromFile(File file, ImageReader imageReader) {
     ImageInputStream imageInputStream = null;
     try {
@@ -56,6 +57,7 @@ public class LandscapePortraitUtils {
   }
 
   // TODO: junit
+  // visible for testing
   static Orientation getOrientationFromImageInputStream(
       ImageInputStream imageInputStream, ImageReader imageReader)
           throws IOException {
