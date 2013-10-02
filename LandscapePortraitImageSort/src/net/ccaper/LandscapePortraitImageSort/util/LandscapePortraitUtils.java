@@ -56,7 +56,6 @@ public class LandscapePortraitUtils {
     }
   }
 
-  // TODO: junit
   static Orientation getOrientationFromImageInputStream(
       ImageInputStream imageInputStream, ImageReader imageReader)
           throws IOException {
