@@ -12,9 +12,9 @@ import javax.imageio.stream.ImageInputStream;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class LandscapePortriatUtils {
+public class LandscapePortraitUtils {
   private static final Log LOG = LogFactory
-      .getLog(LandscapePortriatUtils.class);
+      .getLog(LandscapePortraitUtils.class);
 
   public enum Orientation {
     LANDSCAPE, PORTRAIT, EQUAL
@@ -51,6 +51,12 @@ public class LandscapePortriatUtils {
         }
       }
     }
+    return getOrientationFromDimensions(width, height);
+  }
+
+  // TODO: junit
+  // visible for testing
+  static Orientation getOrientationFromDimensions(int width, int height) {
     if (height > width) {
       return Orientation.PORTRAIT;
     } else if (height < width) {
