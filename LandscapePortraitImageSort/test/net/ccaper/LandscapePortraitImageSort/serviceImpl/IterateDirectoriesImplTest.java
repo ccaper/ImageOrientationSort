@@ -34,7 +34,7 @@ public class IterateDirectoriesImplTest {
   }
 
   @Test
-  public void testGetFile_NullStartDirectory() {
+  public void testGetFile_NullStartDirectory() throws Exception {
     IterateDirectories iterateDirs = new IterateDirectoriesImpl(null, null,
         null);
     File file = iterateDirs.getFile();
@@ -47,7 +47,7 @@ public class IterateDirectoriesImplTest {
   }
 
   @Test
-  public void testGetFile_NullFilesNullDirectories() {
+  public void testGetFile_NullFilesNullDirectories() throws Exception {
     File startDirectoryMock = createMock(File.class);
     IterateDirectoriesImpl iterateDirs = new IterateDirectoriesImpl(
         startDirectoryMock, null, null);
@@ -76,7 +76,7 @@ public class IterateDirectoriesImplTest {
   }
 
   @Test
-  public void testGetFile_EmptyFilesNullDirectories() {
+  public void testGetFile_EmptyFilesNullDirectories() throws Exception {
     File[] expectedFiles = new File[] {};
     File startDirectoryMock = createMock(File.class);
     IterateDirectoriesImpl iterateDirs = new IterateDirectoriesImpl(
@@ -107,7 +107,7 @@ public class IterateDirectoriesImplTest {
   }
 
   @Test
-  public void testGetFile_EmptyFilesEmptyDirectories() {
+  public void testGetFile_EmptyFilesEmptyDirectories() throws Exception {
     File[] expectedFiles = new File[] {};
     File[] expectedDirectories = new File[] {};
     File startDirectoryMock = createMock(File.class);
@@ -139,7 +139,7 @@ public class IterateDirectoriesImplTest {
   }
 
   @Test
-  public void testGetFile_OnlyFilesNoDirectories() {
+  public void testGetFile_OnlyFilesNoDirectories() throws Exception {
     File[] expectedFiles = new File[] { new File("file1.jpg"),
         new File("file2.jpg") };
     File startDirectoryMock = createMock(File.class);
@@ -171,7 +171,7 @@ public class IterateDirectoriesImplTest {
   }
 
   @Test
-  public void testGetFile_OnlyFilesInSubDirectory() {
+  public void testGetFile_OnlyFilesInSubDirectory() throws Exception {
     File startDirectoryMock = createMock(File.class);
     File dir1Mock = createMock(File.class);
     File[] expectedFilesTopLevel = new File[] {};
@@ -216,7 +216,7 @@ public class IterateDirectoriesImplTest {
   }
 
   @Test
-  public void testGetFile_FilesInStartDirAndFilesInSubDirectory() {
+  public void testGetFile_FilesInStartDirAndFilesInSubDirectory() throws Exception {
     File startDirectoryMock = createMock(File.class);
     File dir1Mock = createMock(File.class);
     File[] expectedFilesTopLevel = new File[] { new File("file1.jpg"),
@@ -262,7 +262,7 @@ public class IterateDirectoriesImplTest {
   }
 
   @Test
-  public void testGetFile_EmptySubDir() {
+  public void testGetFile_EmptySubDir() throws Exception {
     File startDirectoryMock = createMock(File.class);
     File dir1Mock = createMock(File.class);
     File dir2Mock = createMock(File.class);
@@ -311,7 +311,7 @@ public class IterateDirectoriesImplTest {
   }
 
   @Test
-  public void testGetFile_ignoreFiles() {
+  public void testGetFile_ignoreFiles() throws Exception {
     List<File> ignoreFiles = new ArrayList<File>();
     File ignoreFile = new File("file3.jpg");
     ignoreFiles.add(ignoreFile);
@@ -347,7 +347,7 @@ public class IterateDirectoriesImplTest {
   }
 
   @Test
-  public void testGetFile_ignoreDirs() {
+  public void testGetFile_ignoreDirs() throws Exception {
     List<File> ignoreDirs = new ArrayList<File>();
     File ignoreDir = new File("dir2");
     ignoreDirs.add(ignoreDir);
@@ -383,7 +383,7 @@ public class IterateDirectoriesImplTest {
   }
 
   @Test
-  public void testGetFile_ignoreFilesAndDirs() {
+  public void testGetFile_ignoreFilesAndDirs() throws Exception {
     List<File> ignoreFiles = new ArrayList<File>();
     File ignoreFile = new File("file3.jpg");
     ignoreFiles.add(ignoreFile);
@@ -423,7 +423,7 @@ public class IterateDirectoriesImplTest {
   }
 
   @Test
-  public void testExtensionFilenameFilterAccept() {
+  public void testExtensionFilenameFilterAccept() throws Exception {
     IterateDirectoriesImpl iterateDirs = new IterateDirectoriesImpl(
         null, null, null);
     assertTrue(iterateDirs.extensionFilenameFilter.accept(new File("blahDir"),

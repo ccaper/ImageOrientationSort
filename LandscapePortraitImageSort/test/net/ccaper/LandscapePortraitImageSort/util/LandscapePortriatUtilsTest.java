@@ -29,7 +29,7 @@ public class LandscapePortriatUtilsTest {
   }
 
   @Test
-  public void testGetOrientationFromDimensions() {
+  public void testGetOrientationFromDimensions() throws Exception {
     assertEquals(LandscapePortraitUtils.Orientation.LANDSCAPE,
         LandscapePortraitUtils.getOrientationFromDimensions(10, 5));
     assertEquals(LandscapePortraitUtils.Orientation.PORTRAIT,
@@ -39,8 +39,7 @@ public class LandscapePortriatUtilsTest {
   }
 
   @Test
-  // TODO: add throws Exception, here, and everywhere
-  public void testGetFileExtention() {
+  public void testGetFileExtention() throws Exception {
     assertEquals("jpg",
         LandscapePortraitUtils.getFileExtension(new File("blah.jpg")));
     assertEquals(null, LandscapePortraitUtils.getFileExtension(null));
@@ -51,7 +50,7 @@ public class LandscapePortriatUtilsTest {
   }
 
   @Test
-  public void testGetImageReaderForImageFile() {
+  public void testGetImageReaderForImageFile() throws Exception {
     assertNotNull(LandscapePortraitUtils.getImageReaderForImageFile("jpg"));
     assertNull(LandscapePortraitUtils.getImageReaderForImageFile(null));
     assertNull(LandscapePortraitUtils
