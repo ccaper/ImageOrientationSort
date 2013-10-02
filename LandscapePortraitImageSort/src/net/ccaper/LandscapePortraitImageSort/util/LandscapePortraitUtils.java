@@ -56,6 +56,7 @@ public class LandscapePortraitUtils {
     }
   }
 
+  // visible for testing
   static Orientation getOrientationFromImageInputStream(
       ImageInputStream imageInputStream, ImageReader imageReader)
           throws IOException {
