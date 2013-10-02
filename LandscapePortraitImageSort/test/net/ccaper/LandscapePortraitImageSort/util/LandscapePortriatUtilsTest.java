@@ -2,6 +2,9 @@ package net.ccaper.LandscapePortraitImageSort.util;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.File;
+
+import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,4 +29,14 @@ public class LandscapePortriatUtilsTest {
         LandscapePortraitUtils.getOrientationFromDimensions(5, 5));
   }
 
+  @Test
+  public void testGetFileExtention() {
+    assertEquals("jpg",
+        LandscapePortraitUtils.getFileExtension(new File("blah.jpg")));
+    assertEquals(null, LandscapePortraitUtils.getFileExtension(null));
+    assertEquals(null,
+        LandscapePortraitUtils.getFileExtension(new File("blah")));
+    assertEquals(null,
+        LandscapePortraitUtils.getFileExtension(new File(StringUtils.EMPTY)));
+  }
 }

@@ -22,12 +22,11 @@ public class LandscapePortraitUtils {
 
   // TODO: junit
   // TODO: refactor
-  public static Orientation getOrientation(File file) {
+  public static Orientation getImageOrientation(File file) {
     int height = 0;
     int width = 0;
-    String suffix = file.getName().substring(
-        file.getName().lastIndexOf('.') + 1);
-    Iterator<ImageReader> iter = ImageIO.getImageReadersBySuffix(suffix);
+    String fileExtension = getFileExtension(file);
+    Iterator<ImageReader> iter = ImageIO.getImageReadersBySuffix(fileExtension);
     if (iter.hasNext()) {
       ImageReader reader = iter.next();
       ImageInputStream stream = null;
@@ -52,6 +51,17 @@ public class LandscapePortraitUtils {
       }
     }
     return getOrientationFromDimensions(width, height);
+  }
+
+  // visible for testing
+  static String getFileExtension(File file) {
+    if (file == null) {
+      return null;
+    }
+    if (!file.getName().contains(".")) {
+      return null;
+    }
+    return file.getName().substring(file.getName().lastIndexOf('.') + 1);
   }
 
   // visible for testing
