@@ -54,7 +54,6 @@ public class LandscapePortraitUtils {
     return getOrientationFromDimensions(width, height);
   }
 
-  // TODO: junit
   // visible for testing
   static Orientation getOrientationFromDimensions(int width, int height) {
     if (height > width) {
