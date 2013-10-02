@@ -1,10 +1,17 @@
 package net.ccaper.LandscapePortraitImageSort.util;
 
+import static org.easymock.EasyMock.createMock;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.replay;
+import static org.easymock.EasyMock.verify;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import java.io.File;
+
+import javax.imageio.ImageReader;
+import javax.imageio.stream.ImageInputStream;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
@@ -32,6 +39,7 @@ public class LandscapePortriatUtilsTest {
   }
 
   @Test
+  // TODO: add throws Exception, here, and everywhere
   public void testGetFileExtention() {
     assertEquals("jpg",
         LandscapePortraitUtils.getFileExtension(new File("blah.jpg")));
@@ -46,7 +54,25 @@ public class LandscapePortriatUtilsTest {
   public void testGetImageReaderForImageFile() {
     assertNotNull(LandscapePortraitUtils.getImageReaderForImageFile("jpg"));
     assertNull(LandscapePortraitUtils.getImageReaderForImageFile(null));
-    assertNull(LandscapePortraitUtils.getImageReaderForImageFile(StringUtils.EMPTY));
+    assertNull(LandscapePortraitUtils
+        .getImageReaderForImageFile(StringUtils.EMPTY));
     assertNull(LandscapePortraitUtils.getImageReaderForImageFile("txt"));
+  }
+
+  @Test
+  public void testGetOrientationFromImageInputStream() throws Exception {
+    ImageInputStream imageInputStreamMock = createMock(ImageInputStream.class);
+    ImageReader imageReaderMock = createMock(ImageReader.class);
+    expect(imageReaderMock.getMinIndex()).andReturn(0);
+    expect(imageReaderMock.getWidth(0)).andReturn(5);
+    expect(imageReaderMock.getHeight(0)).andReturn(10);
+    imageReaderMock.setInput(imageInputStreamMock);
+    replay(imageReaderMock);
+    replay(imageInputStreamMock);
+    assertEquals(LandscapePortraitUtils.Orientation.PORTRAIT,
+        LandscapePortraitUtils.getOrientationFromImageInputStream(
+            imageInputStreamMock, imageReaderMock));
+    verify(imageReaderMock);
+    verify(imageInputStreamMock);
   }
 }

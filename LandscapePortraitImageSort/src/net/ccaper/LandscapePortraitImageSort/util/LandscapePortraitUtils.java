@@ -57,13 +57,13 @@ public class LandscapePortraitUtils {
   }
 
   // TODO: junit
-  // visible for testing
   static Orientation getOrientationFromImageInputStream(
       ImageInputStream imageInputStream, ImageReader imageReader)
           throws IOException {
     imageReader.setInput(imageInputStream);
-    int width = imageReader.getWidth(imageReader.getMinIndex());
-    int height = imageReader.getHeight(imageReader.getMinIndex());
+    int minIndex = imageReader.getMinIndex();
+    int width = imageReader.getWidth(minIndex);
+    int height = imageReader.getHeight(minIndex);
     return getOrientationFromDimensions(width, height);
   }
 
