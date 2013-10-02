@@ -9,6 +9,7 @@ import javax.imageio.ImageReader;
 import javax.imageio.stream.FileImageInputStream;
 import javax.imageio.stream.ImageInputStream;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -26,31 +27,45 @@ public class LandscapePortraitUtils {
     int height = 0;
     int width = 0;
     String fileExtension = getFileExtension(file);
-    Iterator<ImageReader> iter = ImageIO.getImageReadersBySuffix(fileExtension);
-    if (iter.hasNext()) {
-      ImageReader reader = iter.next();
-      ImageInputStream stream = null;
+    ImageReader imageReader = getImageReaderForImageFile(fileExtension);
+    if (imageReader == null) {
+      LOG.error(String.format(
+          "Could not find an image reader for image type '%s' for file '%s'.",
+          fileExtension, file.getAbsolutePath()));
+    }
+    ImageInputStream stream = null;
+    try {
+      stream = new FileImageInputStream(file);
+      imageReader.setInput(stream);
+      width = imageReader.getWidth(imageReader.getMinIndex());
+      height = imageReader.getHeight(imageReader.getMinIndex());
+    } catch (IOException e) {
+      LOG.error(String.format("IOException while reading %s.",
+          file.getAbsoluteFile()), e);
+    } finally {
+      imageReader.dispose();
       try {
-        stream = new FileImageInputStream(file);
-        reader.setInput(stream);
-        width = reader.getWidth(reader.getMinIndex());
-        height = reader.getHeight(reader.getMinIndex());
+        stream.close();
       } catch (IOException e) {
         LOG.error(
-            String.format("IOException while reading %s.",
+            String.format("IOException while closing %s.",
                 file.getAbsoluteFile()), e);
-      } finally {
-        reader.dispose();
-        try {
-          stream.close();
-        } catch (IOException e) {
-          LOG.error(
-              String.format("IOException while closing %s.",
-                  file.getAbsoluteFile()), e);
-        }
       }
     }
     return getOrientationFromDimensions(width, height);
+  }
+
+  // visible for testing
+  static ImageReader getImageReaderForImageFile(String fileExtension) {
+    if (StringUtils.isEmpty(fileExtension)) {
+      return null;
+    }
+    Iterator<ImageReader> iter = ImageIO.getImageReadersBySuffix(fileExtension);
+    if (iter.hasNext()) {
+      return iter.next();
+    } else {
+      return null;
+    }
   }
 
   // visible for testing

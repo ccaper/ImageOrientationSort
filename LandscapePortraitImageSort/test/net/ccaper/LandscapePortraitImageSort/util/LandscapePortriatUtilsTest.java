@@ -1,6 +1,8 @@
 package net.ccaper.LandscapePortraitImageSort.util;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.io.File;
 
@@ -38,5 +40,13 @@ public class LandscapePortriatUtilsTest {
         LandscapePortraitUtils.getFileExtension(new File("blah")));
     assertEquals(null,
         LandscapePortraitUtils.getFileExtension(new File(StringUtils.EMPTY)));
+  }
+
+  @Test
+  public void testGetImageReaderForImageFile() {
+    assertNotNull(LandscapePortraitUtils.getImageReaderForImageFile("jpg"));
+    assertNull(LandscapePortraitUtils.getImageReaderForImageFile(null));
+    assertNull(LandscapePortraitUtils.getImageReaderForImageFile(StringUtils.EMPTY));
+    assertNull(LandscapePortraitUtils.getImageReaderForImageFile("txt"));
   }
 }
