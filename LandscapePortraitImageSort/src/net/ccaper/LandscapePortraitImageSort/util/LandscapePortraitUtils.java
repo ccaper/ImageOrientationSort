@@ -29,6 +29,7 @@ public class LandscapePortraitUtils {
       LOG.error(String.format(
           "Could not find an image reader for image type '%s' for file '%s'.",
           fileExtension, file.getAbsolutePath()));
+      return null;
     }
     return getOrientationFromFile(file, imageReader);
   }
