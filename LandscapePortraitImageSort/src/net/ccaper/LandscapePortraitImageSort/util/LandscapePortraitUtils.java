@@ -22,7 +22,7 @@ public class LandscapePortraitUtils {
   };
 
   // TODO: junit
-  public static Orientation getImageOrientation(File file) {
+  public Orientation getImageOrientation(File file) {
     String fileExtension = getFileExtension(file);
     ImageReader imageReader = getImageReaderForImageFile(fileExtension);
     if (imageReader == null) {
@@ -36,10 +36,13 @@ public class LandscapePortraitUtils {
 
   // TODO: junit
   // visible for testing
-  static Orientation getOrientationFromFile(File file, ImageReader imageReader) {
+  Orientation getOrientationFromFile(File file, ImageReader imageReader) {
+    if (imageReader == null) {
+      return null;
+    }
     ImageInputStream imageInputStream = null;
     try {
-      imageInputStream = new FileImageInputStream(file);
+      imageInputStream = getFileImageInputStream(file);
       return getOrientationFromImageInputStream(imageInputStream, imageReader);
     } catch (IOException e) {
       LOG.error(String.format("IOException while reading %s.",
@@ -57,6 +60,11 @@ public class LandscapePortraitUtils {
                 file.getAbsolutePath()), e);
       }
     }
+  }
+
+  // visible for testing
+  FileImageInputStream getFileImageInputStream(File file) throws IOException {
+    return new FileImageInputStream(file);
   }
 
   // visible for testing
