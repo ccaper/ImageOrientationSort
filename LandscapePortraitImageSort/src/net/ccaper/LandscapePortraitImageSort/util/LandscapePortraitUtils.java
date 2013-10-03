@@ -47,7 +47,9 @@ public class LandscapePortraitUtils {
     } finally {
       imageReader.dispose();
       try {
-        imageInputStream.close();
+        if (imageInputStream != null) {
+          imageInputStream.close();
+        }
       } catch (IOException e) {
         LOG.error(
             String.format("IOException while closing %s.",
