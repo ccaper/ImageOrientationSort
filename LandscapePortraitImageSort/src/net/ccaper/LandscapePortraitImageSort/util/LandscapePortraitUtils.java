@@ -72,6 +72,9 @@ public class LandscapePortraitUtils {
   Orientation getOrientationFromImageInputStream(
       ImageInputStream imageInputStream, ImageReader imageReader)
       throws IOException {
+    if (imageInputStream == null) {
+      return null;
+    }
     imageReader.setInput(imageInputStream);
     int minIndex = imageReader.getMinIndex();
     int width = imageReader.getWidth(minIndex);
