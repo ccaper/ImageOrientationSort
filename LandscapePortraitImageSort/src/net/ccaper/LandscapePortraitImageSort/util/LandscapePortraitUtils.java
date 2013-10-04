@@ -50,9 +50,7 @@ public class LandscapePortraitUtils {
           file.getAbsolutePath()), e);
       return null;
     } finally {
-      if (imageReader != null) {
-        imageReader.dispose();
-      }
+      imageReader.dispose();
       try {
         if (imageInputStream != null) {
           imageInputStream.close();
@@ -73,7 +71,7 @@ public class LandscapePortraitUtils {
   // visible for testing
   Orientation getOrientationFromImageInputStream(
       ImageInputStream imageInputStream, ImageReader imageReader)
-          throws IOException {
+      throws IOException {
     imageReader.setInput(imageInputStream);
     int minIndex = imageReader.getMinIndex();
     int width = imageReader.getWidth(minIndex);
