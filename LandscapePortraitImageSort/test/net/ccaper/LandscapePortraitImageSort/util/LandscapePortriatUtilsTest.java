@@ -85,7 +85,6 @@ public class LandscapePortriatUtilsTest {
     LandscapePortraitUtils landscapePortraitUtils = new LandscapePortraitUtils();
     assertNull(landscapePortraitUtils.getOrientationFromFile(
         createMock(File.class), null));
-
   }
 
   @Test
