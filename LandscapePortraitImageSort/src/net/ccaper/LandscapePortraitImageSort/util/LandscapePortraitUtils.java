@@ -21,7 +21,6 @@ public class LandscapePortraitUtils {
     LANDSCAPE, PORTRAIT, EQUAL
   };
 
-  // TODO: junit
   public Orientation getImageOrientation(File file) {
     if (file == null) {
       return null;
@@ -37,7 +36,6 @@ public class LandscapePortraitUtils {
     return getOrientationFromFile(file, imageReader);
   }
 
-  // TODO: junit
   // visible for testing
   Orientation getOrientationFromFile(File file, ImageReader imageReader) {
     ImageInputStream imageInputStream = null;
@@ -84,7 +82,7 @@ public class LandscapePortraitUtils {
   }
 
   // visible for testing
-  static ImageReader getImageReaderForImageFile(String fileExtension) {
+  ImageReader getImageReaderForImageFile(String fileExtension) {
     if (StringUtils.isEmpty(fileExtension)) {
       return null;
     }

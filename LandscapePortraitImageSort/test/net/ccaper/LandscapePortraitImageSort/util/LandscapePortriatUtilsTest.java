@@ -54,11 +54,12 @@ public class LandscapePortriatUtilsTest {
 
   @Test
   public void testGetImageReaderForImageFile() throws Exception {
-    assertNotNull(LandscapePortraitUtils.getImageReaderForImageFile("jpg"));
-    assertNull(LandscapePortraitUtils.getImageReaderForImageFile(null));
-    assertNull(LandscapePortraitUtils
+    LandscapePortraitUtils landscapePortraitUtils = new LandscapePortraitUtils();
+    assertNotNull(landscapePortraitUtils.getImageReaderForImageFile("jpg"));
+    assertNull(landscapePortraitUtils.getImageReaderForImageFile(null));
+    assertNull(landscapePortraitUtils
         .getImageReaderForImageFile(StringUtils.EMPTY));
-    assertNull(LandscapePortraitUtils.getImageReaderForImageFile("txt"));
+    assertNull(landscapePortraitUtils.getImageReaderForImageFile("txt"));
   }
 
   @Test
@@ -84,7 +85,7 @@ public class LandscapePortriatUtilsTest {
     LandscapePortraitUtils landscapePortraitUtils = new LandscapePortraitUtils();
     assertNull(landscapePortraitUtils.getOrientationFromFile(
         createMock(File.class), null));
-    
+
   }
 
   @Test
@@ -101,8 +102,8 @@ public class LandscapePortriatUtilsTest {
     ImageReader imageReaderMock = createMock(ImageReader.class);
     imageReaderMock.dispose();
     replay(imageReaderMock);
-    LandscapePortraitUtils landscapePortraitUtils = new LandscapePortraitUtilsMock();
-    assertNull(landscapePortraitUtils.getOrientationFromFile(
+    LandscapePortraitUtils landscapePortraitUtilsMock = new LandscapePortraitUtilsMock();
+    assertNull(landscapePortraitUtilsMock.getOrientationFromFile(
         createMock(File.class), imageReaderMock));
     verify(imageReaderMock);
   }
@@ -114,7 +115,6 @@ public class LandscapePortriatUtilsTest {
       @Override
       FileImageInputStream getFileImageInputStream(File file)
           throws IOException {
-        // note this mock can't throw exception when closed in finally
         return createMock(FileImageInputStream.class);
       }
 
@@ -125,11 +125,12 @@ public class LandscapePortriatUtilsTest {
         throw new IOException("this is a test");
       }
     }
+
     ImageReader imageReaderMock = createMock(ImageReader.class);
     imageReaderMock.dispose();
     replay(imageReaderMock);
-    LandscapePortraitUtils landscapePortraitUtils = new LandscapePortraitUtilsMock();
-    assertNull(landscapePortraitUtils.getOrientationFromFile(
+    LandscapePortraitUtils landscapePortraitUtilsMock = new LandscapePortraitUtilsMock();
+    assertNull(landscapePortraitUtilsMock.getOrientationFromFile(
         createMock(File.class), imageReaderMock));
     verify(imageReaderMock);
   }
@@ -155,15 +156,16 @@ public class LandscapePortriatUtilsTest {
         throw new IOException("this is a test");
       }
     }
+
     ImageReader imageReaderMock = createMock(ImageReader.class);
     imageReaderMock.dispose();
     replay(imageReaderMock);
-    LandscapePortraitUtils landscapePortraitUtils = new LandscapePortraitUtilsMock();
+    LandscapePortraitUtils landscapePortraitUtilsMock = new LandscapePortraitUtilsMock();
     File fileMock = createMock(File.class);
     expect(fileMock.getAbsolutePath()).andReturn("test").times(2);
     replay(fileMock);
-    assertNull(landscapePortraitUtils.getOrientationFromFile(
-        fileMock, imageReaderMock));
+    assertNull(landscapePortraitUtilsMock.getOrientationFromFile(fileMock,
+        imageReaderMock));
     verify(imageReaderMock);
     verify(fileMock);
   }
@@ -186,8 +188,8 @@ public class LandscapePortriatUtilsTest {
       }
     }
 
-    LandscapePortraitUtils landscapePortraitUtils = new LandscapePortraitUtilsMock();
-    assertNull(landscapePortraitUtils.getOrientationFromFile(
+    LandscapePortraitUtils landscapePortraitUtilsMock = new LandscapePortraitUtilsMock();
+    assertNull(landscapePortraitUtilsMock.getOrientationFromFile(
         createMock(File.class), createMock(ImageReader.class)));
   }
 
@@ -209,8 +211,8 @@ public class LandscapePortriatUtilsTest {
       }
     }
 
-    LandscapePortraitUtils landscapePortraitUtils = new LandscapePortraitUtilsMock();
-    assertNull(landscapePortraitUtils.getOrientationFromFile(
+    LandscapePortraitUtils landscapePortraitUtilsMock = new LandscapePortraitUtilsMock();
+    assertNull(landscapePortraitUtilsMock.getOrientationFromFile(
         createMock(File.class), createMock(ImageReader.class)));
   }
 
@@ -236,8 +238,47 @@ public class LandscapePortriatUtilsTest {
       }
     }
 
-    LandscapePortraitUtils landscapePortraitUtils = new LandscapePortraitUtilsMock();
-    assertNull(landscapePortraitUtils.getOrientationFromFile(
+    LandscapePortraitUtils landscapePortraitUtilsMock = new LandscapePortraitUtilsMock();
+    assertNull(landscapePortraitUtilsMock.getOrientationFromFile(
         createMock(File.class), createMock(ImageReader.class)));
+  }
+
+  @Test
+  public void testGetImageOrientation_NullFile() throws Exception {
+    LandscapePortraitUtils landscapePortraitUtils = new LandscapePortraitUtils();
+    assertNull(landscapePortraitUtils.getImageOrientation(null));
+  }
+
+  @Test
+  public void testGetImageOrientation_ImageReaderNull() throws Exception {
+    class LandscapePortraitUtilsMock extends LandscapePortraitUtils {
+      @Override
+      ImageReader getImageReaderForImageFile(String fileExtension) {
+        return null;
+      }
+    }
+
+    LandscapePortraitUtils landscapePortraitUtilsMock = new LandscapePortraitUtilsMock();
+    assertNull(landscapePortraitUtilsMock
+        .getImageOrientation(new File("blah.jpg")));
+  }
+  
+  @Test
+  public void testGetImageOrientation() throws Exception {
+    class LandscapePortraitUtilsMock extends LandscapePortraitUtils {
+      @Override
+      ImageReader getImageReaderForImageFile(String fileExtension) {
+        return createMock(ImageReader.class);
+      }
+      
+      @Override
+      Orientation getOrientationFromFile(File file, ImageReader imageReader) {
+        return Orientation.LANDSCAPE;
+      }
+    }
+
+    LandscapePortraitUtils landscapePortraitUtilsMock = new LandscapePortraitUtilsMock();
+    assertEquals(LandscapePortraitUtils.Orientation.LANDSCAPE, landscapePortraitUtilsMock
+        .getImageOrientation(new File("blah.jpg")));
   }
 }
