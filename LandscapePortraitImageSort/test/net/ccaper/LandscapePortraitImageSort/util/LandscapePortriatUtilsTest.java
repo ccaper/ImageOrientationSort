@@ -88,8 +88,8 @@ public class LandscapePortriatUtilsTest {
     verify(imageInputStreamMock);
   }
 
-  ////////////////////////////////////////////////////////////////
-  
+  // //////////////////////////////////////////////////////////////
+
   @Test
   public void testGetOrientationFromFile_NullImageReader() throws Exception {
     LandscapePortraitUtils landscapePortraitUtils = new LandscapePortraitUtils();
@@ -144,43 +144,6 @@ public class LandscapePortriatUtilsTest {
     verify(imageReaderMock);
   }
 
-  @Ignore
-  @Test
-  // TODO: remove when test coverage increased
-  public void testGetOrientationFromFile_FileImageInputStream_OrientationFromImageInputStreamThrowsException_ThrowsExceptionWhenClosed()
-      throws Exception {
-    class LandscapePortraitUtilsMock extends LandscapePortraitUtils {
-      @Override
-      FileImageInputStream getFileImageInputStream(File file)
-          throws IOException {
-        FileImageInputStream fileImageInputStremMock = createMock(FileImageInputStream.class);
-        fileImageInputStremMock.close();
-        expectLastCall().andThrow(new IOException("this is a test"));
-        replay(fileImageInputStremMock);
-        return fileImageInputStremMock;
-      }
-
-      @Override
-      Orientation getOrientationFromImageInputStream(
-          ImageInputStream imageInputStream, ImageReader imageReader)
-          throws IOException {
-        throw new IOException("this is a test");
-      }
-    }
-
-    ImageReader imageReaderMock = createMock(ImageReader.class);
-    imageReaderMock.dispose();
-    replay(imageReaderMock);
-    LandscapePortraitUtils landscapePortraitUtilsMock = new LandscapePortraitUtilsMock();
-    File fileMock = createMock(File.class);
-    expect(fileMock.getAbsolutePath()).andReturn("test").times(2);
-    replay(fileMock);
-    assertNull(landscapePortraitUtilsMock.getOrientationFromFile(fileMock,
-        imageReaderMock));
-    verify(imageReaderMock);
-    verify(fileMock);
-  }
-  
   @Test
   public void testGetOrientationFromFile_FileImageInputStreamNull()
       throws Exception {
@@ -226,7 +189,7 @@ public class LandscapePortriatUtilsTest {
     assertNull(landscapePortraitUtilsMock.getOrientationFromFile(
         createMock(File.class), createMock(ImageReader.class)));
   }
-  
+
   @Test
   public void testGetOrientationFromFile_FileImageInputStreamMockThrowsExceptionWhenClosed()
       throws Exception {
@@ -253,8 +216,8 @@ public class LandscapePortriatUtilsTest {
     assertNull(landscapePortraitUtilsMock.getOrientationFromFile(
         createMock(File.class), createMock(ImageReader.class)));
   }
-  
-  ////////////////////////////////////////////////////////
+
+  // //////////////////////////////////////////////////////
 
   @Test
   public void testGetImageOrientation_NullFile() throws Exception {
