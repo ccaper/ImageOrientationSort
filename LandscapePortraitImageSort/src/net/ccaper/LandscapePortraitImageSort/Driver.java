@@ -6,6 +6,8 @@ import java.util.List;
 import net.ccaper.LandscapePortraitImageSort.service.IterateDirectories;
 import net.ccaper.LandscapePortraitImageSort.serviceImpl.IterateDirectoriesImpl;
 import net.ccaper.LandscapePortraitImageSort.spring.AppConfig;
+import net.ccaper.LandscapePortraitImageSort.util.LandscapePortraitUtils;
+import net.ccaper.LandscapePortraitImageSort.util.LandscapePortraitUtils.Orientation;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
@@ -37,12 +39,16 @@ public class Driver {
     Driver.LOG.info("Filtering files for extensions: "
         + StringUtils.join(AppConfig.IMAGE_TYPES, ", "));
     IterateDirectories iterateDirectories = new IterateDirectoriesImpl(
-        startDirectory, ignoreFiles,
-        ignoreDirectories);
+        startDirectory, ignoreFiles, ignoreDirectories);
     File file = iterateDirectories.getFile();
+    LandscapePortraitUtils landscapePortraitUtils = new LandscapePortraitUtils();
     while (file != null) {
-      Driver.LOG.info(String.format("Found file '%s'", file.getAbsolutePath()));
       file = iterateDirectories.getFile();
+      Orientation orientation = landscapePortraitUtils
+          .getImageOrientation(file);
+      Driver.LOG.info(String.format(
+          "File '%s' was found to have orientation %s", file.getAbsolutePath(),
+          orientation));
     }
     Driver.LOG.info(String.format("Number files found: %d",
         iterateDirectories.getNumberFilesFound()));
