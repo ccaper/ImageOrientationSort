@@ -9,6 +9,8 @@ import javax.imageio.ImageReader;
 import javax.imageio.stream.FileImageInputStream;
 import javax.imageio.stream.ImageInputStream;
 
+import net.ccaper.LandscapePortraitImageSort.enums.ImageOrientation;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -17,11 +19,7 @@ public class LandscapePortraitUtils {
   private static final Log LOG = LogFactory
       .getLog(LandscapePortraitUtils.class);
 
-  public enum Orientation {
-    LANDSCAPE, PORTRAIT, EQUAL
-  };
-
-  public Orientation getImageOrientation(File file) {
+  public ImageOrientation getImageOrientation(File file) {
     if (file == null) {
       return null;
     }
@@ -37,7 +35,7 @@ public class LandscapePortraitUtils {
   }
 
   // visible for testing
-  Orientation getOrientationFromFile(File file, ImageReader imageReader) {
+  ImageOrientation getOrientationFromFile(File file, ImageReader imageReader) {
     ImageInputStream imageInputStream = null;
     if (imageReader == null) {
       return null;
@@ -69,9 +67,9 @@ public class LandscapePortraitUtils {
   }
 
   // visible for testing
-  Orientation getOrientationFromImageInputStream(
+  ImageOrientation getOrientationFromImageInputStream(
       ImageInputStream imageInputStream, ImageReader imageReader)
-      throws IOException {
+          throws IOException {
     if (imageInputStream == null) {
       return null;
     }
@@ -107,13 +105,13 @@ public class LandscapePortraitUtils {
   }
 
   // visible for testing
-  static Orientation getOrientationFromDimensions(int width, int height) {
+  static ImageOrientation getOrientationFromDimensions(int width, int height) {
     if (height > width) {
-      return Orientation.PORTRAIT;
+      return ImageOrientation.PORTRAIT;
     } else if (height < width) {
-      return Orientation.LANDSCAPE;
+      return ImageOrientation.LANDSCAPE;
     } else {
-      return Orientation.EQUAL;
+      return ImageOrientation.EQUAL;
     }
   }
 }

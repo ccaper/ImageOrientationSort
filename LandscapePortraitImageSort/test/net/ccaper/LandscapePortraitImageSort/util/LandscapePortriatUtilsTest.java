@@ -16,7 +16,7 @@ import javax.imageio.ImageReader;
 import javax.imageio.stream.FileImageInputStream;
 import javax.imageio.stream.ImageInputStream;
 
-import net.ccaper.LandscapePortraitImageSort.util.LandscapePortraitUtils.Orientation;
+import net.ccaper.LandscapePortraitImageSort.enums.ImageOrientation;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
@@ -24,7 +24,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class LandscapePortriatUtilsTest {
-  private static final Orientation LANDSCAPE = Orientation.LANDSCAPE;
+  private static final ImageOrientation LANDSCAPE = ImageOrientation.LANDSCAPE;
 
   @Before
   public void setUp() throws Exception {
@@ -38,9 +38,9 @@ public class LandscapePortriatUtilsTest {
   public void testGetOrientationFromDimensions() throws Exception {
     assertEquals(LANDSCAPE,
         LandscapePortraitUtils.getOrientationFromDimensions(10, 5));
-    assertEquals(LandscapePortraitUtils.Orientation.PORTRAIT,
+    assertEquals(ImageOrientation.PORTRAIT,
         LandscapePortraitUtils.getOrientationFromDimensions(5, 10));
-    assertEquals(LandscapePortraitUtils.Orientation.EQUAL,
+    assertEquals(ImageOrientation.EQUAL,
         LandscapePortraitUtils.getOrientationFromDimensions(5, 5));
   }
 
@@ -128,7 +128,7 @@ public class LandscapePortriatUtilsTest {
       }
 
       @Override
-      Orientation getOrientationFromImageInputStream(
+      ImageOrientation getOrientationFromImageInputStream(
           ImageInputStream imageInputStream, ImageReader imageReader)
               throws IOException {
         throw new IOException("this is a test");
@@ -155,7 +155,7 @@ public class LandscapePortriatUtilsTest {
       }
 
       @Override
-      Orientation getOrientationFromImageInputStream(
+      ImageOrientation getOrientationFromImageInputStream(
           ImageInputStream imageInputStream, ImageReader imageReader)
               throws IOException {
         return LANDSCAPE;
@@ -178,7 +178,7 @@ public class LandscapePortriatUtilsTest {
       }
 
       @Override
-      Orientation getOrientationFromImageInputStream(
+      ImageOrientation getOrientationFromImageInputStream(
           ImageInputStream imageInputStream, ImageReader imageReader)
               throws IOException {
         return LANDSCAPE;
@@ -205,7 +205,7 @@ public class LandscapePortriatUtilsTest {
       }
 
       @Override
-      Orientation getOrientationFromImageInputStream(
+      ImageOrientation getOrientationFromImageInputStream(
           ImageInputStream imageInputStream, ImageReader imageReader)
               throws IOException {
         return LANDSCAPE;
@@ -246,8 +246,8 @@ public class LandscapePortriatUtilsTest {
       }
 
       @Override
-      Orientation getOrientationFromFile(File file, ImageReader imageReader) {
-        return Orientation.LANDSCAPE;
+      ImageOrientation getOrientationFromFile(File file, ImageReader imageReader) {
+        return ImageOrientation.LANDSCAPE;
       }
     }
 
