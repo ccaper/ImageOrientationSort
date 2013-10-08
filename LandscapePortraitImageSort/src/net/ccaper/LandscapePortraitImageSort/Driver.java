@@ -6,7 +6,7 @@ import java.util.List;
 import net.ccaper.LandscapePortraitImageSort.service.IterateDirectories;
 import net.ccaper.LandscapePortraitImageSort.serviceImpl.IterateDirectoriesImpl;
 import net.ccaper.LandscapePortraitImageSort.spring.AppConfig;
-import net.ccaper.LandscapePortraitImageSort.util.LandscapePortraitUtils;
+import net.ccaper.LandscapePortraitImageSort.util.LandscapePortraitOrientationUtils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
@@ -40,7 +40,7 @@ public class Driver {
     IterateDirectories iterateDirectories = new IterateDirectoriesImpl(
         startDirectory, ignoreFiles, ignoreDirectories);
     File file = iterateDirectories.getFile();
-    LandscapePortraitUtils landscapePortraitUtils = new LandscapePortraitUtils();
+    LandscapePortraitOrientationUtils landscapePortraitUtils = new LandscapePortraitOrientationUtils();
     while (file != null) {
       file = iterateDirectories.getFile();
       net.ccaper.LandscapePortraitImageSort.enums.ImageOrientation orientation = landscapePortraitUtils
@@ -63,6 +63,14 @@ public class Driver {
         iterateDirectories.getNumberDirectoriesNotSkipped()));
     Driver.LOG.info(String.format("Number non image files: %d",
         iterateDirectories.getNumberNonImageFiles()));
+    Driver.LOG.info(String.format("Number of landscape orientation images: %d",
+        landscapePortraitUtils.getNumberLandscapeOrientationImages()));
+    Driver.LOG.info(String.format("Number of portrait orientation images: %d",
+        landscapePortraitUtils.getNumberPortraitOrientationImages()));
+    Driver.LOG.info(String.format("Number of equal orientation images: %d",
+        landscapePortraitUtils.getNumberEqualOrientationImages()));
+    Driver.LOG.info(String.format("Number of images where orietation could not be determined: %d",
+        landscapePortraitUtils.getNumberOrientationProblems()));
     Driver.LOG.info("Ending Landscape Portrait Image Sort");
   }
 }

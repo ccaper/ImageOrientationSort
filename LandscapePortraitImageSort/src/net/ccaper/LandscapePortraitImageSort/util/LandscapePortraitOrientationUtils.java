@@ -15,12 +15,31 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class LandscapePortraitUtils {
+/**
+ * 
+ * @author ccaper (christian.caperton@gmail.com)
+ * 
+ *         Determines the image orientation for a file.
+ * 
+ */
+public class LandscapePortraitOrientationUtils {
   private static final Log LOG = LogFactory
-      .getLog(LandscapePortraitUtils.class);
+      .getLog(LandscapePortraitOrientationUtils.class);
+  private int numberLandscapeOrientationImages = 0;
+  private int numberPortraitOrientationImages = 0;
+  private int numberEqualOrientationImages = 0;
+  private int numberOrientationProblems = 0;
 
+  /**
+   * Gets the image orientation for a file
+   * 
+   * @param file
+   *          The file to determine orientation
+   * @return
+   */
   public ImageOrientation getImageOrientation(File file) {
     if (file == null) {
+      ++numberOrientationProblems;
       return null;
     }
     String fileExtension = getFileExtension(file);
@@ -29,9 +48,29 @@ public class LandscapePortraitUtils {
       LOG.error(String.format(
           "Could not find an image reader for image type '%s' for file '%s'.",
           fileExtension, file.getAbsolutePath()));
+      ++numberOrientationProblems;
       return null;
     }
-    return getOrientationFromFile(file, imageReader);
+    ImageOrientation imageOrientation = getOrientationFromFile(file,
+        imageReader);
+    if (imageOrientation == null) {
+      ++numberOrientationProblems;
+    } else {
+      switch (imageOrientation) {
+      case LANDSCAPE:
+        ++numberLandscapeOrientationImages;
+        break;
+      case PORTRAIT:
+        ++numberPortraitOrientationImages;
+        break;
+      case EQUAL:
+        ++numberEqualOrientationImages;
+        break;
+      default:
+        break;
+      }
+    }
+    return imageOrientation;
   }
 
   // visible for testing
@@ -113,5 +152,41 @@ public class LandscapePortraitUtils {
     } else {
       return ImageOrientation.EQUAL;
     }
+  }
+
+  /**
+   * Gets the number of landscape orientation images
+   * 
+   * @return the number of landscape orientation images
+   */
+  public int getNumberLandscapeOrientationImages() {
+    return numberLandscapeOrientationImages;
+  }
+
+  /**
+   * Gets the number of portrait orientation images
+   * 
+   * @return the number of portrait orientation images
+   */
+  public int getNumberPortraitOrientationImages() {
+    return numberPortraitOrientationImages;
+  }
+
+  /**
+   * Gets the number of equal orientation images
+   * 
+   * @return the number of equal orientation images
+   */
+  public int getNumberEqualOrientationImages() {
+    return numberEqualOrientationImages;
+  }
+
+  /**
+   * Gets the number of images where orientation could not be determined
+   * 
+   * @return the number of images where orientation could not be determined
+   */
+  public int getNumberOrientationProblems() {
+    return numberOrientationProblems;
   }
 }
