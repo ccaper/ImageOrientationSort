@@ -19,6 +19,7 @@ The 3rd party libs for application are:
   -spring-context-support-3.2.2.RELEASE.jar
   -spring-core-3.2.2.RELEASE.jar
   -spring-expression-3.2.2.RELEASE.jar
+-Apache Commons IO 2.2.4 (commons-io-2.4.jar)
 -Apache Commons Logging 1.1.1 (commons-logging-1.1.1.jar)
 -log4j 1.2.17 (log4j/1.2.17/log4j-1.2.17.jar)
 -Apache Commons Lang 3.3.1 (commons-lang3-3.1.jar)
@@ -46,6 +47,12 @@ For easiest use of my ant script, I suggest creating a libs directtory with a st
   | |-commons-lang-3.3.1
   |   |
   |   |-commons-lang-3.3.1.jar
+  |
+  |-commons-io
+  | |
+  | |-commons-io-2.4
+  |   |
+  |   |-commons-io-2.4.jar
   |
   |-commons-logging
   | |
