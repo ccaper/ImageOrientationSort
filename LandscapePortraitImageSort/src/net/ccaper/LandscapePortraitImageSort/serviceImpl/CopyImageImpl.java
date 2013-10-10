@@ -15,22 +15,45 @@ public class CopyImageImpl implements CopyImage {
   private final File startDirectory;
   private final File destinationDirectory;
 
+  // TODO: implement stats
+
   public CopyImageImpl(File startDirectory, File destinationDirectory) {
     this.startDirectory = startDirectory;
     this.destinationDirectory = destinationDirectory;
   }
 
   @Override
-  public void copyImageToOrientationDirectory(File file,
+  public File copyImageToOrientationDirectory(File file,
       ImageOrientation orientation) {
-    String imageFilePathAfterStartDirectory = getFilePathAfterStartDirectory(file);
-    File destinationFile = new File(destinationDirectory,
-        imageFilePathAfterStartDirectory);
+    File destinationFile = createDestinationFile(file, orientation);
+    boolean copySuccess = copyFile(file, destinationFile);
+    if (copySuccess) {
+      // TODO: increment positive counter
+      return destinationFile;
+    } else {
+      // TODO: increment negative counter
+      return null;
+    }
+  }
+
+  //visible for testing
+  // TODO: junit?
+  File createDestinationFile(File originalFile, ImageOrientation orientation) {
+    return new File(new File(destinationDirectory,
+        orientation.getDirectoryName()), getFilePathAfterStartDirectory(originalFile));
+  }
+
+  // visible for testing
+  boolean copyFile(File sourceFile, File destinationFile) {
     try {
-      FileUtils.copyFile(file, destinationFile);
+      FileUtils.copyFile(sourceFile, destinationFile);
+      return true;
     } catch (IOException e) {
-      LOG.error(String.format("Could not copy '%s' to '%s'",
-          file.getAbsolutePath(), destinationFile.getAbsolutePath()), e);
+      LOG.error(
+          String.format("Could not copy '%s' to '%s'",
+              sourceFile.getAbsolutePath(), destinationFile.getAbsolutePath()),
+              e);
+      return false;
     }
   }
 
