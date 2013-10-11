@@ -33,7 +33,9 @@ public class IterateDirectoriesImpl implements IterateDirectories {
           return true;
         }
       }
-      ++numberNonImageFiles;
+      if (new File(dir, name).isFile()) {
+        ++numberNonImageFiles;
+      }
       return false;
     }
   };

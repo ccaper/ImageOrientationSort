@@ -49,14 +49,16 @@ public class Driver {
     CopyImage copyImage = new CopyImageImpl(startDirectory,
         destinationDirectory);
     while (file != null) {
-      file = iterateDirectories.getFile();
       ImageOrientation orientation = landscapePortraitUtils
           .getImageOrientation(file);
-      File copiedFile = copyImage.copyImageToOrientationDirectory(file,
-          orientation);
-      Driver.LOG.info(String.format(
-          "File '%s' was found to have orientation %s, and was copied '%s'",
-          file.getAbsolutePath(), orientation, copiedFile.getAbsolutePath()));
+      if ((file != null) && orientation != null) {
+        File copiedFile = copyImage.copyImageToOrientationDirectory(file,
+            orientation);
+        Driver.LOG.info(String.format(
+            "File '%s' was found to have orientation %s, and was copied '%s'",
+            file.getAbsolutePath(), orientation, copiedFile.getAbsolutePath()));
+      }
+      file = iterateDirectories.getFile();
     }
     Driver.LOG.info(String.format("Number files found: %d",
         iterateDirectories.getNumberFilesFound()));
@@ -79,7 +81,7 @@ public class Driver {
     Driver.LOG.info(String.format("Number of equal orientation images: %d",
         landscapePortraitUtils.getNumberEqualOrientationImages()));
     Driver.LOG.info(String.format(
-        "Number of images where orietation could not be determined: %d",
+        "Number of images where orientation could not be determined: %d",
         landscapePortraitUtils.getNumberOrientationProblems()));
     Driver.LOG.info(String.format("Number of images successfully copied: %d",
         copyImage.getNumberFileCopySuccess()));
