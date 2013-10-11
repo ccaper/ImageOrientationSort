@@ -24,7 +24,9 @@ public class Driver {
     @SuppressWarnings("resource")
     ApplicationContext context = new AnnotationConfigApplicationContext(
         AppConfig.class);
+    // TODO: check if exists and is readable
     File startDirectory = (File) context.getBean("startDirectory");
+    // TODO: check if exists and is writable
     File destinationDirectory = (File) context.getBean("destinationDirectory");
     @SuppressWarnings("unchecked")
     List<File> ignoreDirectories = (List<File>) context
