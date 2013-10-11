@@ -3,7 +3,10 @@ package net.ccaper.LandscapePortraitImageSort;
 import java.io.File;
 import java.util.List;
 
+import net.ccaper.LandscapePortraitImageSort.enums.ImageOrientation;
+import net.ccaper.LandscapePortraitImageSort.service.CopyImage;
 import net.ccaper.LandscapePortraitImageSort.service.IterateDirectories;
+import net.ccaper.LandscapePortraitImageSort.serviceImpl.CopyImageImpl;
 import net.ccaper.LandscapePortraitImageSort.serviceImpl.IterateDirectoriesImpl;
 import net.ccaper.LandscapePortraitImageSort.spring.AppConfig;
 import net.ccaper.LandscapePortraitImageSort.util.LandscapePortraitOrientationUtils;
@@ -41,13 +44,17 @@ public class Driver {
         startDirectory, ignoreFiles, ignoreDirectories);
     File file = iterateDirectories.getFile();
     LandscapePortraitOrientationUtils landscapePortraitUtils = new LandscapePortraitOrientationUtils();
+    CopyImage copyImage = new CopyImageImpl(startDirectory,
+        destinationDirectory);
     while (file != null) {
       file = iterateDirectories.getFile();
-      net.ccaper.LandscapePortraitImageSort.enums.ImageOrientation orientation = landscapePortraitUtils
+      ImageOrientation orientation = landscapePortraitUtils
           .getImageOrientation(file);
+      File copiedFile = copyImage.copyImageToOrientationDirectory(file,
+          orientation);
       Driver.LOG.info(String.format(
-          "File '%s' was found to have orientation %s", file.getAbsolutePath(),
-          orientation));
+          "File '%s' was found to have orientation %s, and was copied '%s'",
+          file.getAbsolutePath(), orientation, copiedFile.getAbsolutePath()));
     }
     Driver.LOG.info(String.format("Number files found: %d",
         iterateDirectories.getNumberFilesFound()));
@@ -69,8 +76,14 @@ public class Driver {
         landscapePortraitUtils.getNumberPortraitOrientationImages()));
     Driver.LOG.info(String.format("Number of equal orientation images: %d",
         landscapePortraitUtils.getNumberEqualOrientationImages()));
-    Driver.LOG.info(String.format("Number of images where orietation could not be determined: %d",
+    Driver.LOG.info(String.format(
+        "Number of images where orietation could not be determined: %d",
         landscapePortraitUtils.getNumberOrientationProblems()));
+    Driver.LOG.info(String.format("Number of images successfully copied: %d",
+        copyImage.getNumberFileCopySuccess()));
+    Driver.LOG.info(String.format(
+        "Number of images not successfully copied: %d",
+        copyImage.getNumberFileCopyFailures()));
     Driver.LOG.info("Ending Landscape Portrait Image Sort");
   }
 }
