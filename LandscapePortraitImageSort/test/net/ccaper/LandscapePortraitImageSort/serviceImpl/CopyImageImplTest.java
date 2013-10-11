@@ -8,6 +8,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 import java.io.File;
+import java.io.IOException;
 
 import net.ccaper.LandscapePortraitImageSort.enums.ImageOrientation;
 
@@ -66,24 +67,26 @@ public class CopyImageImplTest {
       }
 
       @Override
-      boolean copyFile(File sourceFile, File destinationFile) {
-        return true;
+      void copyFile(File sourceFile, File destinationFile) {
+        return;
       }
     }
 
     File startDirectoryMock = createMock(File.class);
     String destinationDirectoryPath = "/some/destination";
-    File destinationDirectory = createMock(File.class);
+    File destinationDirectoryMock = createMock(File.class);
     String fileDirectorySubPath = "/dir2/testImageFile.jpg";
     File imageFileMock = createMock(File.class);
     CopyImageImpl copyImageImplMock = new CopyImageImplMock(startDirectoryMock,
-        destinationDirectory);
+        destinationDirectoryMock);
     File copiedFile = copyImageImplMock.copyImageToOrientationDirectory(
         imageFileMock, ImageOrientation.LANDSCAPE);
     assertEquals(
         destinationDirectoryPath + "/"
             + ImageOrientation.LANDSCAPE.getDirectoryName()
             + fileDirectorySubPath, copiedFile.getAbsolutePath());
+    assertEquals(1, copyImageImplMock.getNumberFileCopySuccess());
+    assertEquals(0, copyImageImplMock.getNumberFileCopyFailures());
   }
 
   @Test
@@ -95,22 +98,28 @@ public class CopyImageImplTest {
 
       @Override
       File createDestinationFile(File originalFile, ImageOrientation orientation) {
-        return null;
+        return originalFile;
       }
 
       @Override
-      boolean copyFile(File sourceFile, File destinationFile) {
-        return false;
+      void copyFile(File sourceFile, File destinationFile) throws IOException {
+        throw new IOException("this is a test");
       }
     }
 
     File startDirectoryMock = createMock(File.class);
-    File destinationDirectory = createMock(File.class);
+    File destinationDirectoryMock = createMock(File.class);
     File imageFileMock = createMock(File.class);
+    expect(imageFileMock.getAbsolutePath()).andReturn(
+        "/this/path/doesNotMatter").times(2);
+    replay(imageFileMock);
     CopyImageImpl copyImageImplMock = new CopyImageImplMock(startDirectoryMock,
-        destinationDirectory);
+        destinationDirectoryMock);
     File copiedFile = copyImageImplMock.copyImageToOrientationDirectory(
         imageFileMock, ImageOrientation.LANDSCAPE);
     assertNull(copiedFile);
+    assertEquals(0, copyImageImplMock.getNumberFileCopySuccess());
+    assertEquals(1, copyImageImplMock.getNumberFileCopyFailures());
+    verify(imageFileMock);
   }
 }

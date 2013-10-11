@@ -14,9 +14,16 @@ public class CopyImageImpl implements CopyImage {
   private static final Log LOG = LogFactory.getLog(CopyImageImpl.class);
   private final File startDirectory;
   private final File destinationDirectory;
+  private int numberFileCopySuccesses = 0;
+  private int numberFileCopyFailures = 0;
 
-  // TODO: implement stats
-
+  /**
+   * 
+   * @param startDirectory
+   *          The start directory
+   * @param destinationDirectory
+   *          The destination directory
+   */
   public CopyImageImpl(File startDirectory, File destinationDirectory) {
     this.startDirectory = startDirectory;
     this.destinationDirectory = destinationDirectory;
@@ -26,37 +33,63 @@ public class CopyImageImpl implements CopyImage {
   public File copyImageToOrientationDirectory(File file,
       ImageOrientation orientation) {
     File destinationFile = createDestinationFile(file, orientation);
-    boolean copySuccess = copyFile(file, destinationFile);
-    if (copySuccess) {
-      // TODO: increment positive counter
+    try {
+      copyFile(file, destinationFile);
+      ++numberFileCopySuccesses;
       return destinationFile;
-    } else {
-      // TODO: increment negative counter
+    } catch (IOException e) {
+      LOG.error(String.format("Could not copy '%s' to '%s'",
+          file.getAbsolutePath(), destinationFile.getAbsolutePath()), e);
+      ++numberFileCopyFailures;
       return null;
     }
   }
 
-  //visible for testing
-  // TODO: junit?
+  /**
+   * Creates the destination file, without touching file system, including the
+   * image orientation into the path, and maintaining the original file's
+   * subfolder structure after the start directory. For example, with a start
+   * directory of "/startDir" and a destination of "/destinationDir" and an
+   * image file with path "/startDir/dir2/imageFile.jpg" and an orientation of
+   * landscape, the destination file will be
+   * "/destinationDir/dir2/imageFile.jpg". Isolated into method to control
+   * testing.
+   * 
+   * @param originalFile
+   *          The original file
+   * @param orientation
+   *          The image orientation
+   * @return
+   */
+  // visible for testing
   File createDestinationFile(File originalFile, ImageOrientation orientation) {
     return new File(new File(destinationDirectory,
-        orientation.getDirectoryName()), getFilePathAfterStartDirectory(originalFile));
+        orientation.getDirectoryName()),
+        getFilePathAfterStartDirectory(originalFile));
   }
 
+  /**
+   * Copies the file. In isolated method to control testing.
+   * 
+   * @param sourceFile
+   *          The source file
+   * @param destinationFile
+   *          The destination file
+   * @throws IOException
+   *           thrown upon copy failure
+   */
   // visible for testing
-  boolean copyFile(File sourceFile, File destinationFile) {
-    try {
-      FileUtils.copyFile(sourceFile, destinationFile);
-      return true;
-    } catch (IOException e) {
-      LOG.error(
-          String.format("Could not copy '%s' to '%s'",
-              sourceFile.getAbsolutePath(), destinationFile.getAbsolutePath()),
-              e);
-      return false;
-    }
+  void copyFile(File sourceFile, File destinationFile) throws IOException {
+    FileUtils.copyFile(sourceFile, destinationFile);
   }
 
+  /**
+   * Gets the file's path after the start directory.
+   * 
+   * @param file
+   *          The file
+   * @return The file's path after the start directory
+   */
   // visible for testing
   String getFilePathAfterStartDirectory(File file) {
     if (file == null) {
@@ -64,5 +97,15 @@ public class CopyImageImpl implements CopyImage {
     }
     return file.getAbsolutePath().replaceFirst(
         startDirectory.getAbsolutePath(), "");
+  }
+
+  @Override
+  public int getNumberFileCopySuccess() {
+    return numberFileCopySuccesses;
+  }
+
+  @Override
+  public int getNumberFileCopyFailures() {
+    return numberFileCopyFailures;
   }
 }

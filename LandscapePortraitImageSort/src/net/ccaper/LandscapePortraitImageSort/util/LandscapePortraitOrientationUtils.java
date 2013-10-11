@@ -35,7 +35,7 @@ public class LandscapePortraitOrientationUtils {
    * 
    * @param file
    *          The file to determine orientation
-   * @return
+   * @return The image orientation
    */
   public ImageOrientation getImageOrientation(File file) {
     if (file == null) {
@@ -73,6 +73,15 @@ public class LandscapePortraitOrientationUtils {
     return imageOrientation;
   }
 
+  /**
+   * Gets the file's image orientation
+   * 
+   * @param file
+   *          The file to determine the image orientation
+   * @param imageReader
+   *          An image reader
+   * @return The image's orientation
+   */
   // visible for testing
   ImageOrientation getOrientationFromFile(File file, ImageReader imageReader) {
     ImageInputStream imageInputStream = null;
@@ -100,11 +109,32 @@ public class LandscapePortraitOrientationUtils {
     }
   }
 
+  /**
+   * Gets a input stream for the image file. Isolated to method to control
+   * testing.
+   * 
+   * @param file
+   *          The file to get an input stream from
+   * @return An input stream
+   * @throws IOException
+   *           Thrown when unable to get input stream
+   */
   // visible for testing
   FileImageInputStream getFileImageInputStream(File file) throws IOException {
     return new FileImageInputStream(file);
   }
 
+  /**
+   * Gets an image orientation from an input stream
+   * 
+   * @param imageInputStream
+   *          An input stream to the image file
+   * @param imageReader
+   *          An image reader
+   * @return An image orientation
+   * @throws IOException
+   *           Thrown when unable to get the image orienation
+   */
   // visible for testing
   ImageOrientation getOrientationFromImageInputStream(
       ImageInputStream imageInputStream, ImageReader imageReader)
@@ -119,6 +149,14 @@ public class LandscapePortraitOrientationUtils {
     return getOrientationFromDimensions(width, height);
   }
 
+  /**
+   * Gets the appropriate image reader for the type of image file.
+   * 
+   * @param fileExtension
+   *          The file's extension type, used to determine the type of image
+   *          reader
+   * @return An image reader
+   */
   // visible for testing
   ImageReader getImageReaderForImageFile(String fileExtension) {
     if (StringUtils.isEmpty(fileExtension)) {
@@ -132,6 +170,13 @@ public class LandscapePortraitOrientationUtils {
     }
   }
 
+  /**
+   * Gets the file extension from a file
+   * 
+   * @param file
+   *          The file to get the file extension
+   * @return The file extension
+   */
   // visible for testing
   static String getFileExtension(File file) {
     if (file == null) {
@@ -143,6 +188,15 @@ public class LandscapePortraitOrientationUtils {
     return file.getName().substring(file.getName().lastIndexOf('.') + 1);
   }
 
+  /**
+   * Gets the image orientation from the image dimensions.
+   * 
+   * @param width
+   *          The width of the image
+   * @param height
+   *          The height of the image
+   * @return The image orientation
+   */
   // visible for testing
   static ImageOrientation getOrientationFromDimensions(int width, int height) {
     if (height > width) {
