@@ -31,8 +31,8 @@ public class Driver {
   
   @SuppressWarnings("unchecked")
   public Driver() {
-    startDirectory = getAndVerifyStartDirectory(context);
-    destinationDirectory = getAndVerifyDestinationDirectory(context);
+    startDirectory = getAndVerifyStartDirectory();
+    destinationDirectory = getAndVerifyDestinationDirectory();
     ignoreDirectories = (List<File>) context
         .getBean("ignoreDirectories");
     ignoreFiles = (List<File>) context.getBean("ignoreFiles");
@@ -43,7 +43,7 @@ public class Driver {
         destinationDirectory);
   }
 
-  public static File getAndVerifyStartDirectory(ApplicationContext context) {
+  public File getAndVerifyStartDirectory() {
     File startDirectory = (File) context.getBean("startDirectory");
     if (!startDirectory.exists()) {
       Driver.LOG.error(String.format(
@@ -60,7 +60,7 @@ public class Driver {
     return startDirectory;
   }
 
-  public static File getAndVerifyDestinationDirectory(ApplicationContext context) {
+  public File getAndVerifyDestinationDirectory() {
     File destinationDirectory = (File) context.getBean("destinationDirectory");
     if (!destinationDirectory.exists()) {
       Driver.LOG.error(String.format(
