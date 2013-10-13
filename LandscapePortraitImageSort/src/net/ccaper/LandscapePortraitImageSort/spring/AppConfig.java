@@ -38,18 +38,8 @@ public class AppConfig {
   @Bean(name = "startDirectory")
   public File getStartDirectory() {
     File startDirectory = generateFileFromString(startDirectoryString);
-    if (!startDirectory.exists()) {
-      Driver.LOG.error(String.format(
-          "The start directory '%s' does not exist.",
-          startDirectory.getAbsolutePath()));
-      System.exit(1);
-    }
-    if (!startDirectory.canRead()) {
-      Driver.LOG.error(String.format(
-          "The start directory '%s' is not readable.",
-          startDirectory.getAbsolutePath()));
-      System.exit(1);
-    }
+    checkExistance(startDirectory);
+    checkReadability(startDirectory);
     return startDirectory;
   }
 
@@ -57,18 +47,8 @@ public class AppConfig {
   @Bean(name = "destinationDirectory")
   public File getDestinationDirectory() {
     File destinationDirectory = generateFileFromString(destinationDirectoryString);
-    if (!destinationDirectory.exists()) {
-      Driver.LOG.error(String.format(
-          "The destination directory '%s' does not exist.",
-          destinationDirectory.getAbsolutePath()));
-      System.exit(1);
-    }
-    if (!destinationDirectory.canWrite()) {
-      Driver.LOG.error(String.format(
-          "The destination directory '%s' is not writable.",
-          destinationDirectory.getAbsolutePath()));
-      System.exit(1);
-    }
+    checkExistance(destinationDirectory);
+    checkWritability(destinationDirectory);
     return destinationDirectory;
   }
 
@@ -119,6 +99,36 @@ public class AppConfig {
     } else {
       throw new IllegalArgumentException(String.format(
           "The path %s contains illegal file delimiters.", string));
+    }
+  }
+
+  // TODO: unit test
+  // visible for testing
+  void checkExistance(File file) {
+    if (!file.exists()) {
+      Driver.LOG.error(String.format("The directory '%s' does not exist.",
+          file.getAbsolutePath()));
+      System.exit(1);
+    }
+  }
+
+  // TODO: unit test
+  // visible for testing
+  void checkReadability(File file) {
+    if (!file.canRead()) {
+      Driver.LOG.error(String.format("The directory '%s' is not readable.",
+          file.getAbsolutePath()));
+      System.exit(1);
+    }
+  }
+
+  // TODO: unit test
+  // visible for testing
+  void checkWritability(File file) {
+    if (!file.canWrite()) {
+      Driver.LOG.error(String.format("The directory '%s' is not writable.",
+          file.getAbsolutePath()));
+      System.exit(1);
     }
   }
 }
