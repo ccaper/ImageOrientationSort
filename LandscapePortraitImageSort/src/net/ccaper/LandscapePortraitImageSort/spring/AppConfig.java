@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.util.StringUtils;
 
+// TODO: switch to auto-wiring
 @Configuration
 @ImportResource("classpath:/net/ccaper/LandscapePortraitImageSort/spring/properties-config.xml")
 public class AppConfig {

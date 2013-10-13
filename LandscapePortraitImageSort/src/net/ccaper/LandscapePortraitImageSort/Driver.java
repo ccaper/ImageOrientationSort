@@ -106,9 +106,8 @@ public class Driver {
     }
   }
 
-  // TODO: unit test
   // visible for testing
-  boolean isExists(File file) {
+  static boolean isExists(File file) {
     if (!file.exists()) {
       Driver.LOG.error(String.format("The directory '%s' does not exist.",
           file.getAbsolutePath()));
@@ -117,9 +116,8 @@ public class Driver {
     return true;
   }
 
-  // TODO: unit test
   // visible for testing
-  boolean isReadable(File file) {
+  static boolean isReadable(File file) {
     if (!file.canRead()) {
       Driver.LOG.error(String.format("The directory '%s' is not readable.",
           file.getAbsolutePath()));
@@ -128,9 +126,8 @@ public class Driver {
     return true;
   }
 
-  // TODO: unit test
   // visible for testing
-  boolean isWritable(File file) {
+  static boolean isWritable(File file) {
     if (!file.canWrite()) {
       Driver.LOG.error(String.format("The directory '%s' is not writable.",
           file.getAbsolutePath()));
