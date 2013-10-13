@@ -31,8 +31,8 @@ public class Driver {
   
   @SuppressWarnings("unchecked")
   public Driver() {
-    startDirectory = getAndVerifyStartDirectory();
-    destinationDirectory = getAndVerifyDestinationDirectory();
+    startDirectory = (File) context.getBean("startDirectory");
+    destinationDirectory = (File) context.getBean("destinationDirectory");
     ignoreDirectories = (List<File>) context
         .getBean("ignoreDirectories");
     ignoreFiles = (List<File>) context.getBean("ignoreFiles");
@@ -41,40 +41,6 @@ public class Driver {
     landscapePortraitUtils = new LandscapePortraitOrientationUtils();
     copyImage = new CopyImageImpl(startDirectory,
         destinationDirectory);
-  }
-
-  public File getAndVerifyStartDirectory() {
-    File startDirectory = (File) context.getBean("startDirectory");
-    if (!startDirectory.exists()) {
-      Driver.LOG.error(String.format(
-          "The start directory '%s' does not exist.",
-          startDirectory.getAbsolutePath()));
-      System.exit(1);
-    }
-    if (!startDirectory.canRead()) {
-      Driver.LOG.error(String.format(
-          "The start directory '%s' is not readable.",
-          startDirectory.getAbsolutePath()));
-      System.exit(1);
-    }
-    return startDirectory;
-  }
-
-  public File getAndVerifyDestinationDirectory() {
-    File destinationDirectory = (File) context.getBean("destinationDirectory");
-    if (!destinationDirectory.exists()) {
-      Driver.LOG.error(String.format(
-          "The destination directory '%s' does not exist.",
-          destinationDirectory.getAbsolutePath()));
-      System.exit(1);
-    }
-    if (!destinationDirectory.canWrite()) {
-      Driver.LOG.error(String.format(
-          "The destination directory '%s' is not writable.",
-          destinationDirectory.getAbsolutePath()));
-      System.exit(1);
-    }
-    return destinationDirectory;
   }
 
   public void logStartMessages() {
@@ -136,7 +102,6 @@ public class Driver {
     }
   }
 
-  // TODO: unit test helper methods
   public static void main(String[] args) {
     try {
       Driver driver = new Driver();

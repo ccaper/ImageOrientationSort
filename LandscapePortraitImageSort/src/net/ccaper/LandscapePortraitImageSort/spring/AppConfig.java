@@ -4,6 +4,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.ccaper.LandscapePortraitImageSort.Driver;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +17,7 @@ import org.springframework.util.StringUtils;
 @Configuration
 @ImportResource("classpath:/net/ccaper/LandscapePortraitImageSort/spring/properties-config.xml")
 public class AppConfig {
+  public static final Log LOG = LogFactory.getLog(AppConfig.class);
   // visible for testing
   static final String MS_FILE_DELIMETER = "\\";
   // visible for testing
@@ -20,23 +25,51 @@ public class AppConfig {
   // visible for testing
   static final String LIST_SEPARATOR = ";";
   private @Value("${start_directory}")
-  String startDirectory;
+  String startDirectoryString;
   private @Value("${destination_directory}")
-  String destinationDirectory;
+  String destinationDirectoryString;
   private @Value("${ignore_directories}")
   String ignoreDirectories;
   private @Value("${ignore_files}")
   String ignoreFiles;
   public static final String[] IMAGE_TYPES = new String[] { "jpg", "jpeg" };
 
+  // TODO: check unit test coverage
   @Bean(name = "startDirectory")
   public File getStartDirectory() {
-    return generateFileFromString(startDirectory);
+    File startDirectory = generateFileFromString(startDirectoryString);
+    if (!startDirectory.exists()) {
+      Driver.LOG.error(String.format(
+          "The start directory '%s' does not exist.",
+          startDirectory.getAbsolutePath()));
+      System.exit(1);
+    }
+    if (!startDirectory.canRead()) {
+      Driver.LOG.error(String.format(
+          "The start directory '%s' is not readable.",
+          startDirectory.getAbsolutePath()));
+      System.exit(1);
+    }
+    return startDirectory;
   }
 
+  // TODO: check unit test coverage
   @Bean(name = "destinationDirectory")
   public File getDestinationDirectory() {
-    return generateFileFromString(destinationDirectory);
+    File destinationDirectory = generateFileFromString(destinationDirectoryString);
+    if (!destinationDirectory.exists()) {
+      Driver.LOG.error(String.format(
+          "The destination directory '%s' does not exist.",
+          destinationDirectory.getAbsolutePath()));
+      System.exit(1);
+    }
+    if (!destinationDirectory.canWrite()) {
+      Driver.LOG.error(String.format(
+          "The destination directory '%s' is not writable.",
+          destinationDirectory.getAbsolutePath()));
+      System.exit(1);
+    }
+    return destinationDirectory;
   }
 
   @Bean(name = "ignoreDirectories")
