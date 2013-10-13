@@ -88,7 +88,7 @@ public class Driver {
     while (file != null) {
       ImageOrientation orientation = landscapePortraitUtils
           .getImageOrientation(file);
-      if ((file != null) && orientation != null) {
+      if (orientation != null) {
         File copiedFile = copyImage.copyImageToOrientationDirectory(file,
             orientation);
         Driver.LOG.info(String.format(
