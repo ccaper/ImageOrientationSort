@@ -12,7 +12,7 @@ import org.springframework.util.StringUtils;
 
 // TODO: switch to auto-wiring
 @Configuration
-@ImportResource("classpath:/net/ccaper/LandscapePortraitImageSort/spring/properties-config.xml")
+@ImportResource("classpath:/net/ccaper/LandscapePortraitImageSort/spring/spring-config.xml")
 public class AppConfig {
   // visible for testing
   static final String MS_FILE_DELIMETER = "\\";

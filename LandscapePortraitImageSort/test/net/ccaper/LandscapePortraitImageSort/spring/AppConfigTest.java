@@ -18,7 +18,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.StringUtils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({ "classpath:net/ccaper/LandscapePortraitImageSort/spring/properties-config.xml" })
+@ContextConfiguration({ "classpath:net/ccaper/LandscapePortraitImageSort/spring/spring-config.xml" })
 public class AppConfigTest {
   private String startDirectory;
   private String destinationDirectory;
