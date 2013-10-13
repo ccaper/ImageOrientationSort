@@ -28,19 +28,23 @@ public class Driver {
   private IterateDirectories iterateDirectories;
   private LandscapePortraitOrientationUtils landscapePortraitUtils;
   private CopyImage copyImage;
-  
+
   @SuppressWarnings("unchecked")
   public Driver() {
     startDirectory = (File) context.getBean("startDirectory");
+    if (isExists(startDirectory) || isReadable(startDirectory)) {
+      System.exit(1);
+    }
     destinationDirectory = (File) context.getBean("destinationDirectory");
-    ignoreDirectories = (List<File>) context
-        .getBean("ignoreDirectories");
+    if (isExists(destinationDirectory) || isWritable(destinationDirectory)) {
+      System.exit(1);
+    }
+    ignoreDirectories = (List<File>) context.getBean("ignoreDirectories");
     ignoreFiles = (List<File>) context.getBean("ignoreFiles");
-    iterateDirectories = new IterateDirectoriesImpl(
-        startDirectory, ignoreFiles, ignoreDirectories);
+    iterateDirectories = new IterateDirectoriesImpl(startDirectory,
+        ignoreFiles, ignoreDirectories);
     landscapePortraitUtils = new LandscapePortraitOrientationUtils();
-    copyImage = new CopyImageImpl(startDirectory,
-        destinationDirectory);
+    copyImage = new CopyImageImpl(startDirectory, destinationDirectory);
   }
 
   public void logStartMessages() {
@@ -100,6 +104,39 @@ public class Driver {
       }
       file = iterateDirectories.getFile();
     }
+  }
+
+  // TODO: unit test
+  // visible for testing
+  boolean isExists(File file) {
+    if (!file.exists()) {
+      Driver.LOG.error(String.format("The directory '%s' does not exist.",
+          file.getAbsolutePath()));
+      return false;
+    }
+    return true;
+  }
+
+  // TODO: unit test
+  // visible for testing
+  boolean isReadable(File file) {
+    if (!file.canRead()) {
+      Driver.LOG.error(String.format("The directory '%s' is not readable.",
+          file.getAbsolutePath()));
+      return false;
+    }
+    return true;
+  }
+
+  // TODO: unit test
+  // visible for testing
+  boolean isWritable(File file) {
+    if (!file.canWrite()) {
+      Driver.LOG.error(String.format("The directory '%s' is not writable.",
+          file.getAbsolutePath()));
+      return false;
+    }
+    return true;
   }
 
   public static void main(String[] args) {

@@ -4,10 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.ccaper.LandscapePortraitImageSort.Driver;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +13,6 @@ import org.springframework.util.StringUtils;
 @Configuration
 @ImportResource("classpath:/net/ccaper/LandscapePortraitImageSort/spring/properties-config.xml")
 public class AppConfig {
-  public static final Log LOG = LogFactory.getLog(AppConfig.class);
   // visible for testing
   static final String MS_FILE_DELIMETER = "\\";
   // visible for testing
@@ -34,22 +29,14 @@ public class AppConfig {
   String ignoreFiles;
   public static final String[] IMAGE_TYPES = new String[] { "jpg", "jpeg" };
 
-  // TODO: check unit test coverage
   @Bean(name = "startDirectory")
   public File getStartDirectory() {
-    File startDirectory = generateFileFromString(startDirectoryString);
-    checkExistance(startDirectory);
-    checkReadability(startDirectory);
-    return startDirectory;
+    return generateFileFromString(startDirectoryString);
   }
 
-  // TODO: check unit test coverage
   @Bean(name = "destinationDirectory")
   public File getDestinationDirectory() {
-    File destinationDirectory = generateFileFromString(destinationDirectoryString);
-    checkExistance(destinationDirectory);
-    checkWritability(destinationDirectory);
-    return destinationDirectory;
+    return generateFileFromString(destinationDirectoryString);
   }
 
   @Bean(name = "ignoreDirectories")
@@ -99,36 +86,6 @@ public class AppConfig {
     } else {
       throw new IllegalArgumentException(String.format(
           "The path %s contains illegal file delimiters.", string));
-    }
-  }
-
-  // TODO: unit test
-  // visible for testing
-  void checkExistance(File file) {
-    if (!file.exists()) {
-      Driver.LOG.error(String.format("The directory '%s' does not exist.",
-          file.getAbsolutePath()));
-      System.exit(1);
-    }
-  }
-
-  // TODO: unit test
-  // visible for testing
-  void checkReadability(File file) {
-    if (!file.canRead()) {
-      Driver.LOG.error(String.format("The directory '%s' is not readable.",
-          file.getAbsolutePath()));
-      System.exit(1);
-    }
-  }
-
-  // TODO: unit test
-  // visible for testing
-  void checkWritability(File file) {
-    if (!file.canWrite()) {
-      Driver.LOG.error(String.format("The directory '%s' is not writable.",
-          file.getAbsolutePath()));
-      System.exit(1);
     }
   }
 }
