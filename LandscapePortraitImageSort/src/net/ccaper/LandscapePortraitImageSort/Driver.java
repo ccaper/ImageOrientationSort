@@ -6,8 +6,6 @@ import java.util.List;
 import net.ccaper.LandscapePortraitImageSort.enums.ImageOrientation;
 import net.ccaper.LandscapePortraitImageSort.service.CopyImage;
 import net.ccaper.LandscapePortraitImageSort.service.IterateDirectories;
-import net.ccaper.LandscapePortraitImageSort.serviceImpl.CopyImageImpl;
-import net.ccaper.LandscapePortraitImageSort.serviceImpl.IterateDirectoriesImpl;
 import net.ccaper.LandscapePortraitImageSort.spring.AppConfig;
 import net.ccaper.LandscapePortraitImageSort.util.LandscapePortraitOrientationUtils;
 
@@ -21,30 +19,25 @@ public class Driver {
   public static final Log LOG = LogFactory.getLog(Driver.class);
   private ApplicationContext context = new AnnotationConfigApplicationContext(
       AppConfig.class);
-  private File startDirectory;
-  private File destinationDirectory;
-  private List<File> ignoreDirectories;
-  private List<File> ignoreFiles;
-  private IterateDirectories iterateDirectories;
-  private LandscapePortraitOrientationUtils landscapePortraitUtils;
-  private CopyImage copyImage;
-
+  private File startDirectory = (File) context.getBean("startDirectory");
+  private File destinationDirectory = (File) context.getBean("destinationDirectory");
   @SuppressWarnings("unchecked")
+  private List<File> ignoreDirectories = (List<File>) context.getBean("ignoreDirectories");
+  @SuppressWarnings("unchecked")
+  private List<File> ignoreFiles = (List<File>) context.getBean("ignoreFiles");
+  private IterateDirectories iterateDirectories = (IterateDirectories) context
+      .getBean(IterateDirectories.class);
+  private LandscapePortraitOrientationUtils landscapePortraitUtils = (LandscapePortraitOrientationUtils) context
+      .getBean(LandscapePortraitOrientationUtils.class);
+  private CopyImage copyImage = (CopyImage) context.getBean(CopyImage.class);
+
   public Driver() {
-    startDirectory = (File) context.getBean("startDirectory");
     if (isExists(startDirectory) || isReadable(startDirectory)) {
       System.exit(1);
     }
-    destinationDirectory = (File) context.getBean("destinationDirectory");
     if (isExists(destinationDirectory) || isWritable(destinationDirectory)) {
       System.exit(1);
     }
-    ignoreDirectories = (List<File>) context.getBean("ignoreDirectories");
-    ignoreFiles = (List<File>) context.getBean("ignoreFiles");
-    iterateDirectories = new IterateDirectoriesImpl(startDirectory,
-        ignoreFiles, ignoreDirectories);
-    landscapePortraitUtils = new LandscapePortraitOrientationUtils();
-    copyImage = new CopyImageImpl(startDirectory, destinationDirectory);
   }
 
   public void logStartMessages() {

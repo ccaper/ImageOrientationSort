@@ -4,6 +4,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.ccaper.LandscapePortraitImageSort.service.CopyImage;
+import net.ccaper.LandscapePortraitImageSort.service.IterateDirectories;
+import net.ccaper.LandscapePortraitImageSort.serviceImpl.CopyImageImpl;
+import net.ccaper.LandscapePortraitImageSort.serviceImpl.IterateDirectoriesImpl;
+import net.ccaper.LandscapePortraitImageSort.util.LandscapePortraitOrientationUtils;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -48,6 +54,22 @@ public class AppConfig {
   @Bean(name = "ignoreFiles")
   public List<File> getIgnoreFiles() {
     return generateFilesFromString(ignoreFiles);
+  }
+
+  @Bean
+  public IterateDirectories getIerateDirectories() {
+    return new IterateDirectoriesImpl(getStartDirectory(), getIgnoreFiles(),
+        getIgnoreDirectories());
+  }
+
+  @Bean
+  public LandscapePortraitOrientationUtils getLandscapePortraitOrientationUtils() {
+    return new LandscapePortraitOrientationUtils();
+  }
+
+  @Bean
+  public CopyImage getCopyImage() {
+    return new CopyImageImpl(getStartDirectory(), getDestinationDirectory());
   }
 
   // visible for testing
