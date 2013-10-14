@@ -17,19 +17,21 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import javax.inject.Inject;
 
-
 public class Driver {
   public static final Log LOG = LogFactory.getLog(Driver.class);
   private final ApplicationContext context = new AnnotationConfigApplicationContext(
       AppConfig.class);
   private final File startDirectory = (File) context.getBean("startDirectory");
-  private final File destinationDirectory = (File) context.getBean("destinationDirectory");
+  private final File destinationDirectory = (File) context
+      .getBean("destinationDirectory");
   @SuppressWarnings("unchecked")
-  private final List<File> ignoreDirectories = (List<File>) context.getBean("ignoreDirectories");
+  private final List<File> ignoreDirectories = (List<File>) context
+      .getBean("ignoreDirectories");
   @SuppressWarnings("unchecked")
-  private final List<File> ignoreFiles = (List<File>) context.getBean("ignoreFiles");
-  @Inject
-  private final IterateDirectories iterateDirectories = null;
+  private final List<File> ignoreFiles = (List<File>) context
+      .getBean("ignoreFiles");
+  private final IterateDirectories iterateDirectories = context
+      .getBean(IterateDirectories.class);
   private final LandscapePortraitOrientationUtils landscapePortraitUtils = context
       .getBean(LandscapePortraitOrientationUtils.class);
   private final CopyImage copyImage = context.getBean(CopyImage.class);

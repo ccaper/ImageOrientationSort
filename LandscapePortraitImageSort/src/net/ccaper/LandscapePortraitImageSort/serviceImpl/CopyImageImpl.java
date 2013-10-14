@@ -95,8 +95,8 @@ public class CopyImageImpl implements CopyImage {
     if (file == null) {
       return null;
     }
-    return file.getAbsolutePath().replaceFirst(
-        startDirectory.getAbsolutePath(), "");
+    return file.getAbsolutePath().substring(
+        startDirectory.getAbsolutePath().length());
   }
 
   @Override
