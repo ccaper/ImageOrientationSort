@@ -15,6 +15,9 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import javax.inject.Inject;
+
+
 public class Driver {
   public static final Log LOG = LogFactory.getLog(Driver.class);
   private final ApplicationContext context = new AnnotationConfigApplicationContext(
@@ -25,8 +28,8 @@ public class Driver {
   private final List<File> ignoreDirectories = (List<File>) context.getBean("ignoreDirectories");
   @SuppressWarnings("unchecked")
   private final List<File> ignoreFiles = (List<File>) context.getBean("ignoreFiles");
-  private final IterateDirectories iterateDirectories = context
-      .getBean(IterateDirectories.class);
+  @Inject
+  private final IterateDirectories iterateDirectories = null;
   private final LandscapePortraitOrientationUtils landscapePortraitUtils = context
       .getBean(LandscapePortraitOrientationUtils.class);
   private final CopyImage copyImage = context.getBean(CopyImage.class);

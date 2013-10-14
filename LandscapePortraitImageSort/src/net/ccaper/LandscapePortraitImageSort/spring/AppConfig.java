@@ -57,18 +57,18 @@ public class AppConfig {
   }
 
   @Bean
-  public IterateDirectories getIerateDirectories() {
+  public IterateDirectories iterateDirectories() {
     return new IterateDirectoriesImpl(getStartDirectory(), getIgnoreFiles(),
         getIgnoreDirectories());
   }
 
   @Bean
-  public LandscapePortraitOrientationUtils getLandscapePortraitOrientationUtils() {
+  public LandscapePortraitOrientationUtils landscapePortraitOrientationUtils() {
     return new LandscapePortraitOrientationUtils();
   }
 
   @Bean
-  public CopyImage getCopyImage() {
+  public CopyImage copyImage() {
     return new CopyImageImpl(getStartDirectory(), getDestinationDirectory());
   }
 
