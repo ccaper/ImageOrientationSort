@@ -17,25 +17,25 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 public class Driver {
   public static final Log LOG = LogFactory.getLog(Driver.class);
-  private ApplicationContext context = new AnnotationConfigApplicationContext(
+  private final ApplicationContext context = new AnnotationConfigApplicationContext(
       AppConfig.class);
-  private File startDirectory = (File) context.getBean("startDirectory");
-  private File destinationDirectory = (File) context.getBean("destinationDirectory");
+  private final File startDirectory = (File) context.getBean("startDirectory");
+  private final File destinationDirectory = (File) context.getBean("destinationDirectory");
   @SuppressWarnings("unchecked")
-  private List<File> ignoreDirectories = (List<File>) context.getBean("ignoreDirectories");
+  private final List<File> ignoreDirectories = (List<File>) context.getBean("ignoreDirectories");
   @SuppressWarnings("unchecked")
-  private List<File> ignoreFiles = (List<File>) context.getBean("ignoreFiles");
-  private IterateDirectories iterateDirectories = (IterateDirectories) context
+  private final List<File> ignoreFiles = (List<File>) context.getBean("ignoreFiles");
+  private final IterateDirectories iterateDirectories = context
       .getBean(IterateDirectories.class);
-  private LandscapePortraitOrientationUtils landscapePortraitUtils = (LandscapePortraitOrientationUtils) context
+  private final LandscapePortraitOrientationUtils landscapePortraitUtils = context
       .getBean(LandscapePortraitOrientationUtils.class);
-  private CopyImage copyImage = (CopyImage) context.getBean(CopyImage.class);
+  private final CopyImage copyImage = context.getBean(CopyImage.class);
 
   public Driver() {
-    if (isExists(startDirectory) || isReadable(startDirectory)) {
+    if (!isExists(startDirectory) || !isReadable(startDirectory)) {
       System.exit(1);
     }
-    if (isExists(destinationDirectory) || isWritable(destinationDirectory)) {
+    if (!isExists(destinationDirectory) || !isWritable(destinationDirectory)) {
       System.exit(1);
     }
   }
