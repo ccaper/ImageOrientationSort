@@ -76,7 +76,6 @@ public class AppConfig {
       if (string == null) {
         return null;
       } else {
-        // TODO: add not in readme that ms must be \\ in prop file
         return string.replace(UNIX_FILE_DELIMETER, MS_FILE_DELIMETER);
       }
     } else if (UNIX_FILE_DELIMETER.equals(fileDelimiter)) {
