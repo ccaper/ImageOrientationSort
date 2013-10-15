@@ -8,13 +8,17 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import net.ccaper.LandscapePortraitImageSort.service.IterateDirectories;
 import net.ccaper.LandscapePortraitImageSort.spring.AppConfig;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
+@Service
 public class IterateDirectoriesImpl implements IterateDirectories {
   private static final Log LOG = LogFactory
       .getLog(IterateDirectoriesImpl.class);
@@ -42,10 +46,10 @@ public class IterateDirectoriesImpl implements IterateDirectories {
   };
   private final Queue<File> files = new LinkedList<File>();
   private final Queue<File> dirs = new LinkedList<File>();
-  private final File startDirectory;
+  private File startDirectory;
   private boolean filesAndDirsSeeded = false;
-  private final List<File> ignoreFiles;
-  private final List<File> ignoreDirectories;
+  private List<File> ignoreFiles;
+  private List<File> ignoreDirectories;
   private int numberFilesFound = 0;
   private int numberFilesSkipped = 0;
   private int numberFilesNotSkipped = 0;
@@ -66,18 +70,22 @@ public class IterateDirectoriesImpl implements IterateDirectories {
    *          A list of directories to ignore, which also ignores all sub
    *          directories of an ignore directory
    */
-  public IterateDirectoriesImpl(File startDirectory, List<File> ignoreFiles,
-      List<File> ignoreDirectories) {
+
+  @SuppressWarnings("unchecked")
+  @Inject
+  public IterateDirectoriesImpl(@Named("startDirectory") File startDirectory,
+      @Named("ignoreFiles") Object ignoreFiles,
+      @Named("ignoreDirectories") Object ignoreDirectories) {
     this.startDirectory = startDirectory;
     if (ignoreFiles == null) {
       this.ignoreFiles = new ArrayList<File>();
     } else {
-      this.ignoreFiles = ignoreFiles;
+      this.ignoreFiles = (List<File>) ignoreFiles;
     }
     if (ignoreDirectories == null) {
       this.ignoreDirectories = new ArrayList<File>();
     } else {
-      this.ignoreDirectories = ignoreDirectories;
+      this.ignoreDirectories = (List<File>) ignoreDirectories;
     }
   }
 

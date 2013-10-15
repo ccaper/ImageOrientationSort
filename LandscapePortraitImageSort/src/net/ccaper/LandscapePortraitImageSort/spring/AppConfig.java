@@ -30,40 +30,34 @@ public class AppConfig {
   private @Value("${destination_directory}")
   String destinationDirectoryString;
   private @Value("${ignore_directories}")
-  String ignoreDirectories;
+  String ignoreDirectoriesString;
   private @Value("${ignore_files}")
-  String ignoreFiles;
+  String ignoreFilesString;
   public static final String[] IMAGE_TYPES = new String[] { "jpg", "jpeg" };
 
   @Bean(name = "startDirectory")
-  public File getStartDirectory() {
+  public File startDirectory() {
     return generateFileFromString(startDirectoryString);
   }
 
   @Bean(name = "destinationDirectory")
-  public File getDestinationDirectory() {
+  public File destinationDirectory() {
     return generateFileFromString(destinationDirectoryString);
   }
 
   @Bean(name = "ignoreDirectories")
-  public List<File> getIgnoreDirectories() {
-    return generateFilesFromString(ignoreDirectories);
+  public List<File> ignoreDirectories() {
+    return generateFilesFromString(ignoreDirectoriesString);
   }
 
   @Bean(name = "ignoreFiles")
-  public List<File> getIgnoreFiles() {
-    return generateFilesFromString(ignoreFiles);
-  }
-
-  @Bean
-  public IterateDirectories iterateDirectories() {
-    return new IterateDirectoriesImpl(getStartDirectory(), getIgnoreFiles(),
-        getIgnoreDirectories());
+  public List<File> ignoreFiles() {
+    return generateFilesFromString(ignoreFilesString);
   }
 
   @Bean
   public CopyImage copyImage() {
-    return new CopyImageImpl(getStartDirectory(), getDestinationDirectory());
+    return new CopyImageImpl(startDirectory(), destinationDirectory());
   }
 
   // visible for testing
