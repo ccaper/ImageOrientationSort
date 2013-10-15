@@ -5,9 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.ccaper.LandscapePortraitImageSort.service.CopyImage;
-import net.ccaper.LandscapePortraitImageSort.service.IterateDirectories;
 import net.ccaper.LandscapePortraitImageSort.serviceImpl.CopyImageImpl;
-import net.ccaper.LandscapePortraitImageSort.serviceImpl.IterateDirectoriesImpl;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
