@@ -14,6 +14,7 @@ import net.ccaper.LandscapePortraitImageSort.enums.ImageOrientation;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.stereotype.Component;
 
 /**
  * 
@@ -22,6 +23,7 @@ import org.apache.commons.logging.LogFactory;
  *         Determines the image orientation for a file.
  * 
  */
+@Component
 public class LandscapePortraitOrientationUtils {
   private static final Log LOG = LogFactory
       .getLog(LandscapePortraitOrientationUtils.class);

@@ -8,7 +8,6 @@ import net.ccaper.LandscapePortraitImageSort.service.CopyImage;
 import net.ccaper.LandscapePortraitImageSort.service.IterateDirectories;
 import net.ccaper.LandscapePortraitImageSort.serviceImpl.CopyImageImpl;
 import net.ccaper.LandscapePortraitImageSort.serviceImpl.IterateDirectoriesImpl;
-import net.ccaper.LandscapePortraitImageSort.util.LandscapePortraitOrientationUtils;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -63,11 +62,6 @@ public class AppConfig {
   }
 
   @Bean
-  public LandscapePortraitOrientationUtils landscapePortraitOrientationUtils() {
-    return new LandscapePortraitOrientationUtils();
-  }
-
-  @Bean
   public CopyImage copyImage() {
     return new CopyImageImpl(getStartDirectory(), getDestinationDirectory());
   }
@@ -98,7 +92,7 @@ public class AppConfig {
       if (string == null) {
         return null;
       } else {
-        // TODO: handle single \ in prop files
+        // TODO: add not in readme that ms must be \\ in prop file
         return string.replace(UNIX_FILE_DELIMETER, MS_FILE_DELIMETER);
       }
     } else if (UNIX_FILE_DELIMETER.equals(fileDelimiter)) {

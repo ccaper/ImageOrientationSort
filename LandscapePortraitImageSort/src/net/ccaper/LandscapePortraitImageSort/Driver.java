@@ -12,11 +12,13 @@ import net.ccaper.LandscapePortraitImageSort.util.LandscapePortraitOrientationUt
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.inject.Inject;
 
+// TODO: refactor all refs to LandscapePortrait to ImageOrientation
 public class Driver {
   public static final Log LOG = LogFactory.getLog(Driver.class);
   private final ApplicationContext context = new AnnotationConfigApplicationContext(
