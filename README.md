@@ -140,7 +140,7 @@ copied to destination directory
 this list will not be copied to the destination directory.
 ````
 
-Note, you can write the file paths as either Unix or DOS style separators (Unix uses '/', DOS uses '\').  The application will detect the operating system you are using, and convert them as needed for the environement you are running.
+Note, you can write the file paths as either Unix or DOS style separators (Unix uses '/', DOS uses '\').  The application will detect the operating system you are using, and convert them as needed for the environement you are running.  However, if you chose to use DOS style style separators ('\'), they must be escpaed (double \\) due to Java using the '\' as an escape character.  For example, C:\some\dir should be C:\\some\\dir
 
 Note, all paths must be full absolute paths.
 
