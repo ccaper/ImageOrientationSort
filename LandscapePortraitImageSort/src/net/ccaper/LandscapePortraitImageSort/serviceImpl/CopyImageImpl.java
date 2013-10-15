@@ -3,13 +3,18 @@ package net.ccaper.LandscapePortraitImageSort.serviceImpl;
 import java.io.File;
 import java.io.IOException;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import net.ccaper.LandscapePortraitImageSort.enums.ImageOrientation;
 import net.ccaper.LandscapePortraitImageSort.service.CopyImage;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.stereotype.Service;
 
+@Service("copyImageService")
 public class CopyImageImpl implements CopyImage {
   private static final Log LOG = LogFactory.getLog(CopyImageImpl.class);
   private final File startDirectory;
@@ -24,7 +29,9 @@ public class CopyImageImpl implements CopyImage {
    * @param destinationDirectory
    *          The destination directory
    */
-  public CopyImageImpl(File startDirectory, File destinationDirectory) {
+  @Inject
+  public CopyImageImpl(@Named("startDirectory") File startDirectory,
+      @Named("destinationDirectory") File destinationDirectory) {
     this.startDirectory = startDirectory;
     this.destinationDirectory = destinationDirectory;
   }

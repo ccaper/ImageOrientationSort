@@ -4,9 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.ccaper.LandscapePortraitImageSort.service.CopyImage;
-import net.ccaper.LandscapePortraitImageSort.serviceImpl.CopyImageImpl;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -51,11 +48,6 @@ public class AppConfig {
   @Bean(name = "ignoreFiles")
   public List<File> ignoreFiles() {
     return generateFilesFromString(ignoreFilesString);
-  }
-
-  @Bean
-  public CopyImage copyImage() {
-    return new CopyImageImpl(startDirectory(), destinationDirectory());
   }
 
   // visible for testing
