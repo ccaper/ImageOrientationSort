@@ -29,6 +29,7 @@ The 3rd party libs for application are:
 -Apache Commons Logging 1.1.1 (commons-logging-1.1.1.jar)
 -log4j 1.2.17 (log4j/1.2.17/log4j-1.2.17.jar)
 -Apache Commons Lang 3.3.1 (commons-lang3-3.1.jar)
+-javax.inject 1 (javax.inject-1)
 
 The 3rd party libs for unit tests are:
 -CGLIB 2.2.3 (cglib-nodep-2.2.3.jar)
@@ -81,6 +82,12 @@ For easiest use of my ant script, I suggest creating a libs directtory with a st
   | |-log4j-1.2.17
   |   |
   |   |-log4j-1.2.17.jar
+  |
+  |-javax.inject
+  | |
+  | |-javax.inject-1
+  |   |
+  |   |-javax.inject-1.jar
   |
   |-junit
   | |
