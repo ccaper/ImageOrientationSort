@@ -1,4 +1,4 @@
-package net.ccaper.LandscapePortraitImageSort.serviceImpl;
+package net.ccaper.ImageOrientationSort.serviceImpl;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -11,8 +11,8 @@ import java.util.Queue;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import net.ccaper.LandscapePortraitImageSort.service.IterateDirectories;
-import net.ccaper.LandscapePortraitImageSort.spring.AppConfig;
+import net.ccaper.ImageOrientationSort.service.IterateDirectories;
+import net.ccaper.ImageOrientationSort.spring.AppConfig;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

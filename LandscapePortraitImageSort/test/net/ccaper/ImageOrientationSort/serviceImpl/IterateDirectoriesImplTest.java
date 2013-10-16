@@ -1,4 +1,4 @@
-package net.ccaper.LandscapePortraitImageSort.serviceImpl;
+package net.ccaper.ImageOrientationSort.serviceImpl;
 
 import static org.easymock.EasyMock.createMock;
 import static org.easymock.EasyMock.expect;
@@ -14,8 +14,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import net.ccaper.LandscapePortraitImageSort.service.IterateDirectories;
-import net.ccaper.LandscapePortraitImageSort.spring.AppConfig;
+import net.ccaper.ImageOrientationSort.service.IterateDirectories;
+import net.ccaper.ImageOrientationSort.serviceImpl.IterateDirectoriesImpl;
+import net.ccaper.ImageOrientationSort.spring.AppConfig;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.After;

@@ -1,4 +1,4 @@
-package net.ccaper.LandscapePortraitImageSort;
+package net.ccaper.ImageOrientationSort;
 
 import static org.easymock.EasyMock.createMock;
 import static org.easymock.EasyMock.expect;
@@ -6,6 +6,8 @@ import static org.easymock.EasyMock.replay;
 import static org.easymock.EasyMock.verify;
 
 import java.io.File;
+
+import net.ccaper.ImageOrientationSort.Driver;
 
 import org.junit.Test;
 

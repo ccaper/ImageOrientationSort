@@ -1,8 +1,8 @@
-package net.ccaper.LandscapePortraitImageSort.service;
+package net.ccaper.ImageOrientationSort.service;
 
 import java.io.File;
 
-import net.ccaper.LandscapePortraitImageSort.enums.ImageOrientation;
+import net.ccaper.ImageOrientationSort.enums.ImageOrientation;
 
 /**
  * 

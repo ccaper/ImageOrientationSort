@@ -1,4 +1,4 @@
-package net.ccaper.LandscapePortraitImageSort.utils;
+package net.ccaper.ImageOrientationSort.utils;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import javax.imageio.ImageReader;
 import javax.imageio.stream.FileImageInputStream;
 import javax.imageio.stream.ImageInputStream;
 
-import net.ccaper.LandscapePortraitImageSort.enums.ImageOrientation;
+import net.ccaper.ImageOrientationSort.enums.ImageOrientation;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;

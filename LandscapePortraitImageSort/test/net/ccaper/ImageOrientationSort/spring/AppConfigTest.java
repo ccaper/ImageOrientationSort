@@ -1,4 +1,4 @@
-package net.ccaper.LandscapePortraitImageSort.spring;
+package net.ccaper.ImageOrientationSort.spring;
 
 import static org.junit.Assert.assertEquals;
 
@@ -18,7 +18,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.StringUtils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({ "classpath:net/ccaper/LandscapePortraitImageSort/spring/spring-config.xml" })
+@ContextConfiguration({ "classpath:net/ccaper/ImageOrientationSort/spring/spring-config.xml" })
 public class AppConfigTest {
   private String startDirectory;
   private String destinationDirectory;
@@ -30,7 +30,7 @@ public class AppConfigTest {
   @Before
   public void setUp() throws Exception {
     ResourceBundle labels = ResourceBundle
-        .getBundle("LandscapePortraitImageSort");
+        .getBundle("ImageOrientationSort");
     startDirectory = labels.getString("start_directory");
     destinationDirectory = labels.getString("destination_directory");
     String ignoreDirectoriesString = labels.getString("ignore_directories");

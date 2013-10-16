@@ -1,4 +1,4 @@
-package net.ccaper.LandscapePortraitImageSort.enums;
+package net.ccaper.ImageOrientationSort.enums;
 
 /**
  * 

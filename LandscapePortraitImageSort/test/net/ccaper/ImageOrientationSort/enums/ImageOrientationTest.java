@@ -1,6 +1,8 @@
-package net.ccaper.LandscapePortraitImageSort.enums;
+package net.ccaper.ImageOrientationSort.enums;
 
 import static org.junit.Assert.assertEquals;
+
+import net.ccaper.ImageOrientationSort.enums.ImageOrientation;
 
 import org.junit.After;
 import org.junit.Before;

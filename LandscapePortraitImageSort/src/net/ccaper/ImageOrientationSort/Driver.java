@@ -1,4 +1,4 @@
-package net.ccaper.LandscapePortraitImageSort;
+package net.ccaper.ImageOrientationSort;
 
 import java.io.File;
 import java.util.List;
@@ -6,11 +6,11 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import net.ccaper.LandscapePortraitImageSort.enums.ImageOrientation;
-import net.ccaper.LandscapePortraitImageSort.service.CopyImage;
-import net.ccaper.LandscapePortraitImageSort.service.IterateDirectories;
-import net.ccaper.LandscapePortraitImageSort.spring.AppConfig;
-import net.ccaper.LandscapePortraitImageSort.utils.ImageOrientationUtil;
+import net.ccaper.ImageOrientationSort.enums.ImageOrientation;
+import net.ccaper.ImageOrientationSort.service.CopyImage;
+import net.ccaper.ImageOrientationSort.service.IterateDirectories;
+import net.ccaper.ImageOrientationSort.spring.AppConfig;
+import net.ccaper.ImageOrientationSort.utils.ImageOrientationUtil;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;

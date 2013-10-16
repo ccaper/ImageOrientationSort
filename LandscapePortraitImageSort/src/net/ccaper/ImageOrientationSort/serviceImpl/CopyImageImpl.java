@@ -1,4 +1,4 @@
-package net.ccaper.LandscapePortraitImageSort.serviceImpl;
+package net.ccaper.ImageOrientationSort.serviceImpl;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,8 +6,8 @@ import java.io.IOException;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import net.ccaper.LandscapePortraitImageSort.enums.ImageOrientation;
-import net.ccaper.LandscapePortraitImageSort.service.CopyImage;
+import net.ccaper.ImageOrientationSort.enums.ImageOrientation;
+import net.ccaper.ImageOrientationSort.service.CopyImage;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;

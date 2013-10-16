@@ -1,4 +1,4 @@
-package net.ccaper.LandscapePortraitImageSort.utils;
+package net.ccaper.ImageOrientationSort.utils;
 
 import static org.easymock.EasyMock.createMock;
 import static org.easymock.EasyMock.expect;
@@ -16,8 +16,8 @@ import javax.imageio.ImageReader;
 import javax.imageio.stream.FileImageInputStream;
 import javax.imageio.stream.ImageInputStream;
 
-import net.ccaper.LandscapePortraitImageSort.enums.ImageOrientation;
-import net.ccaper.LandscapePortraitImageSort.utils.ImageOrientationUtil;
+import net.ccaper.ImageOrientationSort.enums.ImageOrientation;
+import net.ccaper.ImageOrientationSort.utils.ImageOrientationUtil;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
