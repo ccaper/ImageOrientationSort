@@ -3,6 +3,9 @@ package net.ccaper.LandscapePortraitImageSort;
 import java.io.File;
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import net.ccaper.LandscapePortraitImageSort.enums.ImageOrientation;
 import net.ccaper.LandscapePortraitImageSort.service.CopyImage;
 import net.ccaper.LandscapePortraitImageSort.service.IterateDirectories;
@@ -13,34 +16,50 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
 
 // TODO: refactor all refs to LandscapePortrait to ImageOrientation
+@Component
 public class Driver {
   public static final Log LOG = LogFactory.getLog(Driver.class);
-  private final ApplicationContext context = new AnnotationConfigApplicationContext(
-      AppConfig.class);
-  private final File startDirectory = (File) context.getBean("startDirectory");
-  private final File destinationDirectory = (File) context
-      .getBean("destinationDirectory");
-  @SuppressWarnings("unchecked")
-  private final List<File> ignoreDirectories = (List<File>) context
-      .getBean("ignoreDirectories");
-  @SuppressWarnings("unchecked")
-  private final List<File> ignoreFiles = (List<File>) context
-      .getBean("ignoreFiles");
-  private final IterateDirectories iterateDirectories = context
-      .getBean(IterateDirectories.class);
-  private final LandscapePortraitOrientationUtils landscapePortraitUtils = context
-      .getBean(LandscapePortraitOrientationUtils.class);
-  private final CopyImage copyImage = context.getBean(CopyImage.class);
+  @Inject
+  @Named("startDirectory")
+  private File startDirectory;
+  @Inject
+  @Named("destinationDirectory")
+  private File destinationDirectory;
+  @Inject
+  @Named("ignoreDirectories")
+  private Object ignoreDirectoriesObject;
+  private final List<File> ignoreDirectories;
+  @Inject
+  @Named("ignoreFiles")
+  private Object ignoreFilesObject;
+  private final List<File> ignoreFiles;
+  @Inject
+  private IterateDirectories iterateDirectories;
+  @Inject
+  private LandscapePortraitOrientationUtils landscapePortraitUtils;
+  @Inject
+  private CopyImage copyImage;
 
-  public Driver() {
+  @SuppressWarnings("unchecked")
+  public Driver() throws Exception {
+    ignoreDirectories = (List<File>) ignoreDirectoriesObject;
+    ignoreFiles = (List<File>) ignoreFilesObject;
+  }
+
+  public void validateStartAndDestinationDirectories() throws Exception {
     if (!isExists(startDirectory) || !isReadable(startDirectory)) {
-      System.exit(1);
+      throw new Exception(String.format("The start directory '%s' is invalid.",
+          startDirectory.getAbsolutePath()));
     }
     if (!isExists(destinationDirectory) || !isWritable(destinationDirectory)) {
-      System.exit(1);
+      throw new Exception(String.format(
+          "The destination directory '%s' is invalid.",
+          destinationDirectory.getAbsolutePath()));
     }
   }
 
@@ -134,13 +153,20 @@ public class Driver {
   }
 
   public static void main(String[] args) {
+    ApplicationContext context = null;
     try {
-      Driver driver = new Driver();
+      context = new AnnotationConfigApplicationContext(AppConfig.class);
+      Driver driver = context.getBean(Driver.class);
+      driver.validateStartAndDestinationDirectories();
       driver.logStartMessages();
       driver.copyImages();
       driver.logEndMessages();
+      ((ConfigurableApplicationContext) context).close();
     } catch (Exception e) {
       Driver.LOG.fatal("A fatal error occurred, abnormal exit.", e);
+      System.exit(1);
+    } finally {
+      ((ConfigurableApplicationContext) context).close();
     }
   }
 }

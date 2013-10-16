@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.util.StringUtils;
 
-// TODO: switch to auto-wiring
 @Configuration
 @ImportResource("classpath:/net/ccaper/LandscapePortraitImageSort/spring/spring-config.xml")
 public class AppConfig {
@@ -28,6 +27,7 @@ public class AppConfig {
   String ignoreDirectoriesString;
   private @Value("${ignore_files}")
   String ignoreFilesString;
+  // TODO: change to prop file driven
   public static final String[] IMAGE_TYPES = new String[] { "jpg", "jpeg" };
 
   @Bean(name = "startDirectory")
@@ -50,6 +50,7 @@ public class AppConfig {
     return generateFilesFromString(ignoreFilesString);
   }
 
+  // TODO: consider moving this an other similar helper methods to utils class
   // visible for testing
   static File generateFileFromString(String string) {
     return new File(convertSlashToOsFileDelimiter(
