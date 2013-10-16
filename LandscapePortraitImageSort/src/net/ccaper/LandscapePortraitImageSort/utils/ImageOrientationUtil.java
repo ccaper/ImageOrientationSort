@@ -1,4 +1,4 @@
-package net.ccaper.LandscapePortraitImageSort.util;
+package net.ccaper.LandscapePortraitImageSort.utils;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,9 +24,9 @@ import org.springframework.stereotype.Component;
  * 
  */
 @Component
-public class LandscapePortraitOrientationUtils {
+public class ImageOrientationUtil {
   private static final Log LOG = LogFactory
-      .getLog(LandscapePortraitOrientationUtils.class);
+      .getLog(ImageOrientationUtil.class);
   private int numberLandscapeOrientationImages = 0;
   private int numberPortraitOrientationImages = 0;
   private int numberEqualOrientationImages = 0;
