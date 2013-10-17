@@ -12,7 +12,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import net.ccaper.ImageOrientationSort.service.IterateDirectories;
-import net.ccaper.ImageOrientationSort.spring.AppConfig;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -20,6 +19,10 @@ import org.springframework.stereotype.Service;
 
 @Service("iterateDirectoriesService")
 public class IterateDirectoriesImpl implements IterateDirectories {
+  @Inject
+  @Named("imageTypesAllowed")
+  private Object imageTypesAllowedObject;
+  private final String[] imageTypesAllowed;
   private static final Log LOG = LogFactory
       .getLog(IterateDirectoriesImpl.class);
   // visible for testing
@@ -30,23 +33,10 @@ public class IterateDirectoriesImpl implements IterateDirectories {
     }
   };
   // visible for testing
-  final FilenameFilter extensionFilenameFilter = new FilenameFilter() {
-    @Override
-    public boolean accept(File dir, String name) {
-      for (String extension : AppConfig.IMAGE_TYPES) {
-        if (name.toLowerCase().endsWith("." + extension)) {
-          return true;
-        }
-      }
-      if (new File(dir, name).isFile()) {
-        ++numberNonImageFiles;
-      }
-      return false;
-    }
-  };
+  final FilenameFilter extensionFilenameFilter;
   private final Queue<File> files = new LinkedList<File>();
   private final Queue<File> dirs = new LinkedList<File>();
-  private File startDirectory;
+  private final File startDirectory;
   private boolean filesAndDirsSeeded = false;
   private List<File> ignoreFiles;
   private List<File> ignoreDirectories;
@@ -73,9 +63,12 @@ public class IterateDirectoriesImpl implements IterateDirectories {
 
   @SuppressWarnings("unchecked")
   @Inject
-  public IterateDirectoriesImpl(@Named("startDirectory") File startDirectory,
+  public IterateDirectoriesImpl(
+      @Named("imageTypesAllowed") Object imageTypesAllowedObject,
+      @Named("startDirectory") File startDirectory,
       @Named("ignoreFiles") Object ignoreFiles,
       @Named("ignoreDirectories") Object ignoreDirectories) {
+    this.imageTypesAllowed = (String[]) imageTypesAllowedObject;
     this.startDirectory = startDirectory;
     if (ignoreFiles == null) {
       this.ignoreFiles = new ArrayList<File>();
@@ -87,6 +80,21 @@ public class IterateDirectoriesImpl implements IterateDirectories {
     } else {
       this.ignoreDirectories = (List<File>) ignoreDirectories;
     }
+    extensionFilenameFilter = new FilenameFilter() {
+      @Override
+      public boolean accept(File dir, String name) {
+        // TODO: fix
+        for (String extension : imageTypesAllowed) {
+          if (name.toLowerCase().endsWith("." + extension)) {
+            return true;
+          }
+        }
+        if (new File(dir, name).isFile()) {
+          ++numberNonImageFiles;
+        }
+        return false;
+      }
+    };
   }
 
   @Override

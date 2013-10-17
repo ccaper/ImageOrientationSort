@@ -20,6 +20,9 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
+// TODO: check coverage
+// TODO: check formatting
+
 @Component
 public class Driver {
   public static final Log LOG = LogFactory.getLog(Driver.class);
@@ -30,6 +33,7 @@ public class Driver {
   private final IterateDirectories iterateDirectories;
   private final ImageOrientationUtil imageOrientationUtils;
   private final CopyImage copyImage;
+  private final String[] imageTypesAllowed;
 
   @SuppressWarnings("unchecked")
   @Inject
@@ -37,6 +41,7 @@ public class Driver {
       @Named("destinationDirectory") File destinationDirectory,
       @Named("ignoreFiles") Object ignoreFilesObject,
       @Named("ignoreDirectories") Object ignoreDirectoriesObject,
+      @Named("imageTypesAllowed") Object imageTypesAllowed,
       IterateDirectories iterateDirectories,
       ImageOrientationUtil imageOrientationUtils, CopyImage copyImage)
           throws Exception {
@@ -44,6 +49,7 @@ public class Driver {
     this.destinationDirectory = destinationDirectory;
     this.ignoreFiles = (List<File>) ignoreFilesObject;
     this.ignoreDirectories = (List<File>) ignoreDirectoriesObject;
+    this.imageTypesAllowed = (String[]) imageTypesAllowed;
     this.iterateDirectories = iterateDirectories;
     this.imageOrientationUtils = imageOrientationUtils;
     this.copyImage = copyImage;
@@ -69,7 +75,7 @@ public class Driver {
         + StringUtils.join(ignoreDirectories, ", "));
     Driver.LOG.info("Ignore files: " + StringUtils.join(ignoreFiles, ", "));
     Driver.LOG.info("Filtering files for extensions: "
-        + StringUtils.join(AppConfig.IMAGE_TYPES, ", "));
+        + StringUtils.join(imageTypesAllowed, ", "));
   }
 
   public void logEndMessages() {

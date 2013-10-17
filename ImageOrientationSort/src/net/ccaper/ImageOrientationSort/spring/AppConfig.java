@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.ccaper.ImageOrientationSort.utils.FileSystemUtil;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,8 +22,13 @@ public class AppConfig {
   String ignoreDirectoriesString;
   private @Value("${ignore_files}")
   String ignoreFilesString;
-  // TODO: change to prop file driven
-  public static final String[] IMAGE_TYPES = new String[] { "jpg", "jpeg" };
+  private @Value("${image_types_allowed}")
+  String imageTypeAllowed;
+
+  @Bean(name = "imageTypesAllowed")
+  public String[] imageTypesAllowed() {
+    return StringUtils.split(imageTypeAllowed, FileSystemUtil.LIST_SEPARATOR);
+  }
 
   @Bean(name = "startDirectory")
   public File startDirectory() {
