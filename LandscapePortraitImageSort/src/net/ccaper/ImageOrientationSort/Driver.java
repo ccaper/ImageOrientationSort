@@ -20,7 +20,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
-// TODO: refactor all refs to LandscapePortrait to ImageOrientation
 @Component
 public class Driver {
   public static final Log LOG = LogFactory.getLog(Driver.class);
@@ -41,7 +40,7 @@ public class Driver {
   @Inject
   private IterateDirectories iterateDirectories;
   @Inject
-  private ImageOrientationUtil landscapePortraitUtils;
+  private ImageOrientationUtil imageOrientationUtils;
   @Inject
   private CopyImage copyImage;
 
@@ -90,14 +89,14 @@ public class Driver {
     Driver.LOG.info(String.format("Number non image files: %d",
         iterateDirectories.getNumberNonImageFiles()));
     Driver.LOG.info(String.format("Number of landscape orientation images: %d",
-        landscapePortraitUtils.getNumberLandscapeOrientationImages()));
+        imageOrientationUtils.getNumberLandscapeOrientationImages()));
     Driver.LOG.info(String.format("Number of portrait orientation images: %d",
-        landscapePortraitUtils.getNumberPortraitOrientationImages()));
+        imageOrientationUtils.getNumberPortraitOrientationImages()));
     Driver.LOG.info(String.format("Number of equal orientation images: %d",
-        landscapePortraitUtils.getNumberEqualOrientationImages()));
+        imageOrientationUtils.getNumberEqualOrientationImages()));
     Driver.LOG.info(String.format(
         "Number of images where orientation could not be determined: %d",
-        landscapePortraitUtils.getNumberOrientationProblems()));
+        imageOrientationUtils.getNumberOrientationProblems()));
     Driver.LOG.info(String.format("Number of images successfully copied: %d",
         copyImage.getNumberFileCopySuccess()));
     Driver.LOG.info(String.format(
@@ -109,7 +108,7 @@ public class Driver {
   public void copyImages() {
     File file = iterateDirectories.getFile();
     while (file != null) {
-      ImageOrientation orientation = landscapePortraitUtils
+      ImageOrientation orientation = imageOrientationUtils
           .getImageOrientation(file);
       if (orientation != null) {
         File copiedFile = copyImage.copyImageToOrientationDirectory(file,

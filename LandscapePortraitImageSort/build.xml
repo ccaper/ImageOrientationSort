@@ -1,6 +1,6 @@
-<project name="LandscapePortraitImageSort" default="dist" basedir=".">
+<project name="ImageOrientationSort" default="dist" basedir=".">
   <description>
-        Ant build file for LandscapePortraitImageSort
+        Ant build file for ImageOrientationSort
     </description>
   <!-- set global properties for this build -->
   <property name="srcDir" location="src" />
@@ -24,6 +24,8 @@
       <include name="commons-logging/commons-logging-1.1.1/commons-logging-1.1.1.jar" />
       <include name="log4j/1.2.17/log4j-1.2.17.jar" />
       <include name="commons-lang/commons-lang-3-3.1/commons-lang3-3.1.jar" />
+      <include name="commons-io/commons-io-2.4/commons-io-2.4.jar" />
+      <include name="javax.inject/javax.inject-1/javax.inject-1.jar" />
     </patternset>
   </fileset>
 
@@ -65,7 +67,7 @@
     <copy todir="${distDir}/${conf}" flatten="false">
       <fileset dir="${confDir}">
         <patternset>
-          <include name="LandscapePortraitImageSort.properties" />
+          <include name="ImageOrientationSort.properties" />
         </patternset>
       </fileset>
     </copy>
@@ -85,7 +87,7 @@
     <!-- Create the distribution directory -->
     <mkdir dir="${distDir}" />
 
-    <manifestclasspath property="manifest.classpath" jarfile="${distDir}/LandscapePortraitImageSort.jar">
+    <manifestclasspath property="manifest.classpath" jarfile="${distDir}/ImageOrientationSort.jar">
       <classpath>
         <pathelement path="${distDir}/${conf}" />
         <fileset dir="${distDir}/${libs}">
@@ -94,7 +96,7 @@
       </classpath>
     </manifestclasspath>
     <!-- Put everything in ${buildDir} into the MyProject-${DSTAMP}.jar file -->
-    <jar destfile="${distDir}/LandscapePortraitImageSort.jar">
+    <jar destfile="${distDir}/ImageOrientationSort.jar">
       <fileset dir="${buildDir}">
         <exclude name="**/*Test*.class" />
         <include name="**/*.class" />
@@ -102,10 +104,10 @@
       <fileset dir="${confDir}">
         <include name="**/*.properties" />
         <include name="**/*.xml" />
-        <exclude name="LandscapePortraitImageSort.properties" />
+        <exclude name="ImageOrientationSort.properties" />
       </fileset>
       <manifest>
-        <attribute name="Main-Class" value="net.ccaper.LandscapePortraitImageSort.Driver" />
+        <attribute name="Main-Class" value="net.ccaper.ImageOrientationImageSort.Driver" />
         <attribute name="Class-Path" value="${manifest.classpath}" />
       </manifest>
     </jar>
