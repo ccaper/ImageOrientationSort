@@ -23,31 +23,30 @@ import org.springframework.stereotype.Component;
 @Component
 public class Driver {
   public static final Log LOG = LogFactory.getLog(Driver.class);
-  @Inject
-  @Named("startDirectory")
-  private File startDirectory;
-  @Inject
-  @Named("destinationDirectory")
-  private File destinationDirectory;
-  @Inject
-  @Named("ignoreDirectories")
-  private Object ignoreDirectoriesObject;
+  private final File startDirectory;
+  private final File destinationDirectory;
   private final List<File> ignoreDirectories;
-  @Inject
-  @Named("ignoreFiles")
-  private Object ignoreFilesObject;
   private final List<File> ignoreFiles;
-  @Inject
-  private IterateDirectories iterateDirectories;
-  @Inject
-  private ImageOrientationUtil imageOrientationUtils;
-  @Inject
-  private CopyImage copyImage;
+  private final IterateDirectories iterateDirectories;
+  private final ImageOrientationUtil imageOrientationUtils;
+  private final CopyImage copyImage;
 
   @SuppressWarnings("unchecked")
-  public Driver() throws Exception {
-    ignoreDirectories = (List<File>) ignoreDirectoriesObject;
-    ignoreFiles = (List<File>) ignoreFilesObject;
+  @Inject
+  public Driver(@Named("startDirectory") File startDirectory,
+      @Named("destinationDirectory") File destinationDirectory,
+      @Named("ignoreFiles") Object ignoreFilesObject,
+      @Named("ignoreDirectories") Object ignoreDirectoriesObject,
+      IterateDirectories iterateDirectories,
+      ImageOrientationUtil imageOrientationUtils, CopyImage copyImage)
+          throws Exception {
+    this.startDirectory = startDirectory;
+    this.destinationDirectory = destinationDirectory;
+    this.ignoreFiles = (List<File>) ignoreFilesObject;
+    this.ignoreDirectories = (List<File>) ignoreDirectoriesObject;
+    this.iterateDirectories = iterateDirectories;
+    this.imageOrientationUtils = imageOrientationUtils;
+    this.copyImage = copyImage;
   }
 
   public void validateStartAndDestinationDirectories() throws Exception {
