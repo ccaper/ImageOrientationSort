@@ -25,8 +25,8 @@ public class FileSystemUtilTest {
   public void testConvertSlashToOsFileDelimiter_UnixSeparator()
       throws Exception {
     assertEquals("C:/dir1/dir2/file.txt",
-        FileSystemUtil.convertSlashToOsFileDelimiter("C:\\dir1\\dir2\\file.txt",
-            FileSystemUtil.UNIX_FILE_DELIMETER));
+        FileSystemUtil.convertSlashToOsFileDelimiter(
+            "C:\\dir1\\dir2\\file.txt", FileSystemUtil.UNIX_FILE_DELIMETER));
     assertEquals("blah", FileSystemUtil.convertSlashToOsFileDelimiter("blah",
         FileSystemUtil.UNIX_FILE_DELIMETER));
     assertEquals("", FileSystemUtil.convertSlashToOsFileDelimiter("",

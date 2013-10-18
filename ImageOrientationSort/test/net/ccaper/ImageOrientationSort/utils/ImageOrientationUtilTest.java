@@ -17,7 +17,6 @@ import javax.imageio.stream.FileImageInputStream;
 import javax.imageio.stream.ImageInputStream;
 
 import net.ccaper.ImageOrientationSort.enums.ImageOrientation;
-import net.ccaper.ImageOrientationSort.utils.ImageOrientationUtil;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
@@ -50,8 +49,7 @@ public class ImageOrientationUtilTest {
     assertEquals("jpg",
         ImageOrientationUtil.getFileExtension(new File("blah.jpg")));
     assertEquals(null, ImageOrientationUtil.getFileExtension(null));
-    assertEquals(null,
-        ImageOrientationUtil.getFileExtension(new File("blah")));
+    assertEquals(null, ImageOrientationUtil.getFileExtension(new File("blah")));
     assertEquals(null,
         ImageOrientationUtil.getFileExtension(new File(StringUtils.EMPTY)));
   }
@@ -234,8 +232,8 @@ public class ImageOrientationUtilTest {
     }
 
     ImageOrientationUtil imageOrientationUtilMock = new ImageOrientationUtilMock();
-    assertNull(imageOrientationUtilMock.getImageOrientation(new File(
-        "blah.jpg")));
+    assertNull(imageOrientationUtilMock
+        .getImageOrientation(new File("blah.jpg")));
   }
 
   @Test
@@ -277,10 +275,8 @@ public class ImageOrientationUtilTest {
         imageOrientationUtilMock.getNumberLandscapeOrientationImages());
     assertEquals(0,
         imageOrientationUtilMock.getNumberPortraitOrientationImages());
-    assertEquals(0,
-        imageOrientationUtilMock.getNumberEqualOrientationImages());
-    assertEquals(0,
-        imageOrientationUtilMock.getNumberOrientationProblems());
+    assertEquals(0, imageOrientationUtilMock.getNumberEqualOrientationImages());
+    assertEquals(0, imageOrientationUtilMock.getNumberOrientationProblems());
   }
 
   @Test
@@ -303,10 +299,8 @@ public class ImageOrientationUtilTest {
         imageOrientationUtilMock.getNumberLandscapeOrientationImages());
     assertEquals(1,
         imageOrientationUtilMock.getNumberPortraitOrientationImages());
-    assertEquals(0,
-        imageOrientationUtilMock.getNumberEqualOrientationImages());
-    assertEquals(0,
-        imageOrientationUtilMock.getNumberOrientationProblems());
+    assertEquals(0, imageOrientationUtilMock.getNumberEqualOrientationImages());
+    assertEquals(0, imageOrientationUtilMock.getNumberOrientationProblems());
   }
 
   @Test
@@ -329,10 +323,8 @@ public class ImageOrientationUtilTest {
         imageOrientationUtilMock.getNumberLandscapeOrientationImages());
     assertEquals(0,
         imageOrientationUtilMock.getNumberPortraitOrientationImages());
-    assertEquals(1,
-        imageOrientationUtilMock.getNumberEqualOrientationImages());
-    assertEquals(0,
-        imageOrientationUtilMock.getNumberOrientationProblems());
+    assertEquals(1, imageOrientationUtilMock.getNumberEqualOrientationImages());
+    assertEquals(0, imageOrientationUtilMock.getNumberOrientationProblems());
   }
 
   @Test
@@ -355,9 +347,7 @@ public class ImageOrientationUtilTest {
         imageOrientationUtilMock.getNumberLandscapeOrientationImages());
     assertEquals(0,
         imageOrientationUtilMock.getNumberPortraitOrientationImages());
-    assertEquals(0,
-        imageOrientationUtilMock.getNumberEqualOrientationImages());
-    assertEquals(1,
-        imageOrientationUtilMock.getNumberOrientationProblems());
+    assertEquals(0, imageOrientationUtilMock.getNumberEqualOrientationImages());
+    assertEquals(1, imageOrientationUtilMock.getNumberOrientationProblems());
   }
 }

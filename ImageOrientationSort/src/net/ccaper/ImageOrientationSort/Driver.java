@@ -21,8 +21,6 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.stereotype.Component;
 
 // TODO: check coverage
-// TODO: check formatting
-
 @Component
 public class Driver {
   public static final Log LOG = LogFactory.getLog(Driver.class);

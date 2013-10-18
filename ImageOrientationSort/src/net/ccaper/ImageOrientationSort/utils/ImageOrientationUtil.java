@@ -25,8 +25,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class ImageOrientationUtil {
-  private static final Log LOG = LogFactory
-      .getLog(ImageOrientationUtil.class);
+  private static final Log LOG = LogFactory.getLog(ImageOrientationUtil.class);
   private int numberLandscapeOrientationImages = 0;
   private int numberPortraitOrientationImages = 0;
   private int numberEqualOrientationImages = 0;

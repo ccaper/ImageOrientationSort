@@ -7,8 +7,6 @@ import static org.easymock.EasyMock.verify;
 
 import java.io.File;
 
-import net.ccaper.ImageOrientationSort.Driver;
-
 import org.junit.Test;
 
 public class DriverTest {
@@ -21,7 +19,7 @@ public class DriverTest {
     Driver.isExists(fileMock);
     verify(fileMock);
   }
-  
+
   @Test
   public void testIsExistsSadPath() {
     File fileMock = createMock(File.class);
@@ -31,7 +29,7 @@ public class DriverTest {
     Driver.isExists(fileMock);
     verify(fileMock);
   }
-  
+
   @Test
   public void testIsReadableHappyPath() {
     File fileMock = createMock(File.class);
@@ -40,7 +38,7 @@ public class DriverTest {
     Driver.isReadable(fileMock);
     verify(fileMock);
   }
-  
+
   @Test
   public void testIsReadableSadPath() {
     File fileMock = createMock(File.class);
@@ -50,7 +48,7 @@ public class DriverTest {
     Driver.isReadable(fileMock);
     verify(fileMock);
   }
-  
+
   @Test
   public void testIsWritableHappyPath() {
     File fileMock = createMock(File.class);
@@ -59,7 +57,7 @@ public class DriverTest {
     Driver.isWritable(fileMock);
     verify(fileMock);
   }
-  
+
   @Test
   public void testIsWritableSadPath() {
     File fileMock = createMock(File.class);

@@ -30,8 +30,7 @@ public class AppConfigTest {
 
   @Before
   public void setUp() throws Exception {
-    ResourceBundle labels = ResourceBundle
-        .getBundle("ImageOrientationSort");
+    ResourceBundle labels = ResourceBundle.getBundle("ImageOrientationSort");
     startDirectory = labels.getString("start_directory");
     destinationDirectory = labels.getString("destination_directory");
     String ignoreDirectoriesString = labels.getString("ignore_directories");
@@ -40,7 +39,8 @@ public class AppConfigTest {
       ignoreDirectories.add(new File(directoryString));
     }
     String ignoreFilesString = labels.getString("ignore_files");
-    for (String fileString : ignoreFilesString.split(FileSystemUtil.LIST_SEPARATOR)) {
+    for (String fileString : ignoreFilesString
+        .split(FileSystemUtil.LIST_SEPARATOR)) {
       ignoreFiles.add(new File(fileString));
     }
   }

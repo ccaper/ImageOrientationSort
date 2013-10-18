@@ -2,8 +2,6 @@ package net.ccaper.ImageOrientationSort.enums;
 
 import static org.junit.Assert.assertEquals;
 
-import net.ccaper.ImageOrientationSort.enums.ImageOrientation;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,5 +22,4 @@ public class ImageOrientationTest {
     assertEquals("portrait", ImageOrientation.PORTRAIT.getDirectoryName());
     assertEquals("portrait", ImageOrientation.EQUAL.getDirectoryName());
   }
-
 }
