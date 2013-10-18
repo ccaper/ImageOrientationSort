@@ -14,16 +14,16 @@ import org.springframework.context.annotation.ImportResource;
 @Configuration
 @ImportResource("classpath:/net/ccaper/ImageOrientationSort/spring/spring-config.xml")
 public class AppConfig {
-  private @Value("${start_directory}")
-  String startDirectoryString;
-  private @Value("${destination_directory}")
-  String destinationDirectoryString;
-  private @Value("${ignore_directories}")
-  String ignoreDirectoriesString;
-  private @Value("${ignore_files}")
-  String ignoreFilesString;
-  private @Value("${image_types_allowed}")
-  String imageTypeAllowed;
+  @Value("${start_directory}")
+  private String startDirectoryString;
+  @Value("${destination_directory}")
+  private String destinationDirectoryString;
+  @Value("${ignore_directories}")
+  private String ignoreDirectoriesString;
+  @Value("${ignore_files}")
+  private String ignoreFilesString;
+  @Value("${image_types_allowed}")
+  private String imageTypeAllowed;
 
   @Bean(name = "imageTypesAllowed")
   String[] imageTypesAllowed() {
