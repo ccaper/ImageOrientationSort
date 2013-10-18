@@ -26,27 +26,27 @@ public class AppConfig {
   String imageTypeAllowed;
 
   @Bean(name = "imageTypesAllowed")
-  public String[] imageTypesAllowed() {
+  String[] imageTypesAllowed() {
     return StringUtils.split(imageTypeAllowed, FileSystemUtil.LIST_SEPARATOR);
   }
 
   @Bean(name = "startDirectory")
-  public File startDirectory() {
+  File startDirectory() {
     return FileSystemUtil.generateFileFromString(startDirectoryString);
   }
 
   @Bean(name = "destinationDirectory")
-  public File destinationDirectory() {
+  File destinationDirectory() {
     return FileSystemUtil.generateFileFromString(destinationDirectoryString);
   }
 
   @Bean(name = "ignoreDirectories")
-  public List<File> ignoreDirectories() {
+  List<File> ignoreDirectories() {
     return FileSystemUtil.generateFilesFromString(ignoreDirectoriesString);
   }
 
   @Bean(name = "ignoreFiles")
-  public List<File> ignoreFiles() {
+  List<File> ignoreFiles() {
     return FileSystemUtil.generateFilesFromString(ignoreFilesString);
   }
 }
