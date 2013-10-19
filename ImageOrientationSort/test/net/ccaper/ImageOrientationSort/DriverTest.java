@@ -9,6 +9,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.ccaper.ImageOrientationSort.enums.ImageOrientation;
 import net.ccaper.ImageOrientationSort.service.CopyImage;
 import net.ccaper.ImageOrientationSort.service.IterateDirectories;
 import net.ccaper.ImageOrientationSort.serviceImpl.CopyImageImpl;
@@ -184,7 +185,7 @@ public class DriverTest {
     replay(imageOrientationUtilsMock);
     CopyImage copyImageMock = createMock(CopyImageImpl.class);
     replay(copyImageMock);
-    
+
     Driver driver = new Driver(startDirectoryMock, destinationDirectoryMock,
         ignoreFiles, ignoreDirectories, imageTypesAllowed,
         iterateDirectoriesMock, imageOrientationUtilsMock, copyImageMock);
@@ -195,5 +196,84 @@ public class DriverTest {
     verify(iterateDirectoriesMock);
     verify(imageOrientationUtilsMock);
     verify(copyImageMock);
+  }
+
+  @Test
+  public void testCopyImages_FileWithNullOrientationThenNullFile()
+      throws Exception {
+    File startDirectoryMock = createMock(File.class);
+    replay(startDirectoryMock);
+    File destinationDirectoryMock = createMock(File.class);
+    replay(destinationDirectoryMock);
+    List<File> ignoreFiles = new ArrayList<File>();
+    List<File> ignoreDirectories = new ArrayList<File>();
+    String[] imageTypesAllowed = { "jpg", "jpeg" };
+    File fileMock = createMock(File.class);
+    IterateDirectories iterateDirectoriesMock = createMock(IterateDirectoriesImpl.class);
+    expect(iterateDirectoriesMock.getFile()).andReturn(fileMock);
+    expect(iterateDirectoriesMock.getFile()).andReturn(null);
+    replay(iterateDirectoriesMock);
+    ImageOrientationUtil imageOrientationUtilsMock = createMock(ImageOrientationUtil.class);
+    expect(imageOrientationUtilsMock.getImageOrientation(fileMock)).andReturn(
+        null);
+    replay(imageOrientationUtilsMock);
+    CopyImage copyImageMock = createMock(CopyImageImpl.class);
+    replay(copyImageMock);
+
+    Driver driver = new Driver(startDirectoryMock, destinationDirectoryMock,
+        ignoreFiles, ignoreDirectories, imageTypesAllowed,
+        iterateDirectoriesMock, imageOrientationUtilsMock, copyImageMock);
+    driver.copyImages();
+
+    verify(startDirectoryMock);
+    verify(destinationDirectoryMock);
+    verify(iterateDirectoriesMock);
+    verify(imageOrientationUtilsMock);
+    verify(copyImageMock);
+  }
+
+  @Test
+  public void testCopyImages_FileWithNonNullOrientationThenNullFile()
+      throws Exception {
+    File startDirectoryMock = createMock(File.class);
+    replay(startDirectoryMock);
+    File destinationDirectoryMock = createMock(File.class);
+    replay(destinationDirectoryMock);
+    List<File> ignoreFiles = new ArrayList<File>();
+    List<File> ignoreDirectories = new ArrayList<File>();
+    String[] imageTypesAllowed = { "jpg", "jpeg" };
+    File originalImageFileMock = createMock(File.class);
+    expect(originalImageFileMock.getAbsolutePath()).andReturn("/orig/file.jpg");
+    replay(originalImageFileMock);
+    IterateDirectories iterateDirectoriesMock = createMock(IterateDirectoriesImpl.class);
+    expect(iterateDirectoriesMock.getFile()).andReturn(originalImageFileMock);
+    expect(iterateDirectoriesMock.getFile()).andReturn(null);
+    replay(iterateDirectoriesMock);
+    ImageOrientationUtil imageOrientationUtilsMock = createMock(ImageOrientationUtil.class);
+    ImageOrientation landscapeOrientation = ImageOrientation.LANDSCAPE;
+    expect(imageOrientationUtilsMock.getImageOrientation(originalImageFileMock))
+        .andReturn(landscapeOrientation);
+    replay(imageOrientationUtilsMock);
+    File copiedImageFileMock = createMock(File.class);
+    expect(copiedImageFileMock.getAbsolutePath()).andReturn("/dest/file.jpg");
+    replay(copiedImageFileMock);
+    CopyImage copyImageMock = createMock(CopyImageImpl.class);
+    expect(
+        copyImageMock.copyImageToOrientationDirectory(originalImageFileMock,
+            landscapeOrientation)).andReturn(copiedImageFileMock);
+    replay(copyImageMock);
+
+    Driver driver = new Driver(startDirectoryMock, destinationDirectoryMock,
+        ignoreFiles, ignoreDirectories, imageTypesAllowed,
+        iterateDirectoriesMock, imageOrientationUtilsMock, copyImageMock);
+    driver.copyImages();
+
+    verify(startDirectoryMock);
+    verify(destinationDirectoryMock);
+    verify(iterateDirectoriesMock);
+    verify(imageOrientationUtilsMock);
+    verify(copyImageMock);
+    verify(originalImageFileMock);
+    verify(copiedImageFileMock);
   }
 }
