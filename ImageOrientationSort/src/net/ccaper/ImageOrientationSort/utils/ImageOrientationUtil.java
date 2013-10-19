@@ -111,7 +111,7 @@ public class ImageOrientationUtil {
   }
 
   /**
-   * Gets a input stream for the image file. Isolated to method to control
+   * Gets a input stream for the image file. In isolated method to control
    * testing.
    * 
    * @param file
@@ -139,7 +139,7 @@ public class ImageOrientationUtil {
   // visible for testing
   ImageOrientation getOrientationFromImageInputStream(
       ImageInputStream imageInputStream, ImageReader imageReader)
-          throws IOException {
+      throws IOException {
     if (imageInputStream == null) {
       return null;
     }
