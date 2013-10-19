@@ -83,7 +83,6 @@ public class IterateDirectoriesImpl implements IterateDirectories {
     extensionFilenameFilter = new FilenameFilter() {
       @Override
       public boolean accept(File dir, String name) {
-        // TODO: fix
         for (String extension : imageTypesAllowed) {
           if (name.toLowerCase().endsWith("." + extension)) {
             return true;
