@@ -59,7 +59,7 @@ public class CopyImageImpl implements CopyImage {
    * directory of "/startDir" and a destination of "/destinationDir" and an
    * image file with path "/startDir/dir2/imageFile.jpg" and an orientation of
    * landscape, the destination file will be
-   * "/destinationDir/dir2/imageFile.jpg". Isolated into method to control
+   * "/destinationDir/dir2/imageFile.jpg". In isolated method to control
    * testing.
    * 
    * @param originalFile
