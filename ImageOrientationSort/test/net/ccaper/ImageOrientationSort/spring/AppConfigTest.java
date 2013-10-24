@@ -25,11 +25,11 @@ public class AppConfigTest {
   private String destinationDirectory;
   private final List<File> ignoreDirectories = new ArrayList<File>();
   private final List<File> ignoreFiles = new ArrayList<File>();
-  ApplicationContext context = new AnnotationConfigApplicationContext(
-      AppConfig.class);
+  private ApplicationContext context;
 
   @Before
   public void setUp() throws Exception {
+    context = new AnnotationConfigApplicationContext(AppConfig.class);
     ResourceBundle resourceBundle = ResourceBundle
         .getBundle("ImageOrientationSort");
     startDirectory = resourceBundle.getString("start_directory");
