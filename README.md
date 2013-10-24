@@ -3,7 +3,7 @@ ImageOrientationSort
 
 Status
 ------
-In Progress
+Almost code complete.  Currently trying to implement Maven into this as a build option.  But code does what it should, as is.  Another feature I might implement after Maven integration is concurrency for reading and writing the Image files.
 
 Summary
 ------
