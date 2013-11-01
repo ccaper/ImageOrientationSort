@@ -3,6 +3,7 @@ package net.ccaper.ImageOrientationSort;
 import java.io.File;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -23,33 +24,87 @@ import org.springframework.stereotype.Component;
 @Component
 public class Driver {
   public static final Log LOG = LogFactory.getLog(Driver.class);
-  private final File startDirectory;
-  private final File destinationDirectory;
-  private final List<File> ignoreDirectories;
-  private final List<File> ignoreFiles;
-  private final IterateDirectories iterateDirectories;
-  private final ImageOrientationUtil imageOrientationUtils;
-  private final CopyImage copyImage;
-  private final String[] imageTypesAllowed;
-
-  @SuppressWarnings("unchecked")
   @Inject
-  public Driver(@Named("startDirectory") File startDirectory,
-      @Named("destinationDirectory") File destinationDirectory,
-      @Named("ignoreFiles") Object ignoreFilesObject,
-      @Named("ignoreDirectories") Object ignoreDirectoriesObject,
-      @Named("imageTypesAllowed") Object imageTypesAllowed,
-      IterateDirectories iterateDirectories,
-      ImageOrientationUtil imageOrientationUtils, CopyImage copyImage)
-          throws Exception {
+  @Named("startDirectory")
+  private File startDirectory;
+  @Inject
+  @Named("destinationDirectory")
+  private File destinationDirectory;
+  @Resource(name="ignoreFiles")
+  private List<File> ignoreDirectories;
+  @Resource(name="ignoreDirectories")
+  private List<File> ignoreFiles;
+  @Inject
+  private IterateDirectories iterateDirectories;
+  @Inject
+  private ImageOrientationUtil imageOrientationUtils;
+  @Inject
+  private CopyImage copyImage;
+  @Resource(name="imageTypesAllowed")
+  private String[] imageTypesAllowed;
+
+  /**
+   * Sets the start directory
+   * @param startDirectory The start directory
+   */
+  public void setStartDirectory(File startDirectory) {
     this.startDirectory = startDirectory;
+  }
+
+  /**
+   * Sets the destination directory
+   * @param destinationDirectory The destination directory
+   */
+  public void setDestinationDirectory(File destinationDirectory) {
     this.destinationDirectory = destinationDirectory;
-    this.ignoreFiles = (List<File>) ignoreFilesObject;
-    this.ignoreDirectories = (List<File>) ignoreDirectoriesObject;
-    this.imageTypesAllowed = (String[]) imageTypesAllowed;
+  }
+
+  /**
+   * Sets the ignore directories
+   * @param ignoreDirectories The ignore directories
+   */
+  public void setIgnoreDirectories(List<File> ignoreDirectories) {
+    this.ignoreDirectories = ignoreDirectories;
+  }
+
+  /**
+   * Sets the ignore files
+   * @param ignoreFiles The ignore files
+   */
+  public void setIgnoreFiles(List<File> ignoreFiles) {
+    this.ignoreFiles = ignoreFiles;
+  }
+
+  /**
+   * Sets the iterate directories service
+   * @param iterateDirectories The iterate directories service
+   */
+  public void setIterateDirectories(IterateDirectories iterateDirectories) {
     this.iterateDirectories = iterateDirectories;
+  }
+
+  /**
+   * Sets the image orientation utility
+   * @param imageOrientationUtils The image orientation utility
+   */
+  public void setImageOrientationUtils(ImageOrientationUtil imageOrientationUtils) {
     this.imageOrientationUtils = imageOrientationUtils;
+  }
+
+  /**
+   * Sets the copy image service
+   * @param copyImage The copy image service
+   */
+  public void setCopyImage(CopyImage copyImage) {
     this.copyImage = copyImage;
+  }
+
+  /**
+   * Sets the image types allowed
+   * @param imageTypesAllowed The image types allowed
+   */
+  public void setImageTypesAllowed(String[] imageTypesAllowed) {
+    this.imageTypesAllowed = imageTypesAllowed;
   }
 
   public void validateStartAndDestinationDirectories() throws Exception {

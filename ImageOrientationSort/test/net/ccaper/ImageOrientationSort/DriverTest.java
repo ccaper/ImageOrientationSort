@@ -88,8 +88,9 @@ public class DriverTest {
     expect(destinationDirectoryMock.exists()).andReturn(true);
     expect(destinationDirectoryMock.canWrite()).andReturn(true);
     replay(destinationDirectoryMock);
-    Driver driver = new Driver(startDirectoryMock, destinationDirectoryMock,
-        null, null, null, null, null, null);
+    Driver driver = new Driver();
+    driver.setStartDirectory(startDirectoryMock);
+    driver.setDestinationDirectory(destinationDirectoryMock);
     driver.validateStartAndDestinationDirectories();
     verify(startDirectoryMock);
     verify(destinationDirectoryMock);
@@ -101,12 +102,13 @@ public class DriverTest {
     File startDirectoryMock = createMock(File.class);
     expect(startDirectoryMock.exists()).andReturn(false);
     expect(startDirectoryMock.getAbsolutePath()).andReturn("/some/dir")
-        .times(2);
+    .times(2);
     replay(startDirectoryMock);
     File destinationDirectoryMock = createMock(File.class);
     replay(destinationDirectoryMock);
-    Driver driver = new Driver(startDirectoryMock, destinationDirectoryMock,
-        null, null, null, null, null, null);
+    Driver driver = new Driver();
+    driver.setStartDirectory(startDirectoryMock);
+    driver.setDestinationDirectory(destinationDirectoryMock);
     driver.validateStartAndDestinationDirectories();
     verify(startDirectoryMock);
     verify(destinationDirectoryMock);
@@ -119,12 +121,13 @@ public class DriverTest {
     expect(startDirectoryMock.exists()).andReturn(true);
     expect(startDirectoryMock.canRead()).andReturn(false);
     expect(startDirectoryMock.getAbsolutePath()).andReturn("/some/dir")
-        .times(2);
+    .times(2);
     replay(startDirectoryMock);
     File destinationDirectoryMock = createMock(File.class);
     replay(destinationDirectoryMock);
-    Driver driver = new Driver(startDirectoryMock, destinationDirectoryMock,
-        null, null, null, null, null, null);
+    Driver driver = new Driver();
+    driver.setStartDirectory(startDirectoryMock);
+    driver.setDestinationDirectory(destinationDirectoryMock);
     driver.validateStartAndDestinationDirectories();
     verify(startDirectoryMock);
     verify(destinationDirectoryMock);
@@ -140,10 +143,11 @@ public class DriverTest {
     File destinationDirectoryMock = createMock(File.class);
     expect(destinationDirectoryMock.exists()).andReturn(false);
     expect(destinationDirectoryMock.getAbsolutePath()).andReturn("/some/dir")
-        .times(2);
+    .times(2);
     replay(destinationDirectoryMock);
-    Driver driver = new Driver(startDirectoryMock, destinationDirectoryMock,
-        null, null, null, null, null, null);
+    Driver driver = new Driver();
+    driver.setStartDirectory(startDirectoryMock);
+    driver.setDestinationDirectory(destinationDirectoryMock);
     driver.validateStartAndDestinationDirectories();
     verify(startDirectoryMock);
     verify(destinationDirectoryMock);
@@ -160,10 +164,11 @@ public class DriverTest {
     expect(destinationDirectoryMock.exists()).andReturn(true);
     expect(destinationDirectoryMock.canWrite()).andReturn(false);
     expect(destinationDirectoryMock.getAbsolutePath()).andReturn("/some/dir")
-        .times(2);
+    .times(2);
     replay(destinationDirectoryMock);
-    Driver driver = new Driver(startDirectoryMock, destinationDirectoryMock,
-        null, null, null, null, null, null);
+    Driver driver = new Driver();
+    driver.setStartDirectory(startDirectoryMock);
+    driver.setDestinationDirectory(destinationDirectoryMock);
     driver.validateStartAndDestinationDirectories();
     verify(startDirectoryMock);
     verify(destinationDirectoryMock);
@@ -186,9 +191,15 @@ public class DriverTest {
     CopyImage copyImageMock = createMock(CopyImageImpl.class);
     replay(copyImageMock);
 
-    Driver driver = new Driver(startDirectoryMock, destinationDirectoryMock,
-        ignoreFiles, ignoreDirectories, imageTypesAllowed,
-        iterateDirectoriesMock, imageOrientationUtilsMock, copyImageMock);
+    Driver driver = new Driver();
+    driver.setStartDirectory(startDirectoryMock);
+    driver.setDestinationDirectory(destinationDirectoryMock);
+    driver.setIgnoreFiles(ignoreFiles);
+    driver.setIgnoreDirectories(ignoreDirectories);
+    driver.setImageTypesAllowed(imageTypesAllowed);
+    driver.setIterateDirectories(iterateDirectoriesMock);
+    driver.setImageOrientationUtils(imageOrientationUtilsMock);
+    driver.setCopyImage(copyImageMock);
     driver.copyImages();
 
     verify(startDirectoryMock);
@@ -220,9 +231,15 @@ public class DriverTest {
     CopyImage copyImageMock = createMock(CopyImageImpl.class);
     replay(copyImageMock);
 
-    Driver driver = new Driver(startDirectoryMock, destinationDirectoryMock,
-        ignoreFiles, ignoreDirectories, imageTypesAllowed,
-        iterateDirectoriesMock, imageOrientationUtilsMock, copyImageMock);
+    Driver driver = new Driver();
+    driver.setStartDirectory(startDirectoryMock);
+    driver.setDestinationDirectory(destinationDirectoryMock);
+    driver.setIgnoreFiles(ignoreFiles);
+    driver.setIgnoreDirectories(ignoreDirectories);
+    driver.setImageTypesAllowed(imageTypesAllowed);
+    driver.setIterateDirectories(iterateDirectoriesMock);
+    driver.setImageOrientationUtils(imageOrientationUtilsMock);
+    driver.setCopyImage(copyImageMock);
     driver.copyImages();
 
     verify(startDirectoryMock);
@@ -252,7 +269,7 @@ public class DriverTest {
     ImageOrientationUtil imageOrientationUtilsMock = createMock(ImageOrientationUtil.class);
     ImageOrientation landscapeOrientation = ImageOrientation.LANDSCAPE;
     expect(imageOrientationUtilsMock.getImageOrientation(originalImageFileMock))
-        .andReturn(landscapeOrientation);
+    .andReturn(landscapeOrientation);
     replay(imageOrientationUtilsMock);
     File copiedImageFileMock = createMock(File.class);
     expect(copiedImageFileMock.getAbsolutePath()).andReturn("/dest/file.jpg");
@@ -263,9 +280,15 @@ public class DriverTest {
             landscapeOrientation)).andReturn(copiedImageFileMock);
     replay(copyImageMock);
 
-    Driver driver = new Driver(startDirectoryMock, destinationDirectoryMock,
-        ignoreFiles, ignoreDirectories, imageTypesAllowed,
-        iterateDirectoriesMock, imageOrientationUtilsMock, copyImageMock);
+    Driver driver = new Driver();
+    driver.setStartDirectory(startDirectoryMock);
+    driver.setDestinationDirectory(destinationDirectoryMock);
+    driver.setIgnoreFiles(ignoreFiles);
+    driver.setIgnoreDirectories(ignoreDirectories);
+    driver.setImageTypesAllowed(imageTypesAllowed);
+    driver.setIterateDirectories(iterateDirectoriesMock);
+    driver.setImageOrientationUtils(imageOrientationUtilsMock);
+    driver.setCopyImage(copyImageMock);
     driver.copyImages();
 
     verify(startDirectoryMock);

@@ -1,12 +1,16 @@
 package net.ccaper.ImageOrientationSort.spring;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import net.ccaper.ImageOrientationSort.Driver;
+import net.ccaper.ImageOrientationSort.serviceImpl.CopyImageImpl;
+import net.ccaper.ImageOrientationSort.serviceImpl.IterateDirectoriesImpl;
 import net.ccaper.ImageOrientationSort.utils.FileSystemUtil;
 
 import org.junit.After;
@@ -58,5 +62,8 @@ public class AppConfigTest {
         context.getBean("destinationDirectory"));
     assertEquals(ignoreDirectories, context.getBean("ignoreDirectories"));
     assertEquals(ignoreFiles, context.getBean("ignoreFiles"));
+    assertNotNull(context.getBean(Driver.class));
+    assertNotNull(context.getBean(CopyImageImpl.class));
+    assertNotNull(context.getBean(IterateDirectoriesImpl.class));
   }
 }
