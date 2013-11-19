@@ -16,7 +16,6 @@ import net.ccaper.ImageOrientationSort.utils.ImageOrientationUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
@@ -209,7 +208,7 @@ public class Driver {
   }
 
   public static void main(String[] args) {
-    ApplicationContext context = null;
+    AnnotationConfigApplicationContext context = null;
     try {
       context = new AnnotationConfigApplicationContext(AppConfig.class);
       Driver driver = context.getBean(Driver.class);
@@ -222,7 +221,7 @@ public class Driver {
       Driver.LOG.fatal("A fatal error occurred, abnormal exit.", e);
       System.exit(1);
     } finally {
-      ((ConfigurableApplicationContext) context).close();
+      context.close();
     }
   }
 }
