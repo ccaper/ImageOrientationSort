@@ -3,14 +3,14 @@
         Ant build file for ImageOrientationSort
     </description>
   <!-- set global properties for this build -->
-  <property name="srcDir" location="src" />
+  <property name="srcDir" location="src/main/java" />
   <property name="buildDir" location="build" />
   <property name="distDir" location="dist" />
-  <property name="confDir" location="conf" />
+  <property name="confDir" location="src/main/resources" />
   <property name="classes" value="classes" />
   <property name="libs" value="libs" />
   <property name="conf" value="conf" />
-  <property name="test_src" value="test" />
+  <property name="test_src" value="src/test/java" />
   <property name="third_party_libs" value="../../ccaper-local/libs/libs" />
   <property name="junit" value="junit" />
 
@@ -62,11 +62,22 @@
     </javac>
   </target>
 
-  <target name="_copy_conf">
+  <target name="_copy_conf_for_dist">
     <copy todir="${distDir}/${conf}" flatten="false">
       <fileset dir="${confDir}">
         <patternset>
           <include name="ImageOrientationSort.properties" />
+        </patternset>
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="_copy_conf_for_test">
+    <copy todir="${buildDir}" flatten="false">
+      <fileset dir="${confDir}">
+        <patternset>
+          <include name="**/*.xml" />
+          <include name="**/*.properties" />
         </patternset>
       </fileset>
     </copy>
@@ -82,7 +93,7 @@
     </copy>
   </target>
 
-  <target name="dist" depends="clean,compile,_copy_conf,_copy_libs" description="generate the distribution">
+  <target name="dist" depends="clean,compile,_copy_conf_for_dist,_copy_libs" description="generate the distribution">
     <!-- Create the distribution directory -->
     <mkdir dir="${distDir}" />
 
@@ -125,7 +136,7 @@
     </copy>
   </target>
 
-  <target name="test" depends="clean,_test_cp_jars">
+  <target name="test" depends="clean,_test_cp_jars,_copy_conf_for_test">
     <mkdir dir="${junit}" />
     <javac srcdir="${test_src}" destdir="${buildDir}" failonerror="true" verbose="true" debug="true" includeAntRuntime="false">
       <classpath refid="classpath" />
