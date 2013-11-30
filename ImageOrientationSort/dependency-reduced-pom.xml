@@ -4,7 +4,7 @@
   <groupId>net.ccaper.ImageOrientationSort</groupId>
   <artifactId>ImageOrientationSort</artifactId>
   <name>ImageOrientaionSort</name>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0.0</version>
   <description>Sorts images into landscape or portrait orientations</description>
   <build>
     <resources>
