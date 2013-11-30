@@ -3,7 +3,9 @@ ImageOrientationSort
 
 Status
 ------
-Almost code complete.  Currently trying to implement Maven into this as a build option.  But code does what it should, as is.  Another feature I might implement after Maven integration is concurrency for reading and writing the Image files.
+Code complete, ready for release.
+
+Future features to include threading.  No ETA on threading feature.
 
 Summary
 ------
@@ -12,8 +14,16 @@ Traverses a directory, for known image types decides if orientation is landscape
 Details: Have you ever want to separate all your digital photos into two categories, Landscape (longer on the horizontal) and Portrait (longer on the vertical), but the amount of your digital photo stock makes this too daunting to ever consider?  Great usage scenario is you have two digital photo frames, and you want to load one with only landscape images, and the other with portrait images, so you can turn the fram the optimal direction to minimize those black bars and make the image as large as possible.  Well, my ImageOrientationSort can help you.  It will traverse your image directories non desctructively, and copy your images to a new directory, mimicking the original directory structure, with landscape images going to one root folder, and portrait images going to another.  Have a few embarassing pictures of you wearing a lampshade?  No fret, you can set a property file to ignore files and complete directories.
 
 
+To Build With Maven (preferred)
+-------------------------------
+mvn package
+
+This will build an executable jar, containing all third part libraries in jar.  The property file ImageOririentationSort.properties is copied outside of the jar for ease of use, but must live in the same path as the executable jar when running.
+
 To Build With Ant
 -----------------
+
+It is highly suggested to use Maven.  If you prefer, ant build is provided.  Will require minor tweaking of ant build for your own use.
 
 This project has some third part library dependencies that must be downloaded for ant to build.
 
