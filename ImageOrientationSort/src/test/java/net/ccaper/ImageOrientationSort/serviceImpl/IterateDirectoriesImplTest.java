@@ -15,7 +15,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import net.ccaper.ImageOrientationSort.service.IterateDirectories;
-import net.ccaper.ImageOrientationSort.spring.AppConfig;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.After;
@@ -23,7 +22,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class IterateDirectoriesImplTest {
-  AppConfig appConfig = new AppConfig();
   String[] imageTypesAllowed = { "jpg", "jpeg" };
 
   @Before
